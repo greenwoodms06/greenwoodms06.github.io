@@ -21,7 +21,7 @@ description: >- # this means to ignore newlines until "baseurl:"
 #github_username: username
 minimal_mistakes_skin: mint
 search: true
-
+repository: greenwoodms06/greenwoodms06.github.io
 # Build settings
 markdown: kramdown
 remote_theme: mmistakes/minimal-mistakes
@@ -49,7 +49,7 @@ include:
 comments:
   provider: "utterances"
   utterances:
-    theme: "github-light" # "github-dark"
+    theme: "github-dark" #"github-light"
     issue_term: "pathname"
     label: "comment" # Optional - must be existing label.
 
