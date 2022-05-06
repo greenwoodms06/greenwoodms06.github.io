@@ -6,6 +6,8 @@ categories:
 tags:
   - unreal-engine
   - how-to
+  - hololens2
+  - augmented-reality
 ---
 
 ## Getting Ready For Unreal Engine
