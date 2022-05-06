@@ -64,7 +64,7 @@ plugins:
 
 author:
   name   : "Scott Greenwood"
-  avatar : "/assets/images/bio-photo.jpg"
+  avatar : "/assets/images/bio-photo.png"
   bio    : "Mmm... still thinking about this..."
   links:
     #- label: "Website"
