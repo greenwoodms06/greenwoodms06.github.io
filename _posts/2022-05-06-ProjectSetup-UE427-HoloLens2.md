@@ -10,7 +10,15 @@ tags:
   - augmented-reality
 ---
 
-## Getting Ready For Unreal Engine
+This post provides a sequential list of things to do do setup a project for the HoloLens 2 using Unreal Engine 4.27+ (UE5 should be very similar but had bugs as of the original posting of this blog - we'll give Epic a break though as UE5 had only been out a couple weeks!).
+- The first section gets Visual Studio ready for Unreal Engine
+- The second section sets up Unreal Engine
+- The third section provides step by step recommendations for getting the project correctly running both for packaged projects and remoting from the computer to the HoloLens.
+- The last section is a catch-all for potential troubleshooting issues that were encoutered as I was putting this together. 
+
+Much of this information is derived from the excellent course ["HoloLens 2 Mixed Reality Production for Unreal Engine"](https://learn.unrealengine.com/home/LearningPath/119099?r=False&ts=637874407277637562&rating=True) on the Unreal Engine Learning Portal. Definately check that out for more information or what to do next!
+
+# Getting Ready For Unreal Engine
 - Download Visual Studio 2019 Community Edition
 	- Once installed, launch Visual Studio Installer and modify VS2019
 		- Select the following packages:
@@ -24,12 +32,12 @@ tags:
 			- C++ Universal Windows Platform support for v142 build tools (ARM64) (**enable**)
 			- MSVC v142 - VS 2019 C++ ARM64 build tools (Latest) (**enable**)
 
-## Setting Up Unreal Engine
+# Setting Up Unreal Engine
 - Download Unreal Engine 4.27+. Once installed select Options under the arrow symbol
 	- `Target Platforms >`
 		- HoloLens 2 (**enable**)
 
-## Setting Up the Unreal Engine Augmented Reality (AR) Project
+# Setting Up the Unreal Engine Augmented Reality (AR) Project
 1. Start Unreal Engine
 	- (**Recommended**) Select the template `Architecture, Engineering, and Construction > HoloLens Viewer` with options
 		- No Starter Content
@@ -39,9 +47,17 @@ tags:
 		- **Note: This may take a while the first time the project is started**
 1. Setup Project Folders and Contents
     - Add "Content/Main" folder
-        - Add "Main/Maps" folder and create a level named "Main"
-        - From the "Place Actors" panel add a light source (e.g, Directional Light) and an object (e.g., Cube) for testing purposes
-            - Recommend setting the Cube to "Movable" to remove build lighting warnings.
+        - Add "Main/Maps" folder, create a level named "Main", and open the level
+        - In the level "Main", from the "Place Actors" panel add
+			- A light source (e.g, "Directional Light")
+				- Location: `(X=0.000000,Y=0.000000,Z=100.000000)`
+				- Rotation: `(Pitch=-30.000000,Yaw=30.000000,Roll=-60.000000)`
+			- An object (e.g., Cube) for testing purposes
+				- Location: `(X=50.000000,Y=0.000000,Z=0.000000)`
+				- Scale: `(X=0.100000,Y=0.100000,Z=0.100000)`
+            	- Recommend setting the Cube to "Movable" to remove build lighting
+			- "Player Start"
+				- Location: (X=0.000000,Y=0.000000,Z=0.000000)
     - Under "Main" folder add `Miscellaneous>Data Asset>ARSessionConfig` and rename it "AR_SessionConfig"
     - Add "Main/Blueprint" folder
         - Add "Blueprint/Pawns" folder create `Blueprint Class>Pawn`, rename it "BP_Pawn", and open BP_Pawn
@@ -72,7 +88,7 @@ tags:
 		- Enable Remoting for Editor (**enable**)
 			- Requires restart before it can be used
 		- IP of HoloLens to remote to: IP address from HoloLens (may change on occasion)
-			- From Microsoft Store install the "Holographic Remooting Player" application
+			- From Microsoft Store install the "Holographic Remoting Player" application
 			- Launch Holographic Remoting App and enter displayed IP address
 		- After restart, launching the Holographic Remoting App on the HoloLens 2, verifying the IP address, and the selecting "Connect" will pair with the HoloLens 2. The project can then be remoted to the HoloLens by selecting "Play > VR Preview" in the editor.
 			- UE5.0.1: editor crashing upon pushing "Connect"
@@ -95,8 +111,25 @@ tags:
 		- Microsoft UXTools
 			- url = https://github.com/microsoft/MixedReality-UXTools-Unreal
 			- branch = public/0.12.x-UE4.27
-			- Download the zip folder and extract to the "Plugins" folder
-			- Rename to UXTools
-		
-## Trouble Shooting:
+			- Download the zip folder and extract
+			- From the extracted folder, go to `UXToolsGame\Plugins` and copy/cut the folders `UXTools` and `UXToolsExamples` to your projects "Plugins" folder.
+			- Restart your UE project, rebuilding when prompted.
+				- **Note: After doing this I had to reset Auto-detect Windows 10 SDK to "enabled" again... weird**
+1. Verify HoloLens Remoting Works
+	- Connect to the HoloLens as stated above.
+	- Launch the level in the "VR Preview" mode
+	- At this stage no interaction is enabled but the cube should be visible
+
+1. Verify Instalation to the HoloLens works (reuquires being connected to the same network)
+	- From the UE editor, go to `File > Package Project > HoloLens` to create the packaged project.
+	- In the HoloLens, say "What's my IP address"
+	- Put that IP address into the browser and sign-in if prompted. This will launch the "Windows Device Portal" app.
+	- Go to `Views > Apps` and select "Choose File".
+	- First install "Microsoft.VCLibs.arm64.14.00.appx" which was created.
+		- **Only have to do this once on a HoloLens!**
+	- Next, install the other `*.appx` file of your project.
+	- Once installed, go to HoloLens main screen and select "All Apps" and select your app.
+1. Congratulations! From here you can build out the necessary functionality for your project. Always remember to test things frequently to help reduce any mysterious failures or issues that may pop up. Good luck!
+
+# Trouble Shooting:
 - UATHelper: Packaging (HoloLens): ERROR: Visual Studio 2019 ARM64 must be installed in order to build this target. See above for visual studio packages needed to be installed
