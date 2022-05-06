@@ -1,4 +1,12 @@
-# Setting Up an AR/HoloLens 2 Project
+---
+title: "Getting Started: Unreal Engine & HoloLens 2"
+date: 2020-05-06
+categories:
+  - blog
+tags:
+  - unreal-engine
+  - how-to
+---
 
 ## Getting Ready For Unreal Engine
 - Download Visual Studio 2019 Community Edition
