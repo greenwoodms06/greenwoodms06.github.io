@@ -57,7 +57,7 @@ Much of this information is derived from the excellent course ["HoloLens 2 Mixed
 				- Scale: `(X=0.100000,Y=0.100000,Z=0.100000)`
             	- Recommend setting the Cube to "Movable" to remove build lighting
 			- "Player Start"
-				- Location: (X=0.000000,Y=0.000000,Z=0.000000)
+				- Location: `(X=0.000000,Y=0.000000,Z=0.000000)`
     - Under "Main" folder add `Miscellaneous>Data Asset>ARSessionConfig` and rename it "AR_SessionConfig"
     - Add "Main/Blueprint" folder
         - Add "Blueprint/Pawns" folder create `Blueprint Class>Pawn`, rename it "BP_Pawn", and open BP_Pawn
