@@ -115,6 +115,13 @@ Much of this information is derived from the excellent course ["HoloLens 2 Mixed
 			- From the extracted folder, go to `UXToolsGame\Plugins` and copy/cut the folders `UXTools` and `UXToolsExamples` to your projects "Plugins" folder.
 			- Restart your UE project, rebuilding when prompted.
 				- **Note: After doing this I had to reset Auto-detect Windows 10 SDK to "enabled" again... weird**
+1. Add some UX Tools capabilites for testing
+	- Open `Main/Blueprints/Pawns/BP_Pawn" in the editor.
+	- In the Event Graph attached to Begin Play add the UXT hand actors as shown in the figure. Then compile and save.
+	![alt text](./assets/2022-05-06-blog-simpleHandInteraction_BP_Pawn.PNG "Simple Hand Interaction for BP_Pawn")
+		- **Note: Fancier things like collisions with objects will require something a little different and is covered in the UE Learning series mentioned in the introduction.
+	- Go the the "Main" level and select the Cube
+	- In the Details panel, select "Add Component" and search for and select "Uxt Generic Manipulator". This Cube will now be able to be moved using a pinch motion with either hand.
 1. Verify UX Tools is working
 	- Go to `Project Settings > Plugins > XR Tools`. Here you can change the default meshes used for testing functionality with the editor without a HoloLens
 	- Push Play (e.g., "Selected Viewport"). Two hands should appear!
@@ -123,7 +130,6 @@ Much of this information is derived from the excellent course ["HoloLens 2 Mixed
 1. Verify HoloLens Remoting Works
 	- Connect to the HoloLens as stated above.
 	- Launch the level in the "VR Preview" mode
-	- At this stage no interaction is enabled but the cube should be visible
 1. Verify Instalation to the HoloLens works (reuquires being connected to the same network)
 	- From the UE editor, go to `File > Package Project > HoloLens` to create the packaged project.
 	- In the HoloLens, say "What's my IP address"
