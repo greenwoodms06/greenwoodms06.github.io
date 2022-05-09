@@ -10,11 +10,15 @@ tags:
   - augmented-reality
 ---
 
-This post provides a sequential list of things to do do setup a project for the HoloLens 2 using Unreal Engine 4.27+ (UE5 should be very similar but had bugs as of the original posting of this blog - we'll give Epic a break though as UE5 had only been out a couple weeks!).
-- The first section gets Visual Studio ready for Unreal Engine
-- The second section sets up Unreal Engine
-- The third section provides step by step recommendations for getting the project correctly running both for packaged projects and remoting from the computer to the HoloLens.
-- The last section is a catch-all for potential troubleshooting issues that were encoutered as I was putting this together. 
+This post provides a sequential list of things to do do setup a project for the HoloLens 2 using Unreal Engine 4.27+.
+
+***UE5 should be very similar but had bugs as of the original posting of this blog - we'll give Epic a break though as UE5 had only been out a couple weeks!**
+
+- Section 1: Getting Visual Studio ready for Unreal Engine
+- Section 2: Ready Unreal Engine
+- Section 3: Step-by-step recommendations for getting the project running
+	- Both for packaged projects and remoting from the computer to the HoloLens!
+- Section "Last" :): Catch-all for troubleshooting issues that were encoutered.
 
 Much of this information is derived from the excellent course ["HoloLens 2 Mixed Reality Production for Unreal Engine"](https://learn.unrealengine.com/home/LearningPath/119099?r=False&ts=637874407277637562&rating=True) on the Unreal Engine Learning Portal. Definately check that out for more information or what to do next!
 
@@ -144,3 +148,4 @@ Much of this information is derived from the excellent course ["HoloLens 2 Mixed
 
 # Trouble Shooting:
 - UATHelper: Packaging (HoloLens): ERROR: Visual Studio 2019 ARM64 must be installed in order to build this target. See above for visual studio packages needed to be installed
+- Need to add some C++ but it won't let you `Generate the Visual Studio` project? Go to file `New C++ Class` and create something. You will now be able to bring C++ into your project.
