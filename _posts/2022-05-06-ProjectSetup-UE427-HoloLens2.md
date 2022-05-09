@@ -118,8 +118,8 @@ Much of this information is derived from the excellent course ["HoloLens 2 Mixed
 1. Add some UX Tools capabilites for testing
 	- Open `Main/Blueprints/Pawns/BP_Pawn" in the editor.
 	- In the Event Graph attached to Begin Play add the UXT hand actors as shown in the figure. Then compile and save.
-	![alt text](assets/2022-05-06-blog-simpleHandInteraction_BP_Pawn.PNG "Simple Hand Interaction for BP_Pawn")
-	
+	![Simple Hand Interaction for BP_Pawn](/assets/images/2022-05-06-blog-simpleHandInteraction_BP_Pawn.PNG "Simple Hand Interaction for BP_Pawn")
+
 		- **Note: Fancier things like collisions with objects will require something a little different and is covered in the UE Learning series mentioned in the introduction.**
 	- Go the the "Main" level and select the Cube
 	- In the Details panel, select "Add Component" and search for and select "Uxt Generic Manipulator". This Cube will now be able to be moved using a pinch motion with either hand.
