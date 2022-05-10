@@ -23,34 +23,34 @@ This post provides a sequential list of things to do setup a project for the Hol
 Much of this information is derived from the excellent course ["HoloLens 2 Mixed Reality Production for Unreal Engine"](https://learn.unrealengine.com/home/LearningPath/119099?r=False&ts=637874407277637562&rating=True) on the Unreal Engine Learning Portal. Definately check that out for more information or what to do next!
 
 # Getting Ready For Unreal Engine
-- Download Visual Studio 2019 Community Edition
-	- Once installed, launch Visual Studio Installer and modify VS2019
-		- Select the following packages:
-			- Desktop Development with C++
-            - Game Development with C++
-            - .NET desktop development (**may not be needed**)
-			- Universal Windows Development Platform (**may not be needed**)
-            - Mobile Development with .NET (**may not be needed**)
-            - .NET cross-platform development (**may not be needed**)
-		- 	Under Individual Components, search for "ARM64" 
-			- C++ Universal Windows Platform support for v142 build tools (ARM64) (**enable**)
-			- MSVC v142 - VS 2019 C++ ARM64 build tools (Latest) (**enable**)
+1. Download Visual Studio 2019 Community Edition
+1. Once installed, launch Visual Studio Installer and modify VS2019
+	- Select the following packages:
+		- Desktop Development with C++
+		- Game Development with C++
+		- .NET desktop development (**may not be needed**)
+		- Universal Windows Development Platform (**may not be needed**)
+		- Mobile Development with .NET (**may not be needed**)
+		- .NET cross-platform development (**may not be needed**)
+	- 	Under Individual Components, search for "ARM64" 
+		- C++ Universal Windows Platform support for v142 build tools (ARM64) (**enable**)
+		- MSVC v142 - VS 2019 C++ ARM64 build tools (Latest) (**enable**)
 
 # Setting Up Unreal Engine
-- Download Unreal Engine 4.27+. Once installed select Options under the arrow symbol
+1. Download Unreal Engine 4.27+. Once installed select Options under the arrow symbol
 	- `Target Platforms >`
 		- HoloLens 2 (**enable**)
 
 # Setting Up the Unreal Engine Augmented Reality (AR) Project
 1. Start Unreal Engine
-	- (**Recommended**) Select the template `Architecture, Engineering, and Construction > HoloLens Viewer` with options
+	1. (**Recommended**) Select the template `Architecture, Engineering, and Construction > HoloLens Viewer` with options
 		- No Starter Content
 		- Ray Tracing Disabled
-	- If not using the template, select a blank C++ project with the same options as above and "Scalable/Mobile"
-	- Name project as desired and open the project
+	1. If not using the template, select a blank C++ project with the same options as above and "Scalable/Mobile"
+	1. Name project as desired and open the project
 		- **Note: This may take a while the first time the project is started**
 1. Setup Project Folders and Contents
-    - Add "Content/Main" folder
+    1. Add "Content/Main" folder
         - Add "Main/Maps" folder, create a level named "Main", and open the level
         - In the level "Main", from the "Place Actors" panel add
 			- A light source (e.g, "Directional Light")
@@ -62,15 +62,15 @@ Much of this information is derived from the excellent course ["HoloLens 2 Mixed
             	- Recommend setting the Cube to "Movable" to remove build lighting
 			- "Player Start"
 				- Location: `(X=0.000000,Y=0.000000,Z=0.000000)`
-    - Under "Main" folder add `Miscellaneous>Data Asset>ARSessionConfig` and rename it "AR_SessionConfig"
-    - Add "Main/Blueprint" folder
+    1. Under "Main" folder add `Miscellaneous>Data Asset>ARSessionConfig` and rename it "AR_SessionConfig"
+    1. Add "Main/Blueprint" folder
         - Add "Blueprint/Pawns" folder create `Blueprint Class>Pawn`, rename it "BP_Pawn", and open BP_Pawn
             - Add "Start AR Session" to Event > Begin Play
             - Add "Stop AR Session" to Event > End Play
             - Add other capabilities as desired (e.g., head orientation tracking, eye gaze tracking, hand indicators)
-    - Add "Main/Core" folder and add `Blueprint Class> Game Mode Base` and rename it "GM_HoloLens"
+    1. Add "Main/Core" folder and add `Blueprint Class> Game Mode Base` and rename it "GM_HoloLens"
         - Open and set "Default Pawn Class" to BP_Pawn
-    - Delete folders: "CollaborativeViewer" and "HoloLens_BP"
+    1. Delete folders: "CollaborativeViewer" and "HoloLens_BP"
 1. Project Settings
 	- `Project > Description >`
 		- Start in VR (enable)
