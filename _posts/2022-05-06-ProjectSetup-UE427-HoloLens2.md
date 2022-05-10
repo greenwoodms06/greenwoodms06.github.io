@@ -10,7 +10,7 @@ tags:
   - augmented-reality
 ---
 
-This post provides a sequential list of things to do do setup a project for the HoloLens 2 using Unreal Engine 4.27+.
+This post provides a sequential list of things to do setup a project for the HoloLens 2 using Unreal Engine 4.27+.
 
 ***UE5 should be very similar but had bugs as of the original posting of this blog - we'll give Epic a break though as UE5 had only been out a couple weeks!**
 
