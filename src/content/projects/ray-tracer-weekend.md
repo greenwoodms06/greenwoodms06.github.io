@@ -9,6 +9,7 @@ repo: https://github.com/greenwoodms06/RayTracingInOneWeekend
 featured: true
 order: 3
 relatedPosts: []
+authorship: ai
 ---
 
 A from-scratch CPU ray tracer built by working through Peter Shirley's classic

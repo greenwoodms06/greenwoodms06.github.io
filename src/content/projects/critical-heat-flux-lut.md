@@ -9,6 +9,7 @@ repo: https://github.com/greenwoodms06/2006_Groeneveld_CriticalHeatFlux_LUT
 featured: true
 order: 2
 relatedPosts: []
+authorship: ai
 ---
 
 An Excel implementation of the 2006 Groeneveld Critical Heat Flux (CHF) lookup

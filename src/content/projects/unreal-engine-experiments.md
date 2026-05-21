@@ -9,6 +9,7 @@ repo: https://github.com/greenwoodms06/UE4_FirstHour
 featured: true
 order: 4
 relatedPosts: [unreal-hololens2-setup, ue5-python-api]
+authorship: ai
 ---
 
 A running set of experiments learning Unreal Engine: building first scenes,

@@ -9,6 +9,7 @@ repo: https://github.com/greenwoodms06/lidartile
 featured: true
 order: 1
 relatedPosts: []
+authorship: ai
 ---
 
 A Python tool that turns public LIDAR elevation data into 3D-printable terrain

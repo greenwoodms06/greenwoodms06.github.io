@@ -5,6 +5,7 @@ pubDate: 2024-10-31
 tags: [unreal-engine, how-to, python]
 draft: false
 relatedProjects: [unreal-engine-experiments]
+authorship: human
 ---
 
 This post provides some strategies for scripting Unreal Engine with Python.
