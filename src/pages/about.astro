@@ -1,0 +1,37 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import bioPhoto from '../assets/bio-photo.png';
+import { SOCIALS } from '../consts';
+---
+
+<BaseLayout title="About" description="Who I am and what I work on.">
+	<div class="prose-measure mx-auto">
+		<div class="flex items-center gap-4">
+			<Image
+				src={bioPhoto}
+				alt="Scott Greenwood"
+				width={192}
+				class="h-24 w-24 rounded-full object-cover"
+			/>
+			<div>
+				<h1 class="text-2xl font-bold">Scott Greenwood</h1>
+				<p class="text-zinc-600 dark:text-zinc-400">
+					nuclear sims · graphics · 3D printing · code
+				</p>
+			</div>
+		</div>
+		<div class="prose prose-zinc mt-6 max-w-none dark:prose-invert">
+			<p>
+				Hi — I'm Scott. I build things across nuclear thermal-hydraulics,
+				simulation, graphics, and 3D printing, and I write up the interesting
+				bits here. This site is where the side projects piling up finally get a
+				home.
+			</p>
+			<p>
+				Most of my code lives on <a href={SOCIALS.github}>GitHub</a>. Poke around
+				the <a href="/projects">projects</a> or the <a href="/blog">writing</a>.
+			</p>
+		</div>
+	</div>
+</BaseLayout>

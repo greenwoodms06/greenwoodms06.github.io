@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import PostListItem from '../../components/PostListItem.astro';
+import { sortByDateDesc, isPublished } from '../../lib/content';
+
+export async function getStaticPaths() {
+	const projects = await getCollection('projects');
+	const posts = (await getCollection('posts')).filter(isPublished);
+	const tags = new Set<string>();
+	[...projects, ...posts].forEach((e) =>
+		e.data.tags.forEach((t: string) => tags.add(t)),
+	);
+	return [...tags].map((tag) => ({
+		params: { tag },
+		props: {
+			tag,
+			projects: projects.filter((p) => p.data.tags.includes(tag)),
+			posts: sortByDateDesc(
+				posts.filter((p) => p.data.tags.includes(tag)),
+				'pubDate',
+			),
+		},
+	}));
+}
+
+const { tag, projects, posts } = Astro.props;
+---
+
+<BaseLayout title={`#${tag}`} description={`Everything tagged ${tag}.`}>
+	<h1 class="text-2xl font-bold">#{tag}</h1>
+	{
+		projects.length > 0 && (
+			<section class="mt-6">
+				<h2 class="text-lg font-semibold">Projects</h2>
+				<div class="mt-3 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+					{projects.map((p) => (
+						<ProjectCard project={p} />
+					))}
+				</div>
+			</section>
+		)
+	}
+	{
+		posts.length > 0 && (
+			<section class="mt-8">
+				<h2 class="text-lg font-semibold">Writing</h2>
+				<div class="mt-2">
+					{posts.map((p) => (
+						<PostListItem post={p} />
+					))}
+				</div>
+			</section>
+		)
+	}
+</BaseLayout>

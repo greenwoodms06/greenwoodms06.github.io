@@ -1,0 +1,35 @@
+---
+import { SITE_TITLE, NAV, SOCIALS } from '../consts';
+import ThemeToggle from './ThemeToggle.astro';
+
+const here = Astro.url.pathname;
+const isActive = (href: string) =>
+	href === '/' ? here === '/' : here.startsWith(href);
+---
+
+<header class="border-b border-zinc-200 dark:border-zinc-800">
+	<div class="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
+		<a
+			href="/"
+			class="font-mono text-lg font-bold tracking-tight hover:text-accent"
+			>{SITE_TITLE}</a
+		>
+		<nav class="flex items-center gap-4 text-sm">
+			{
+				NAV.map((n) => (
+					<a
+						href={n.href}
+						class:list={[
+							'hover:text-accent',
+							isActive(n.href) && 'font-semibold text-accent',
+						]}
+					>
+						{n.label}
+					</a>
+				))
+			}
+			<a href={SOCIALS.github} class="hover:text-accent">GitHub</a>
+			<ThemeToggle />
+		</nav>
+	</div>
+</header>

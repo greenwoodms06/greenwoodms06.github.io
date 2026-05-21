@@ -1,0 +1,62 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import PostListItem from '../components/PostListItem.astro';
+import { sortByDateDesc, isPublished } from '../lib/content';
+import { SITE_TITLE, SITE_TAGLINE } from '../consts';
+
+const projects = (await getCollection('projects'))
+	.filter((p) => p.data.featured)
+	.sort((a, b) => a.data.order - b.data.order)
+	.slice(0, 6);
+const posts = sortByDateDesc(
+	(await getCollection('posts')).filter(isPublished),
+	'pubDate',
+).slice(0, 5);
+---
+
+<BaseLayout>
+	<section class="py-6">
+		<h1 class="text-4xl font-bold tracking-tight sm:text-5xl">{SITE_TITLE}</h1>
+		<p class="mt-3 text-lg text-zinc-600 dark:text-zinc-400">{SITE_TAGLINE}</p>
+	</section>
+
+	<section class="mt-8">
+		<div class="flex items-baseline justify-between">
+			<h2 class="text-xl font-bold">Projects</h2>
+			<a href="/projects" class="text-sm hover:text-accent">all projects →</a>
+		</div>
+		{
+			projects.length > 0 ? (
+				<div class="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+					{projects.map((p) => (
+						<ProjectCard project={p} />
+					))}
+				</div>
+			) : (
+				<p class="mt-4 text-sm text-zinc-500">
+					No featured projects yet — check back soon.
+				</p>
+			)
+		}
+	</section>
+
+	<section class="mt-12">
+		<div class="flex items-baseline justify-between">
+			<h2 class="text-xl font-bold">Latest writing</h2>
+			<a href="/blog" class="text-sm hover:text-accent">all posts →</a>
+		</div>
+		{
+			posts.length > 0 ? (
+				<div class="mt-2">
+					{posts.map((p) => (
+						<PostListItem post={p} />
+					))}
+				</div>
+			) : (
+				<p class="mt-4 text-sm text-zinc-500">Nothing written yet.</p>
+			)
+		}
+	</section>
+</BaseLayout>

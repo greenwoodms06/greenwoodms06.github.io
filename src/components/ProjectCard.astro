@@ -1,0 +1,53 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+	project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { title, summary, thumbnail, tags, status } = project.data;
+const badge = { wip: '🚧 WIP', active: '✅ Active', archived: '📦 Archived' }[
+	status
+];
+---
+
+<a
+	href={`/projects/${project.id}`}
+	class="group flex flex-col overflow-hidden rounded-xl border border-zinc-200 transition hover:-translate-y-1 hover:border-accent hover:shadow-lg dark:border-zinc-800"
+>
+	{
+		thumbnail ? (
+			<Image
+				src={thumbnail}
+				alt={title}
+				widths={[400, 800]}
+				sizes="(max-width: 768px) 100vw, 33vw"
+				class="aspect-[8/5] w-full object-cover"
+			/>
+		) : (
+			<div class="flex aspect-[8/5] w-full items-center justify-center bg-gradient-to-br from-accent/20 to-accent-soft/30 dark:from-accent/15 dark:to-accent/5">
+				<span class="font-mono text-3xl font-bold text-accent/70">
+					{title.charAt(0)}
+				</span>
+			</div>
+		)
+	}
+	<div class="flex flex-1 flex-col p-4">
+		<div class="flex items-start justify-between gap-2">
+			<h3 class="font-semibold group-hover:text-accent">{title}</h3>
+			<span class="shrink-0 text-xs text-zinc-500">{badge}</span>
+		</div>
+		<p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">{summary}</p>
+		<div class="mt-3 flex flex-wrap gap-1">
+			{
+				tags.map((t) => (
+					<span class="rounded bg-accent-soft/30 px-2 py-0.5 text-xs text-accent dark:bg-accent/10">
+						#{t}
+					</span>
+				))
+			}
+		</div>
+	</div>
+</a>

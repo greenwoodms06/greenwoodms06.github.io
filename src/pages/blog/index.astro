@@ -1,0 +1,22 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostListItem from '../../components/PostListItem.astro';
+import { sortByDateDesc, isPublished } from '../../lib/content';
+
+const posts = sortByDateDesc(
+	(await getCollection('posts')).filter(isPublished),
+	'pubDate',
+);
+---
+
+<BaseLayout
+	title="Writing"
+	description="Notes, experiments, and the occasional rabbit hole."
+>
+	<h1 class="text-2xl font-bold">Writing</h1>
+	<p class="mt-1 text-zinc-600 dark:text-zinc-400">
+		Notes, experiments, and the occasional rabbit hole.
+	</p>
+	<div class="mt-6">{posts.map((p) => <PostListItem post={p} />)}</div>
+</BaseLayout>

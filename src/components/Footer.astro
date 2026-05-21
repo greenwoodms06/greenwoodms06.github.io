@@ -1,0 +1,21 @@
+---
+import { SITE_TITLE, SOCIALS } from '../consts';
+const year = new Date().getFullYear();
+---
+
+<footer
+	class="border-t border-zinc-200 px-4 py-8 text-center text-sm text-zinc-500 dark:border-zinc-800"
+>
+	<p>
+		© {year} Scott Greenwood · {SITE_TITLE} · built with <a
+			href="https://astro.build"
+			class="hover:text-accent">Astro</a
+		> and too much coffee
+	</p>
+	<p class="mt-1">
+		<a href="/rss.xml" class="hover:text-accent">RSS</a> · <a
+			href={SOCIALS.github}
+			class="hover:text-accent">GitHub</a
+		>
+	</p>
+</footer>

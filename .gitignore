@@ -1,4 +1,20 @@
-_site
-.sass-cache
-.jekyll-metadata
-Gemfile.lock
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# Soul System scaffolding — local only, never ship to the public repo
+.soul/
+.claude/
+CLAUDE.md
+
+# internal planning docs — local only (design spec + implementation plan)
+docs/
+
+# env / editor / OS
+.env
+.env.production
+.DS_Store
+*.log
