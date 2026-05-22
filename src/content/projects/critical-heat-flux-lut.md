@@ -1,19 +1,32 @@
 ---
-title: Critical Heat Flux Lookup Table
-summary: An Excel implementation of the 2006 Groeneveld CHF lookup table.
-date: 2026-05-21 # TODO: set to the project's real date
-status: active
-tags: [matlab, nuclear, thermal-hydraulics]
-# thumbnail: ./images/chf-lut.png  # add a screenshot to give the card an image
+title: 'Critical Heat Flux: the Groeneveld lookup table'
+summary: The 2006 Groeneveld CHF lookup table (and assorted correlations) implemented in Excel, MATLAB, and Python.
+date: 2016-03-03
+tags: [nuclear, thermal-hydraulics, matlab, python, excel]
 repo: https://github.com/greenwoodms06/2006_Groeneveld_CriticalHeatFlux_LUT
 featured: true
 order: 2
-relatedPosts: []
 authorship: ai
+relatedPosts: []
 ---
 
-An Excel implementation of the 2006 Groeneveld Critical Heat Flux (CHF) lookup
-table — a handy reference for thermal-hydraulics work without spinning up a full
-solver.
+**What it is.** A multi-language implementation of the **2006 Groeneveld Critical
+Heat Flux (CHF) lookup table** — the standard tabulated reference for predicting
+the heat flux at which boiling crisis (departure from nucleate boiling) sets in
+for water-cooled rod bundles — plus a handful of assorted CHF correlations.
 
-_Write-up coming: what the CHF lookup table is, and how to use it._
+**Why.** The Groeneveld table is *the* go-to CHF reference in thermal-hydraulics,
+but it ships as printed tables, not code. This packages it up so you can actually
+call it — from a spreadsheet, from MATLAB, or from Python.
+
+## What's in it
+
+- **Excel / VBA** (`.xlsm`) — an interactive workbook (ActiveX controls) for quick
+  lookups.
+- **MATLAB** — a text-file-driven implementation of the same table.
+- **Python** — a version built on the SDF data format.
+- **Assorted correlations** — additional CHF correlations beyond the table itself.
+
+It's a reference utility rather than a solver — the small tool you reach for
+repeatedly. The underlying table is from Groeneveld et al., *"The 2006 CHF
+look-up table"* (Nuclear Engineering and Design, 2007).
