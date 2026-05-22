@@ -1,6 +1,6 @@
 ---
 title: Unreal Engine Experiments
-summary: Learning Unreal Engine — first scenes, the "First Hour" tutorial, HoloLens 2 AR, and editor scripting with Python.
+summary: An ongoing dive into Unreal Engine — from first scenes to HoloLens 2 AR and Python editor scripting — with the detailed how-tos written up as separate posts.
 date: 2019-06-10
 tags: [unreal-engine, game-dev, augmented-reality]
 thumbnail: ./images/ue-castle-entrance.png
@@ -23,8 +23,6 @@ principles toward real applications.
 - **UE5 editor scripting with Python** (2024) — automating asset and data-asset
   creation through the UE Python API.
 
-The detailed how-tos live in the writing:
-**[Unreal Engine & HoloLens 2 setup](/blog/unreal-hololens2-setup)** and
-**[UE5: Python API](/blog/ue5-python-api)**. Code:
+The step-by-step how-tos are written up as their own posts (linked below). Code:
 [UE4_FirstHour](https://github.com/greenwoodms06/UE4_FirstHour) and
 [FirstScene](https://github.com/greenwoodms06/FirstScene).

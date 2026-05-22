@@ -33,6 +33,19 @@ npm run check      # astro check (type + content validation)
 Two content collections live under `src/content/`, validated by zod schemas at build
 time (`src/content.config.ts`).
 
+### Project or post?
+
+- **Project** = an evergreen *thing you maintain* — a tool, codebase, or framework. It
+  has a `status`, not a publish date that matters; you revise it *in place*. Answers
+  "what is this and where's the code."
+- **Post** = a dated *account* — a how-to, setup guide, lesson, or milestone. It has a
+  `pubDate` you'd never edit away; a follow-up is a *new* post.
+- **When a topic wants both** (e.g. Unreal Engine): the **project is the umbrella hub**,
+  the **posts are the dated episodes**. Describe the artifact in the project; don't
+  re-summarize the how-tos there — link to them (the project page auto-lists its
+  `relatedPosts` under "Writing about this").
+- **Too small for a post?** Add a dated bullet in the project body, not a new post.
+
 **Add a project** → one Markdown file in `src/content/projects/` (+ an optional thumbnail):
 
 ```yaml
