@@ -3,6 +3,7 @@ title: 'Critical Heat Flux: the Groeneveld lookup table'
 summary: The 2006 Groeneveld CHF lookup table (and assorted correlations) implemented in Excel, MATLAB, and Python.
 date: 2016-03-03
 tags: [nuclear, thermal-hydraulics, matlab, python, excel]
+thumbnail: ./images/chf-boiling-curve.svg
 repo: https://github.com/greenwoodms06/2006_Groeneveld_CriticalHeatFlux_LUT
 featured: true
 order: 2

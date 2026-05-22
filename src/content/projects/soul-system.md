@@ -4,6 +4,7 @@ summary: A living philosophy and operational framework that makes human–AI col
 date: 2026-05-15
 status: active
 tags: [ai, human-ai-collaboration, methodology, claude-code, philosophy]
+thumbnail: ./images/soul-system-layers.svg
 featured: true
 order: 1
 authorship: ai
