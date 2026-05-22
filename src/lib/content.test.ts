@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { sortByDateDesc, isPublished } from './content';
+import { sortByDateDesc, isPublished, displayTags } from './content';
 
 describe('content helpers', () => {
 	it('sorts entries by date descending', () => {
@@ -20,5 +20,18 @@ describe('content helpers', () => {
 		expect(isPublished({ data: { draft: true } })).toBe(false);
 		expect(isPublished({ data: { draft: false } })).toBe(true);
 		expect(isPublished({ data: {} })).toBe(true);
+	});
+
+	it('derives the ai-generated tag for ai authorship, without duplicating', () => {
+		expect(displayTags({ data: { tags: ['x'], authorship: 'ai' } })).toEqual([
+			'x',
+			'ai-generated',
+		]);
+		expect(
+			displayTags({ data: { tags: ['ai-generated'], authorship: 'ai' } }),
+		).toEqual(['ai-generated']);
+		expect(displayTags({ data: { tags: ['x'], authorship: 'human' } })).toEqual([
+			'x',
+		]);
 	});
 });

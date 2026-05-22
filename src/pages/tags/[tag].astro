@@ -3,22 +3,22 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 import PostListItem from '../../components/PostListItem.astro';
-import { sortByDateDesc, isPublished } from '../../lib/content';
+import { sortByDateDesc, isPublished, displayTags } from '../../lib/content';
 
 export async function getStaticPaths() {
 	const projects = await getCollection('projects');
 	const posts = (await getCollection('posts')).filter(isPublished);
 	const tags = new Set<string>();
 	[...projects, ...posts].forEach((e) =>
-		e.data.tags.forEach((t: string) => tags.add(t)),
+		displayTags(e).forEach((t) => tags.add(t)),
 	);
 	return [...tags].map((tag) => ({
 		params: { tag },
 		props: {
 			tag,
-			projects: projects.filter((p) => p.data.tags.includes(tag)),
+			projects: projects.filter((p) => displayTags(p).includes(tag)),
 			posts: sortByDateDesc(
-				posts.filter((p) => p.data.tags.includes(tag)),
+				posts.filter((p) => displayTags(p).includes(tag)),
 				'pubDate',
 			),
 		},

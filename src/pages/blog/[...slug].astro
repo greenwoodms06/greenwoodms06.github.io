@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import AuthorshipBadge from '../../components/AuthorshipBadge.astro';
+import { displayTags } from '../../lib/content';
 
 export async function getStaticPaths() {
 	const posts = (await getCollection('posts')).filter(
@@ -32,6 +33,7 @@ const related = relatedProjects.length
 			relatedProjects.includes(p.id),
 		)
 	: [];
+const allTags = displayTags(post);
 ---
 
 <BaseLayout title={title} description={description} image={heroImage}>
@@ -64,9 +66,9 @@ const related = relatedProjects.length
 			<Content />
 		</div>
 		{
-			tags.length > 0 && (
+			allTags.length > 0 && (
 				<div class="mt-8 flex flex-wrap gap-2 text-sm">
-					{tags.map((t) => (
+					{allTags.map((t) => (
 						<a href={`/tags/${t}`} class="text-zinc-500 hover:text-accent">
 							#{t}
 						</a>
