@@ -26,9 +26,29 @@ const allTags = displayTags(project);
 		>
 		<h1 class="mt-2 text-3xl font-bold">{title}</h1>
 		<p class="mt-1 text-zinc-600 dark:text-zinc-400">{summary}</p>
+		{
+			(repo || demo) && (
+				<div class="mt-4 flex flex-wrap gap-3">
+					{repo && (
+						<a
+							href={repo}
+							class="inline-flex items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 text-sm font-medium text-white transition hover:opacity-90"
+						>
+							View repo ↗
+						</a>
+					)}
+					{demo && (
+						<a
+							href={demo}
+							class="inline-flex items-center gap-1.5 rounded-lg border border-accent px-3 py-1.5 text-sm font-medium text-accent transition hover:bg-accent/10"
+						>
+							Live demo ↗
+						</a>
+					)}
+				</div>
+			)
+		}
 		<div class="mt-3 flex flex-wrap gap-3 text-sm">
-			{repo && <a href={repo} class="text-accent hover:underline">Repo ↗</a>}
-			{demo && <a href={demo} class="text-accent hover:underline">Demo ↗</a>}
 			{
 				allTags.map((t) => (
 					<a href={`/tags/${t}`} class="text-zinc-500 hover:text-accent">

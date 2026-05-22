@@ -10,8 +10,8 @@ authorship: ai
 relatedPosts: []
 ---
 
-**What it is.** A multi-language implementation of the **2006 Groeneveld Critical
-Heat Flux (CHF) lookup table** — the standard tabulated reference for predicting
+**What it is.** A [multi-language implementation](https://github.com/greenwoodms06/2006_Groeneveld_CriticalHeatFlux_LUT)
+of the **2006 Groeneveld Critical Heat Flux (CHF) lookup table** — the standard tabulated reference for predicting
 the heat flux at which boiling crisis (departure from nucleate boiling) sets in
 for water-cooled rod bundles — plus a handful of assorted CHF correlations.
 
