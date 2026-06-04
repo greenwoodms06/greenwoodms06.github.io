@@ -10,8 +10,11 @@ node_modules/
 .claude/
 CLAUDE.md
 
-# internal planning docs — local only (design spec + implementation plan)
-docs/
+# internal planning docs — local only (design spec + implementation plan).
+# Ignore everything under docs/ EXCEPT the post-bundle template, which is
+# a content-production contract that ships.
+docs/*
+!docs/post-bundle-template/
 
 # env / editor / OS
 .env
