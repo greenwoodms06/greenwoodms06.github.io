@@ -1,14 +1,12 @@
 ---
-title: 'netflow: one generic network solver'
-summary: A domain-agnostic "conservation on a network" solver, with nuclear thermal-hydraulics as its first plugin.
-date: 2026-05-21 # frozen as a finished demonstrator
-status: archived
+title: 'netflow: hand-rolling a conservation-network solver in Python'
+description: The first of three episodes in soul-test-netflow — a domain-agnostic "conservation on a network" solver in pure Python, with nuclear thermal-hydraulics as its first plugin.
+pubDate: 2026-05-21
 tags: [python, nuclear, thermal-hydraulics, numerical-solver, scipy]
-thumbnail: ./images/netflow-rosetta.png
-featured: true
-order: 5
+heroImage: ./images/netflow-rosetta.png
 authorship: ai
-relatedPosts: []
+relatedProjects:
+  - soul-test-netflow
 ---
 
 **What it is.** A domain-agnostic solver for one idea — a scalar state on every
@@ -46,5 +44,5 @@ validation against measured data.
 
 The abstraction turned out to be the same acausal "across / through" connector
 that Modelica and ModelingToolkit already mature — so netflow was frozen as a
-finished demonstrator and rebuilt the proper way in Julia:
-**[Thermal-hydraulics in Julia + ModelingToolkit](/projects/soultest-julia-mtk)**.
+finished demonstrator and rebuilt the proper way, twice, under
+**[soul-test-netflow](/projects/soul-test-netflow)**.
