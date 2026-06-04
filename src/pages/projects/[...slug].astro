@@ -73,7 +73,7 @@ const writing = relatedPosts.length
 				<Image
 					src={thumbnail}
 					alt={title}
-					widths={[400, 800, 1200]}
+					widths={[800, 1200, 1800, 2400]}
 					class="mt-6 rounded-xl"
 				/>
 			)
@@ -81,6 +81,24 @@ const writing = relatedPosts.length
 		<div class="prose prose-zinc mt-8 max-w-none dark:prose-invert">
 			<Content />
 		</div>
+
+		<script>
+			// Make article images expandable — click opens the loaded resolution in a new tab.
+			document
+				.querySelectorAll<HTMLImageElement>('article img')
+				.forEach((img) => {
+					if (img.closest('a')) return;
+					const a = document.createElement('a');
+					a.href = img.currentSrc || img.src;
+					a.target = '_blank';
+					a.rel = 'noopener';
+					a.title = 'Open full size';
+					a.style.cursor = 'zoom-in';
+					a.style.display = 'block';
+					img.parentNode?.insertBefore(a, img);
+					a.appendChild(img);
+				});
+		</script>
 		{
 			writing.length > 0 && (
 				<div class="mt-8 border-t border-zinc-200 pt-4 dark:border-zinc-800">
