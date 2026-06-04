@@ -87,6 +87,33 @@ The post body goes here.
 
 Cross-link projects ↔ posts with the `relatedPosts` / `relatedProjects` slug arrays.
 
+### Images
+
+Two pieces of behavior are enforced on every project/post detail page by
+`src/pages/{projects,blog}/[...slug].astro` — no special authoring syntax needed:
+
+- **Click to expand.** Every `<img>` inside `<article>` is auto-wrapped in a link to
+  the full-size derivative — heroImage *and* inline markdown images alike. Clicking
+  opens the loaded resolution in a new tab; cursor is `zoom-in`.
+- **High-DPI source.** Hero images render with `widths={[800, 1200, 1800, 2400]}` so
+  the browser's `srcset` picks a sharp variant on retina / 4K displays. Astro caps
+  the largest entry at the source file's native width, so author your source as
+  large as you have it — preferably **≥ 1800 px wide**. Smaller sources still work
+  but won't go sharper than they are.
+
+**Author this way:**
+
+- Drop the file into the collection's `images/` directory next to the markdown
+  (`src/content/projects/images/` or `src/content/posts/images/`).
+- Reference it from frontmatter as `heroImage: ./images/foo.png` (posts) or
+  `thumbnail: ./images/foo.png` (projects), or from the body as `![alt](./images/foo.png)`.
+- Use SVG when the figure is line-art / a chart you authored; PNG/JPG for screenshots
+  and bitmap figures.
+
+**Watch out:** Any image rendered *outside* `<article>` (cards on listing pages,
+nav, footer) is not auto-expanded. If you add a new component that wants the same
+behavior, mirror the small script block at the bottom of `[...slug].astro`.
+
 ### AI-authorship disclosure
 
 Both collections carry an `authorship` field (`human` by default). Setting it to `ai`
