@@ -112,7 +112,7 @@ Two pieces of behavior are enforced on every project/post detail page by
 
 **Watch out:** Any image rendered *outside* `<article>` (cards on listing pages,
 nav, footer) is not auto-expanded. If you add a new component that wants the same
-behavior, mirror the small script block at the bottom of `[...slug].astro`.
+behavior, mirror the `<script>` block in `[...slug].astro`.
 
 ### AI-authorship disclosure
 
