@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 380" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect width="920" height="380" fill="#ffffff"/>
+  <text x="460" y="44" text-anchor="middle" font-size="17" fill="#5f6368" letter-spacing="0.08em">THE STANDARD DEFINITION, AND WHAT AI CHANGED</text>
+
+  <!-- Equation -->
+  <text x="196" y="110" font-size="38" font-weight="700" fill="#202124">Creativity =</text>
+  <text x="436" y="110" font-size="38" font-weight="700" fill="#34a853">Novelty</text>
+  <text x="600" y="110" font-size="38" font-weight="700" fill="#5f6368">&#215;</text>
+  <text x="636" y="110" font-size="38" font-weight="700" fill="#ea4335">Value</text>
+
+  <!-- Arrows -->
+  <path d="M495 128 C 430 165, 330 170, 255 196" fill="none" stroke="#34a853" stroke-width="2.5" marker-end="url(#ahG)"/>
+  <path d="M672 128 C 678 160, 675 172, 672 196" fill="none" stroke="#ea4335" stroke-width="2.5" marker-end="url(#ahR)"/>
+
+  <defs>
+    <marker id="ahG" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#34a853"/></marker>
+    <marker id="ahR" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#ea4335"/></marker>
+  </defs>
+
+  <!-- Green box: novelty -->
+  <rect x="70" y="200" width="370" height="140" rx="12" fill="#e6f4ea" stroke="#34a853" stroke-width="2"/>
+  <text x="255" y="234" text-anchor="middle" font-size="20" font-weight="700" fill="#0b3d1f">AI made novelty abundant</text>
+  <text x="255" y="266" text-anchor="middle" font-size="16" fill="#1e4d2b">Generation is tireless, fixation-free,</text>
+  <text x="255" y="288" text-anchor="middle" font-size="16" fill="#1e4d2b">ego-free. The 50th idea is as easy</text>
+  <text x="255" y="310" text-anchor="middle" font-size="16" fill="#1e4d2b">as the 1st.</text>
+  <text x="255" y="332" text-anchor="middle" font-size="16" font-weight="700" fill="#0b3d1f">Ideas are cheap now.</text>
+
+  <!-- Red box: value -->
+  <rect x="490" y="200" width="360" height="140" rx="12" fill="#fce8e6" stroke="#ea4335" stroke-width="2"/>
+  <text x="670" y="234" text-anchor="middle" font-size="20" font-weight="700" fill="#5c1a14">Value stayed scarce</text>
+  <text x="670" y="266" text-anchor="middle" font-size="16" fill="#7a221a">Knowing which novel option is</text>
+  <text x="670" y="288" text-anchor="middle" font-size="16" fill="#7a221a">actually good is the hard part —</text>
+  <text x="670" y="310" text-anchor="middle" font-size="16" fill="#7a221a">and it splits sharply by domain.</text>
+  <text x="670" y="332" text-anchor="middle" font-size="16" font-weight="700" fill="#5c1a14">Judgment is the bottleneck.</text>
+</svg>
