@@ -109,6 +109,11 @@ Two pieces of behavior are enforced on every project/post detail page by
   `thumbnail: ./images/foo.png` (projects), or from the body as `![alt](./images/foo.png)`.
 - Use SVG when the figure is line-art / a chart you authored; PNG/JPG for screenshots
   and bitmap figures.
+- **Animated GIFs (and videos) bypass the image pipeline.** Drop them under
+  `public/projects-media/` (or `public/posts-media/`) and reference by absolute URL
+  in the body — `![alt](/projects-media/foo.gif)`. Astro's `image()` schema helper
+  optimizes still images and would strip GIF animation; staying outside the pipeline
+  preserves it. The click-to-expand script still wraps these in a link to the file.
 
 **Watch out:** Any image rendered *outside* `<article>` (cards on listing pages,
 nav, footer) is not auto-expanded. If you add a new component that wants the same
