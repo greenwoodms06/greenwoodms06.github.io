@@ -1,14 +1,12 @@
 ---
 title: 'DataPipeline'
-summary: A modular Unreal Engine plugin for fetching, parsing, and routing external data to actors at runtime — REST APIs, files, JSON, CSV, all on one composable pipeline.
+summary: A modular Unreal Engine plugin for fetching, parsing, and routing external data to actors at runtime — REST APIs, files, JSON, CSV, all on one composable four-stage pipeline. Ships with a Flask test server that simulates Cray-style HPC telemetry.
 date: 2026-06-04
 status: active
 tags: [unreal-engine, plugin, varsa, data-pipeline, http, json, real-time, ornl]
 repo: https://code.ornl.gov/varsa/unreal/plugins/DataPipeline
 authorship: human
 ---
-
-![DataPipeline splash](/projects-media/datapipeline-splash.gif)
 
 **What it is.** An Unreal Engine plugin that fetches external data,
 parses it, maps it to actors, and updates them at runtime — all through
@@ -39,6 +37,11 @@ any actor and assigning one module per stage. Run it in **Manual** mode
 interval). Mix and match — the schema doesn't know which transport is
 upstream, the resolver doesn't know which schema produced it.
 
+The plugin's `Source/Public/` tree mirrors the stages exactly
+(`Transport/`, `Schema/`, `Resolver/`, `Update/`, plus a `Core/` for
+shared types and a `DataTransforms.h` for the field-mapping
+transformations). The directory layout *is* the abstraction.
+
 ## On the receiving end
 
 Target actors implement `IDataPipelineInterface` and react to the
@@ -53,6 +56,24 @@ void AMyActor::ReceiveUpdateMapping_Implementation(const FPropertyActorMapping& 
     }
 }
 ```
+
+## A realistic test rig in the box
+
+DataPipeline ships with a **Flask-based HTTP test server** under
+`ExternalAssets/scripts/` that generates synthetic HPC telemetry —
+nodes, chassis, cabinets — using **Cray-style xnames** (the hardware
+naming convention used in HPE Cray supercomputers like ORNL's Frontier).
+It exposes `/api/nodes`, `/api/chassis`, `/api/cabinets`, and
+`/api/hierarchy` endpoints you can wire a `UHttpTransport` at.
+
+A driver script orchestrates server + polling + snapshot/streaming
+capture, so you can prove a pipeline end-to-end with realistic
+high-performance-computing data shapes before pointing it at a real
+telemetry source.
+
+Example payloads are committed under `ExternalAssets/exampleData/` in
+four formats — JSON, CSV, key-value, regex-style text — so each schema
+has a reference input to test against.
 
 ## Extending
 
