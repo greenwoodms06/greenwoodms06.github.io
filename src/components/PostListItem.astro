@@ -2,6 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import FormattedDate from './FormattedDate.astro';
 import AuthorshipBadge from './AuthorshipBadge.astro';
+import KindBadge from './KindBadge.astro';
 
 interface Props {
 	post: CollectionEntry<'posts'>;
@@ -12,10 +13,12 @@ const { post } = Astro.props;
 
 <a
 	href={`/blog/${post.id}`}
+	data-kind={post.data.kind}
 	class="group block border-b border-zinc-100 py-4 last:border-0 dark:border-zinc-900"
 >
 	<div class="flex items-center gap-2 font-mono text-xs text-zinc-500">
 		<FormattedDate date={post.data.pubDate} />
+		<KindBadge kind={post.data.kind} />
 		<AuthorshipBadge authorship={post.data.authorship} variant="chip" />
 	</div>
 	<h3 class="mt-1 font-semibold group-hover:text-accent">{post.data.title}</h3>
