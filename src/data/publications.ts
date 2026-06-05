@@ -57,7 +57,7 @@ const raw: unknown[] = [
 	},
 	{
 		id: 'barr-hfir-steady-state-modelica-2025',
-		title: "Modeling HFIR's Steady State Heart Transfer Code with Modelica",
+		title: "Modeling HFIR's Steady State Heat Transfer Code with Modelica",
 		authors: 'R. Barr, M. S. Greenwood, W. Williams, K. Lee',
 		year: 2025,
 		type: 'poster',
@@ -101,6 +101,16 @@ const raw: unknown[] = [
 		type: 'conference',
 		url: 'https://doi.org/10.1109/SC41406.2024.00029',
 		featured: true,
+	},
+	// ===== 2023 =====
+	{
+		id: 'greenwood-viper-augmented-reality-patent-2023',
+		title: 'Using Augmented Reality for Visualizing and Interacting with Ionizing Radiation Data',
+		authors: 'M. S. Greenwood et al.',
+		venue: 'US Patent Application No. 18/134,649',
+		year: 2023,
+		type: 'patent',
+		featured: false,
 	},
 	// ===== 2022 =====
 	{
@@ -656,7 +666,7 @@ const raw: unknown[] = [
 		id: 'greenwood-chf-four-rod-bundle-smr-2013',
 		title: 'Study of Critical Heat Flux for a Four Rod Bundle at Small Modular Reactor Operating Conditions',
 		authors: 'M. S. Greenwood et al.',
-		venue: '15th International Topical Meeting on Nuclear Reactor Thermal-Hydraulics (NURETH-15), Piza, Italy',
+		venue: '15th International Topical Meeting on Nuclear Reactor Thermal-Hydraulics (NURETH-15), Pisa, Italy',
 		year: 2013,
 		type: 'conference',
 		featured: false,
@@ -665,7 +675,7 @@ const raw: unknown[] = [
 		id: 'yang-chf-natural-convection-triga-conf-2013',
 		title: 'Study of Critical Heat Flux in Natural Convection Cooled TRIGA Reactors with Single Annulus and Rod Bundle Geometries',
 		authors: 'J. Yang et al.',
-		venue: '15th International Topical Meeting on Nuclear Reactor Thermal-Hydraulics (NURETH-15), Piza, Italy',
+		venue: '15th International Topical Meeting on Nuclear Reactor Thermal-Hydraulics (NURETH-15), Pisa, Italy',
 		year: 2013,
 		type: 'conference',
 		featured: false,
