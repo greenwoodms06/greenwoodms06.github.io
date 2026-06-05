@@ -9,10 +9,15 @@ const { pub } = Astro.props;
 const typeLabel: Record<Publication['type'], string> = {
 	journal: 'Journal',
 	conference: 'Conference',
+	report: 'Report',
+	thesis: 'Thesis',
 	presentation: 'Presentation',
-	patent: 'Patent',
 	poster: 'Poster',
+	media: 'Media',
+	patent: 'Patent',
 };
+// Bold the site owner's name within the author list.
+const authorParts = pub.authors.split(', ');
 ---
 
 <div
@@ -42,6 +47,14 @@ const typeLabel: Record<Publication['type'], string> = {
 		}
 	</div>
 	<p class="mt-0.5 text-sm text-zinc-600 dark:text-zinc-400">
-		{pub.authors} — <i>{pub.venue}</i>
+		{
+			authorParts.map((a, i) => (
+				<>
+					{i > 0 ? ', ' : ''}
+					{a.includes('Greenwood') ? <strong>{a}</strong> : a}
+				</>
+			))
+		}
+		{pub.venue && <> — <i>{pub.venue}</i></>}
 	</p>
 </div>

@@ -6,10 +6,23 @@ import { publications, type Publication } from '../../data/publications';
 const TYPE_ORDER: Publication['type'][] = [
 	'journal',
 	'conference',
+	'report',
+	'thesis',
 	'presentation',
-	'patent',
 	'poster',
+	'media',
+	'patent',
 ];
+const TYPE_LABEL: Record<Publication['type'], string> = {
+	journal: 'Journal',
+	conference: 'Conference',
+	report: 'Report',
+	thesis: 'Thesis',
+	presentation: 'Presentation',
+	poster: 'Poster',
+	media: 'Media',
+	patent: 'Patent',
+};
 
 // Group by year (desc); within a year order by type, then title.
 const years = [...new Set(publications.map((p) => p.year))].sort((a, b) => b - a);
@@ -24,24 +37,24 @@ const byYear = years.map((year) => ({
 		),
 }));
 
+// Only show filter chips for types that actually appear, in canonical order.
+const presentTypes = TYPE_ORDER.filter((t) =>
+	publications.some((p) => p.type === t),
+);
 const chips = [
 	{ value: 'all', label: 'All' },
-	{ value: 'journal', label: 'Journal' },
-	{ value: 'conference', label: 'Conference' },
-	{ value: 'presentation', label: 'Presentation' },
-	{ value: 'patent', label: 'Patent' },
-	{ value: 'poster', label: 'Poster' },
+	...presentTypes.map((t) => ({ value: t, label: TYPE_LABEL[t] })),
 ];
 ---
 
 <BaseLayout
 	title="Publications"
-	description="Journal articles, conference papers, presentations, patents, and posters."
+	description="Journal articles, conference papers, technical reports, presentations, and posters."
 >
 	<h1 class="text-2xl font-bold">Publications</h1>
 	<p class="mt-1 text-zinc-600 dark:text-zinc-400">
-		Journal articles, conference papers, presentations, patents, and posters.
-		<span class="italic">A selection — more added over time.</span>
+		Journal articles, conference papers, technical reports, presentations, and
+		posters. <span class="italic">A selection — more added over time.</span>
 	</p>
 
 	<div class="mt-5 flex flex-wrap gap-2" role="group" aria-label="Filter publications by type">

@@ -107,14 +107,28 @@ describe('content helpers', () => {
 });
 
 describe('publications data', () => {
-	it('parses the seeded list with required fields', () => {
+	const TYPES = [
+		'journal',
+		'conference',
+		'report',
+		'thesis',
+		'presentation',
+		'poster',
+		'media',
+		'patent',
+	];
+
+	it('parses the list with required fields and known types', () => {
 		expect(publications.length).toBeGreaterThan(0);
 		for (const p of publications) {
 			expect(typeof p.title).toBe('string');
 			expect(typeof p.year).toBe('number');
-			expect(['journal', 'conference', 'presentation', 'patent', 'poster']).toContain(
-				p.type,
-			);
+			expect(TYPES).toContain(p.type);
 		}
+	});
+
+	it('every id is unique', () => {
+		const ids = publications.map((p) => p.id);
+		expect(new Set(ids).size).toBe(ids.length);
 	});
 });
