@@ -1,5 +1,5 @@
 ---
-// Reader-facing disclosure for AI-generated content. Human content shows nothing.
+// Reader-facing disclosure for AI-assisted content. Human content shows nothing.
 interface Props {
 	authorship?: 'human' | 'ai';
 	variant?: 'chip' | 'note';
@@ -12,14 +12,14 @@ const isAI = authorship === 'ai';
 	isAI &&
 		(variant === 'chip' ? (
 			<span class="inline-flex items-center gap-1 rounded-full border border-accent/40 bg-accent-soft/30 px-2 py-0.5 text-xs font-medium text-accent dark:bg-accent/10">
-				🤖 AI-generated
+				🤖 AI-assisted
 			</span>
 		) : (
 			<div class="not-prose mt-4 flex items-start gap-2 rounded-lg border border-accent/30 bg-accent-soft/20 px-3 py-2 text-sm text-zinc-700 dark:bg-accent/10 dark:text-zinc-300">
 				<span aria-hidden="true">🤖</span>
 				<span>
-					<strong class="font-semibold text-accent">AI-generated.</strong> Written
-					by AI and lightly reviewed — not written by Scott.
+					<strong class="font-semibold text-accent">AI-assisted.</strong> Drafted
+					with AI and edited by Scott.
 				</span>
 			</div>
 		))

@@ -22,14 +22,14 @@ describe('content helpers', () => {
 		expect(isPublished({ data: {} })).toBe(true);
 	});
 
-	it('derives the ai-generated tag for ai authorship, without duplicating', () => {
+	it('derives the ai-assisted tag for ai authorship, without duplicating', () => {
 		expect(displayTags({ data: { tags: ['x'], authorship: 'ai' } })).toEqual([
 			'x',
-			'ai-generated',
+			'ai-assisted',
 		]);
 		expect(
-			displayTags({ data: { tags: ['ai-generated'], authorship: 'ai' } }),
-		).toEqual(['ai-generated']);
+			displayTags({ data: { tags: ['ai-assisted'], authorship: 'ai' } }),
+		).toEqual(['ai-assisted']);
 		expect(displayTags({ data: { tags: ['x'], authorship: 'human' } })).toEqual([
 			'x',
 		]);

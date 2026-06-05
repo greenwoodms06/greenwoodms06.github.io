@@ -15,13 +15,13 @@ export function isPublished<T extends { data: { draft?: boolean } }>(
 	return item.data.draft !== true;
 }
 
-// Tags as shown to readers: the entry's own tags, plus a derived `ai-generated`
+// Tags as shown to readers: the entry's own tags, plus a derived `ai-assisted`
 // tag for AI-authored content (single source of truth = the `authorship` field).
 export function displayTags<
 	T extends { data: { tags?: string[]; authorship?: 'human' | 'ai' } },
 >(entry: T): string[] {
 	const base = entry.data.tags ?? [];
-	return entry.data.authorship === 'ai' && !base.includes('ai-generated')
-		? [...base, 'ai-generated']
+	return entry.data.authorship === 'ai' && !base.includes('ai-assisted')
+		? [...base, 'ai-assisted']
 		: base;
 }

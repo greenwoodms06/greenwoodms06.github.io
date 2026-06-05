@@ -132,9 +132,9 @@ behavior, mirror the `<script>` block in `[...slug].astro`.
 ### AI-authorship disclosure
 
 Both collections carry an `authorship` field (`human` by default). Setting it to `ai`
-flags the entry as AI-generated: an authorship badge is shown on the page, the marker
-flows through to the tag pages, and it's surfaced in the RSS feed — so readers always
-know what they're reading.
+flags the entry as AI-assisted: an authorship badge is shown on the page, an `ai-assisted`
+marker flows through to the tag pages, and it's surfaced in the RSS feed — so readers
+always know what they're reading.
 
 ## Deployment
 

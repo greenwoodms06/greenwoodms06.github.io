@@ -15,7 +15,7 @@ const posts = defineCollection({
 			heroImage: image().optional(),
 			draft: z.boolean().default(false),
 			relatedProjects: z.array(z.string()).default([]),
-			// 'ai' marks an AI-generated artifact so it can be disclosed to readers.
+			// 'ai' marks an AI-assisted artifact so it can be disclosed to readers.
 			authorship: z.enum(['human', 'ai']).default('human'),
 		}),
 });
@@ -36,7 +36,7 @@ const projects = defineCollection({
 			featured: z.boolean().default(false),
 			order: z.number().default(0),
 			relatedPosts: z.array(z.string()).default([]),
-			// 'ai' marks an AI-generated artifact so it can be disclosed to readers.
+			// 'ai' marks an AI-assisted artifact so it can be disclosed to readers.
 			authorship: z.enum(['human', 'ai']).default('human'),
 		}),
 });
