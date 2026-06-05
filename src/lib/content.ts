@@ -45,10 +45,25 @@ export function pinnedThenByDate<T extends { data: Record<string, any> }>(
 	return [...featured, ...rest];
 }
 
-// Collect featured items from several already-normalized lists (used by the
-// homepage to mix featured projects, essays, and publications).
+// Mix featured items across several already-normalized lists, round-robin by
+// source, so the homepage Highlights strip stays balanced (a project, an essay,
+// a publication, …) instead of one source exhausting the slots before the
+// others get a look in.
 export function featuredAcross<T extends { featured?: boolean }>(
 	...groups: T[][]
 ): T[] {
-	return groups.flat().filter((i) => i.featured === true);
+	const queues = groups.map((g) => g.filter((i) => i.featured === true));
+	const out: T[] = [];
+	let drained = false;
+	while (!drained) {
+		drained = true;
+		for (const q of queues) {
+			const next = q.shift();
+			if (next !== undefined) {
+				out.push(next);
+				drained = false;
+			}
+		}
+	}
+	return out;
 }
