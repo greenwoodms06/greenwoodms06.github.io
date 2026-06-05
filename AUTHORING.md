@@ -103,6 +103,28 @@ agent to surface:
   the agent honors it.
 - **Skip the visual gate.** Any image it sources or renders is read
   back as a raster before being placed.
+- **Silently drop a blocked link.** A `repo:` / `demo:` URL that 404s
+  or 403s is often *gated*, not *gone* (ORNL `code.ornl.gov`, private
+  `github.com/ORNL-*` orgs). The agent keeps real-but-blocked links and
+  flags them; it only drops malformed or genuinely-nonexistent URLs.
+  "Blocked" ≠ "absent" — re-adding a link later is friction.
+
+## Lifecycle & provenance
+
+A bundle is **build scaffolding, not a durable source.** Once the lift
+runs, the source of truth is the published markdown in the blog's
+`src/content/` — that's what's committed and deployed. The working
+bundle handed to the blog is disposable: it lands in the blog's
+gitignored `docs/` (or is read from the project by path) and is not
+tracked here.
+
+The one part worth keeping is **provenance** — `CONTEXT.md` (the
+glossary / thesis spine) and `CLAIMS.md` (the fact-check ledger). That's
+verification *work*, not reproducible output, and its home is the
+**source project's own repo**, committed next to the code it describes.
+The project owns the claims it made about itself; the blog holds only
+published content plus this reusable template. (See the "Two audiences"
+section in `docs/post-bundle-template/BUILD.md`.)
 
 ## Updating the template
 

@@ -4,6 +4,34 @@
 
 ---
 
+## Two audiences for this file
+
+This template is read by two agents at two times: the **authoring agent**
+(in the source project, *filling the bundle in*) and the **lift agent** (in
+the blog, *turning it into published content*). The bulk below is the lift
+contract; this section is for the authoring side.
+
+**If you are authoring this bundle** (you're in a project's own repo,
+generating a bundle for the blog):
+
+1. Copy this template dir to a working location. Pick a variant below and
+   fill the sources (`post.md` / `post-short.md` / `paper.md`), `CONTEXT.md`,
+   and — if the post rests on factual claims — `CLAIMS.md`. Render any
+   `assets/diagrams.md` Mermaid to SVG (this blog has no Mermaid).
+2. **Provenance stays home.** Keep `CONTEXT.md` + `CLAIMS.md` committed in
+   the *source project's* repo. They're the verification record for claims
+   the project made about itself and belong next to the code — not in the
+   blog. (`CONTEXT.md`'s glossary/anti-goals also stop a *future* edit to the
+   post from drifting back into a corrected claim.)
+3. **The working copy is disposable.** What you hand the blog — drop it into
+   the blog's gitignored `docs/`, or just give the path — is a throwaway
+   build input. After the lift, the durable source of truth is the published
+   markdown in the blog's `src/content/`; the bundle is *not* tracked there.
+4. **Hand it off.** In the blog repo, say *"Lift the bundle at &lt;path&gt;."*
+   The full human-facing intake routine is `AUTHORING.md` at the blog root.
+
+---
+
 ## What variant is this bundle?
 
 Pick one and delete the others. The variant decides which source files are load-bearing.
@@ -55,7 +83,7 @@ Fill in what's relevant for this bundle:
 
 These are the recurring failure modes when adapting a bundle into the blog. If you're unsure, **weaken the claim, don't strengthen it.**
 
-1. **Do NOT reintroduce corrected myths.** If the bundle's earlier drafts contained claims that later research refuted, those refutations are recorded in `CLAIMS.md` and/or footnoted at the bottom of this BUILD.md. Do not restore them when rewriting or expanding. See `CLAIMS.md` for this bundle's full ledger.
+1. **Do NOT reintroduce corrected myths — and apply `CLAIMS.md`'s corrections even to claims already written into the source.** If earlier drafts contained claims that were later refuted, those refutations are recorded in `CLAIMS.md` and/or footnoted at the bottom of this BUILD.md; do not restore them when rewriting or expanding. Separately, a `post.md` / `paper.md` draft can *already contain* an un-hedged claim that the ledger says to soften (e.g. a drifting test count, a fuzzy library count). Cross-check the source text against `CLAIMS.md` before publishing and apply the hedge — don't assume the draft already did. See `CLAIMS.md` for this bundle's full ledger.
 2. **Keep every citation.** Don't drop footnotes (post) or `[n]` references (paper). If you restyle references to the site's format, preserve author / year / venue verbatim.
 3. **Preserve the per-document honesty stance.** A short post may keep corrections off-stage (sober narrative, no myth-dwelling); a paper may foreground them as a credibility feature. Don't swap these.
 4. **Don't invent new factual claims.** Everything load-bearing has been verified. New examples, statistics, or anecdotes you add are unverified and must be flagged or omitted.
@@ -73,6 +101,7 @@ The bundle author should resolve these. The publishing agent should ask if they'
 - **PDF** — produce one (Variant B only)?
 - **arXiv** (Variant B) — if posting the paper to arXiv, note the endorsement requirement and frame it explicitly as a *position / perspective* paper.
 - **Related projects** — does this post wire `relatedProjects: [project-slug]` to a project page? A `relatedProjects` entry with no matching page fails silently (the block just doesn't render), but an **inline** `/projects/<slug>` link in the body **404s if that page doesn't exist** — so either build the project page (Variant C) or drop the inline link before publishing.
+- **Repo / demo links** — verify any `repo:` / `demo:` URL, but **do not auto-drop on a failed fetch.** A 404/403 usually means *gated or not-yet-public*, not *nonexistent* — ORNL hosts (`code.ornl.gov`, private `github.com/ORNL-*` orgs) routinely block unauthenticated checks for repos that are real and will resolve for an authorized viewer or once opened. **Keep those.** Only drop a URL that is malformed or whose host doesn't resolve at all (DNS failure), or that you have positive evidence never existed. When unsure, **keep it and flag it to the Body** — never silently strip a link, because re-adding it is friction the author doesn't want. (The agent verifies; the Body decides. "Blocked" ≠ "absent.")
 
 ## Bundle-specific notes
 
