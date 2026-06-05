@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { sortByDateDesc, isPublished, displayTags, pinnedThenByDate, featuredAcross } from './content';
+import { publications } from '../data/publications';
 
 describe('content helpers', () => {
 	it('sorts entries by date descending', () => {
@@ -85,5 +86,18 @@ describe('content helpers', () => {
 		it('returns an empty array when nothing is featured', () => {
 			expect(featuredAcross([{ featured: false }], [{ featured: false }])).toEqual([]);
 		});
+	});
+});
+
+describe('publications data', () => {
+	it('parses the seeded list with required fields', () => {
+		expect(publications.length).toBeGreaterThan(0);
+		for (const p of publications) {
+			expect(typeof p.title).toBe('string');
+			expect(typeof p.year).toBe('number');
+			expect(['journal', 'conference', 'presentation', 'patent', 'poster']).toContain(
+				p.type,
+			);
+		}
 	});
 });
