@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { sortByDateDesc, isPublished, displayTags, pinnedThenByDate } from './content';
+import { sortByDateDesc, isPublished, displayTags, pinnedThenByDate, featuredAcross } from './content';
 
 describe('content helpers', () => {
 	it('sorts entries by date descending', () => {
@@ -72,6 +72,18 @@ describe('content helpers', () => {
 			const input = [b, a];
 			pinnedThenByDate(input, 'date');
 			expect(input[0].id).toBe('b');
+		});
+	});
+
+	describe('featuredAcross', () => {
+		it('flattens groups and keeps only featured===true', () => {
+			const projects = [{ featured: true, title: 'P' }, { featured: false, title: 'Q' }];
+			const pubs = [{ featured: true, title: 'R' }];
+			expect(featuredAcross(projects, pubs).map((i) => i.title)).toEqual(['P', 'R']);
+		});
+
+		it('returns an empty array when nothing is featured', () => {
+			expect(featuredAcross([{ featured: false }], [{ featured: false }])).toEqual([]);
 		});
 	});
 });

@@ -44,3 +44,11 @@ export function pinnedThenByDate<T extends { data: Record<string, any> }>(
 		.sort((a, b) => when(b) - when(a));
 	return [...featured, ...rest];
 }
+
+// Collect featured items from several already-normalized lists (used by the
+// homepage to mix featured projects, essays, and publications).
+export function featuredAcross<T extends { featured?: boolean }>(
+	...groups: T[][]
+): T[] {
+	return groups.flat().filter((i) => i.featured === true);
+}
