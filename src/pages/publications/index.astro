@@ -1,0 +1,97 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PublicationRow from '../../components/PublicationRow.astro';
+import { publications, type Publication } from '../../data/publications';
+
+const TYPE_ORDER: Publication['type'][] = [
+	'journal',
+	'conference',
+	'presentation',
+	'patent',
+	'poster',
+];
+
+// Group by year (desc); within a year order by type, then title.
+const years = [...new Set(publications.map((p) => p.year))].sort((a, b) => b - a);
+const byYear = years.map((year) => ({
+	year,
+	items: publications
+		.filter((p) => p.year === year)
+		.sort(
+			(a, b) =>
+				TYPE_ORDER.indexOf(a.type) - TYPE_ORDER.indexOf(b.type) ||
+				a.title.localeCompare(b.title),
+		),
+}));
+
+const chips = [
+	{ value: 'all', label: 'All' },
+	{ value: 'journal', label: 'Journal' },
+	{ value: 'conference', label: 'Conference' },
+	{ value: 'presentation', label: 'Presentation' },
+	{ value: 'patent', label: 'Patent' },
+	{ value: 'poster', label: 'Poster' },
+];
+---
+
+<BaseLayout
+	title="Publications"
+	description="Journal articles, conference papers, presentations, patents, and posters."
+>
+	<h1 class="text-2xl font-bold">Publications</h1>
+	<p class="mt-1 text-zinc-600 dark:text-zinc-400">
+		Journal articles, conference papers, presentations, patents, and posters.
+		<span class="italic">A selection — more added over time.</span>
+	</p>
+
+	<div class="mt-5 flex flex-wrap gap-2" role="group" aria-label="Filter publications by type">
+		{
+			chips.map((c) => (
+				<button
+					type="button"
+					data-filter={c.value}
+					aria-pressed={c.value === 'all' ? 'true' : 'false'}
+					class="type-chip rounded-full border border-zinc-300 px-3 py-1 text-sm transition hover:border-accent aria-pressed:border-accent aria-pressed:bg-accent aria-pressed:text-white dark:border-zinc-700"
+				>
+					{c.label}
+				</button>
+			))
+		}
+	</div>
+
+	<div class="mt-6" id="pub-list">
+		{
+			byYear.map((group) => (
+				<section class="pub-year" data-year={group.year}>
+					<h2 class="mt-6 border-b-2 border-zinc-200 pb-1 text-lg font-bold text-accent dark:border-zinc-800">
+						{group.year}
+					</h2>
+					{group.items.map((pub) => (
+						<PublicationRow pub={pub} />
+					))}
+				</section>
+			))
+		}
+	</div>
+</BaseLayout>
+
+<script>
+	const chips = document.querySelectorAll<HTMLButtonElement>('.type-chip');
+	const rows = document.querySelectorAll<HTMLElement>('#pub-list .pub-row');
+	const years = document.querySelectorAll<HTMLElement>('#pub-list .pub-year');
+	chips.forEach((chip) => {
+		chip.addEventListener('click', () => {
+			const want = chip.dataset.filter;
+			chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
+			rows.forEach((row) => {
+				const show = want === 'all' || row.dataset.type === want;
+				row.classList.toggle('hidden', !show);
+			});
+			// Hide a year heading when all its rows are filtered out.
+			years.forEach((y) => {
+				const anyVisible = y.querySelectorAll('.pub-row:not(.hidden)').length > 0;
+				y.classList.toggle('hidden', !anyVisible);
+			});
+		});
+	});
+</script>
