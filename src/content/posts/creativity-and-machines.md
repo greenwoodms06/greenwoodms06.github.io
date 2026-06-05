@@ -5,6 +5,8 @@ pubDate: 2026-06-04
 tags: [ai, creativity, llm, philosophy, position-paper, essay]
 heroImage: ./images/novelty-value.svg
 authorship: ai
+kind: essay
+featured: true
 relatedProjects: []
 ---
 
