@@ -5,7 +5,7 @@ date: 2026-06-05
 status: active
 tags: [testing, simulation, modelica, fmu, julia, regression, dymola, python]
 thumbnail: ./images/dstf-pipeline.svg
-repo: https://github.com/ORNL-Modelica/ModelicaTesting
+repo: https://github.com/ORNL-Modelica/DynamicSystemsTestingFramework
 relatedPosts: [dstf]
 authorship: ai
 ---
@@ -15,9 +15,8 @@ time-dependent system behavior** — solver trajectories, FMU outputs, Julia
 models, recorded test-bench traces. It discovers tests, runs each through
 whichever backend owns the model, compares the result against versioned
 baselines within tolerances *you* declare, and reports. One CLI spans five
-ecosystems; the ecosystem is a plug-in, not a special case. (Formerly
-**ModelicaTesting** — renamed once Modelica became the first consumer rather
-than the reference model.)
+ecosystems; the ecosystem is a plug-in, not a special case — Modelica is just
+the first consumer, not the reference model.
 
 It answers exactly one question — *does this signal match the stored
 reference within tolerance?* — and the discipline is in refusing to grow

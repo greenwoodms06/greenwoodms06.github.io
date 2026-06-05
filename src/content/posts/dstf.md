@@ -14,9 +14,8 @@ or a recorded test bench produces over time. It discovers tests, runs them
 through whichever solver owns the model, compares the resulting trajectories
 against versioned baselines, and reports. It does this across five very
 different ecosystems behind one CLI: **Modelica** (Dymola and OpenModelica),
-**FMU** (FMPy), **Julia / ModelingToolkit**, and **arbitrary Python**. It
-was formerly called ModelicaTesting; the rename reflects that Modelica is now
-just the first consumer, not the reference model.
+**FMU** (FMPy), **Julia / ModelingToolkit**, and **arbitrary Python** —
+Modelica is just the first consumer, not the reference model.
 
 **Why.** You cannot unit-test a simulation the way you unit-test code. A
 nonlinear solver run on two machines — or two solver versions, or two
