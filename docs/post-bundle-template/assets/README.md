@@ -14,6 +14,13 @@ them into the right place under `src/content/posts/images/` or
 | MP4 video | `public/posts-media/<slug>-foo.mp4` | `<video><source src="/posts-media/<slug>-foo.mp4">…</video>` |
 | PDFs | `public/posts-media/<slug>.pdf` | `/posts-media/<slug>.pdf` |
 
+**Variant C (project + post):** the project page has its own parallel
+homes — project stills go to `src/content/projects/images/` (referenced
+`./images/<slug>-foo.svg`), and project video / animated media / PDFs go
+to `public/projects-media/` (referenced `/projects-media/<slug>-foo.mp4`).
+A video used on both the post and the project page is copied into both
+`public/posts-media/` and `public/projects-media/`.
+
 The blog's README §"Images" section is the source of truth for *why*
 these conventions exist. Summary:
 
@@ -25,6 +32,14 @@ these conventions exist. Summary:
 - **Animated media bypasses Astro's image pipeline** (it would strip
   the animation). Drop those in `public/posts-media/` and reference
   by absolute URL.
+- **Raw-HTML asset paths must be absolute.** The `./images/…` relative
+  form is resolved **only** by Markdown `![]()` and the `<Image>`
+  component. Any path you write inside raw HTML — `<video>`, `<img>`,
+  `<source src>`, `poster=` — ships verbatim and resolves against the
+  page URL, so `poster="./images/x.png"` builds to a dead
+  `/blog/images/x.png`. In raw HTML, always use the absolute `public/`
+  URL (`/posts-media/…`). A `<video>` needs no `poster` at all —
+  `preload="metadata"` shows the first frame.
 - **Click-to-expand** is automatic — any `<img>` inside `<article>` is
   wrapped in a link to the loaded resolution at build time. Don't add
   your own anchor wrappers.
