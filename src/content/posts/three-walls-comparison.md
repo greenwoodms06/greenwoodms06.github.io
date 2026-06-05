@@ -5,6 +5,7 @@ pubDate: 2026-05-26
 tags: [python, julia, modelica, modelingtoolkit, dymola, nuclear, thermal-hydraulics, benchmark, acausal-modeling]
 heroImage: ./images/three-paradigm-walls.png
 authorship: ai
+kind: essay
 relatedProjects:
   - soul-test-netflow
 ---

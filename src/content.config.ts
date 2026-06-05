@@ -17,6 +17,11 @@ const posts = defineCollection({
 			relatedProjects: z.array(z.string()).default([]),
 			// 'ai' marks an AI-assisted artifact so it can be disclosed to readers.
 			authorship: z.enum(['human', 'ai']).default('human'),
+			// Writing depth facet: quick "musing" vs long-form "essay".
+			kind: z.enum(['musing', 'essay']).default('musing'),
+			// Curation: pinned on top of the Writing index + eligible for homepage Highlights.
+			featured: z.boolean().default(false),
+			order: z.number().default(0),
 		}),
 });
 
@@ -28,6 +33,7 @@ const projects = defineCollection({
 			title: z.string(),
 			summary: z.string(),
 			date: z.coerce.date(),
+			updatedDate: z.coerce.date().optional(),
 			status: z.enum(['wip', 'active', 'archived']).default('active'),
 			tags: z.array(z.string()).default([]),
 			thumbnail: image().optional(),

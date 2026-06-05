@@ -8,6 +8,7 @@ export const SITE_DESCRIPTION =
 export const NAV = [
 	{ href: '/projects', label: 'Projects' },
 	{ href: '/blog', label: 'Writing' },
+	{ href: '/publications', label: 'Publications' },
 	{ href: '/about', label: 'About' },
 ] as const;
 

@@ -1,0 +1,60 @@
+---
+import type { Publication } from '../data/publications';
+
+interface Props {
+	pub: Publication;
+}
+
+const { pub } = Astro.props;
+const typeLabel: Record<Publication['type'], string> = {
+	journal: 'Journal',
+	conference: 'Conference',
+	report: 'Report',
+	thesis: 'Thesis',
+	presentation: 'Presentation',
+	poster: 'Poster',
+	media: 'Media',
+	patent: 'Patent',
+};
+// Bold the site owner's name within the author list.
+const authorParts = pub.authors.split(', ');
+---
+
+<div
+	data-type={pub.type}
+	class="pub-row border-b border-zinc-100 py-3 last:border-0 dark:border-zinc-900"
+>
+	<div class="flex flex-wrap items-baseline gap-2">
+		<span
+			class="rounded border border-accent/40 bg-accent-soft/30 px-1.5 py-0.5 text-[0.6rem] font-medium uppercase tracking-wide text-accent dark:bg-accent/10"
+			>{typeLabel[pub.type]}</span
+		>
+		<span class="font-semibold">{pub.title}</span>
+		{pub.featured && <span title="Featured" class="text-amber-500">★</span>}
+		{
+			pub.url && (
+				<a href={pub.url} class="text-xs text-accent hover:underline">
+					DOI ↗
+				</a>
+			)
+		}
+		{
+			pub.pdf && (
+				<a href={pub.pdf} class="text-xs text-accent hover:underline">
+					PDF
+				</a>
+			)
+		}
+	</div>
+	<p class="mt-0.5 text-sm text-zinc-600 dark:text-zinc-400">
+		{
+			authorParts.map((a, i) => (
+				<>
+					{i > 0 ? ', ' : ''}
+					{a.includes('Greenwood') ? <strong>{a}</strong> : a}
+				</>
+			))
+		}
+		{pub.venue && <> — <i>{pub.venue}</i></>}
+	</p>
+</div>

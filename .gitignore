@@ -21,3 +21,6 @@ docs/*
 .env.production
 .DS_Store
 *.log
+
+# Visual brainstorming companion scratch
+.superpowers/

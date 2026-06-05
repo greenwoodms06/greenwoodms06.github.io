@@ -1,0 +1,59 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import AuthorshipBadge from './AuthorshipBadge.astro';
+
+interface Props {
+	project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { title, summary, thumbnail, tags, status, authorship } = project.data;
+const statusLabel: Record<string, string> = {
+	wip: 'WIP',
+	active: 'Active',
+	archived: 'Archived',
+};
+---
+
+<a
+	href={`/projects/${project.id}`}
+	class="group flex gap-4 border-b border-zinc-100 py-4 last:border-0 dark:border-zinc-900"
+>
+	{
+		thumbnail ? (
+			<Image
+				src={thumbnail}
+				alt={title}
+				widths={[160, 320]}
+				sizes="120px"
+				class="h-[68px] w-[108px] flex-none rounded-md object-cover"
+			/>
+		) : (
+			<div class="flex h-[68px] w-[108px] flex-none items-center justify-center rounded-md bg-gradient-to-br from-accent/20 to-accent-soft/30 dark:from-accent/15 dark:to-accent/5">
+				<span class="font-mono text-xl font-bold text-accent/70">
+					{title.charAt(0)}
+				</span>
+			</div>
+		)
+	}
+	<div class="min-w-0">
+		<div class="flex items-center gap-2">
+			<h3 class="font-semibold group-hover:text-accent">{title}</h3>
+			<span class="rounded-full border border-zinc-300 px-1.5 py-0.5 text-[0.65rem] uppercase tracking-wide text-zinc-500 dark:border-zinc-700 dark:text-zinc-400">
+				{statusLabel[status] ?? status}
+			</span>
+		</div>
+		<p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">{summary}</p>
+		<div class="mt-2 flex flex-wrap items-center gap-1">
+			<AuthorshipBadge authorship={authorship} variant="chip" />
+			{
+				tags.slice(0, 4).map((t) => (
+					<span class="rounded bg-accent-soft/30 px-2 py-0.5 text-xs text-accent dark:bg-accent/10">
+						#{t}
+					</span>
+				))
+			}
+		</div>
+	</div>
+</a>

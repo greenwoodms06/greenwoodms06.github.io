@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { sortByDateDesc, isPublished, displayTags } from './content';
+import { sortByDateDesc, isPublished, displayTags, pinnedThenByDate, featuredAcross } from './content';
+import { publications } from '../data/publications';
 
 describe('content helpers', () => {
 	it('sorts entries by date descending', () => {
@@ -33,5 +34,101 @@ describe('content helpers', () => {
 		expect(displayTags({ data: { tags: ['x'], authorship: 'human' } })).toEqual([
 			'x',
 		]);
+	});
+
+	describe('pinnedThenByDate', () => {
+		const mk = (id: string, date: string, extra = {}) => ({
+			id,
+			data: { date: new Date(date), ...extra },
+		});
+
+		it('pins featured items before the rest', () => {
+			const a = mk('a', '2020-01-01', { featured: true });
+			const b = mk('b', '2026-01-01');
+			const out = pinnedThenByDate([b, a], 'date');
+			expect(out.map((i) => i.id)).toEqual(['a', 'b']);
+		});
+
+		it('orders featured items by `order` ascending', () => {
+			const a = mk('a', '2026-01-01', { featured: true, order: 2 });
+			const b = mk('b', '2020-01-01', { featured: true, order: 1 });
+			expect(pinnedThenByDate([a, b], 'date').map((i) => i.id)).toEqual(['b', 'a']);
+		});
+
+		it('orders non-featured items newest first', () => {
+			const a = mk('a', '2020-01-01');
+			const b = mk('b', '2026-01-01');
+			expect(pinnedThenByDate([a, b], 'date').map((i) => i.id)).toEqual(['b', 'a']);
+		});
+
+		it('uses updatedDate over the primary key when present', () => {
+			const a = mk('a', '2020-01-01', { updatedDate: new Date('2027-01-01') });
+			const b = mk('b', '2026-01-01');
+			expect(pinnedThenByDate([a, b], 'date').map((i) => i.id)).toEqual(['a', 'b']);
+		});
+
+		it('does not mutate the input array', () => {
+			const a = mk('a', '2020-01-01', { featured: true });
+			const b = mk('b', '2026-01-01');
+			const input = [b, a];
+			pinnedThenByDate(input, 'date');
+			expect(input[0].id).toBe('b');
+		});
+	});
+
+	describe('featuredAcross', () => {
+		it('flattens groups and keeps only featured===true', () => {
+			const projects = [{ featured: true, title: 'P' }, { featured: false, title: 'Q' }];
+			const pubs = [{ featured: true, title: 'R' }];
+			expect(featuredAcross(projects, pubs).map((i) => i.title)).toEqual(['P', 'R']);
+		});
+
+		it('returns an empty array when nothing is featured', () => {
+			expect(featuredAcross([{ featured: false }], [{ featured: false }])).toEqual([]);
+		});
+
+		it('interleaves featured items round-robin so no source starves', () => {
+			const a = [
+				{ featured: true, id: 'a1' },
+				{ featured: true, id: 'a2' },
+				{ featured: true, id: 'a3' },
+			];
+			const b = [{ featured: true, id: 'b1' }];
+			const c = [{ featured: true, id: 'c1' }];
+			expect(featuredAcross(a, b, c).map((i) => i.id)).toEqual([
+				'a1',
+				'b1',
+				'c1',
+				'a2',
+				'a3',
+			]);
+		});
+	});
+});
+
+describe('publications data', () => {
+	const TYPES = [
+		'journal',
+		'conference',
+		'report',
+		'thesis',
+		'presentation',
+		'poster',
+		'media',
+		'patent',
+	];
+
+	it('parses the list with required fields and known types', () => {
+		expect(publications.length).toBeGreaterThan(0);
+		for (const p of publications) {
+			expect(typeof p.title).toBe('string');
+			expect(typeof p.year).toBe('number');
+			expect(TYPES).toContain(p.type);
+		}
+	});
+
+	it('every id is unique', () => {
+		const ids = publications.map((p) => p.id);
+		expect(new Set(ids).size).toBe(ids.length);
 	});
 });

@@ -3,17 +3,48 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import PostListItem from '../components/PostListItem.astro';
-import { sortByDateDesc, isPublished } from '../lib/content';
+import { pinnedThenByDate, isPublished, featuredAcross } from '../lib/content';
+import { publications } from '../data/publications';
 import { SITE_TITLE, SITE_TAGLINE } from '../consts';
 
-const projects = (await getCollection('projects'))
-	.filter((p) => p.data.featured)
-	.sort((a, b) => a.data.order - b.data.order)
-	.slice(0, 6);
-const posts = sortByDateDesc(
-	(await getCollection('posts')).filter(isPublished),
-	'pubDate',
-).slice(0, 5);
+const allProjects = await getCollection('projects');
+const allPosts = (await getCollection('posts')).filter(isPublished);
+
+const projects = pinnedThenByDate(allProjects, 'date').slice(0, 6);
+const posts = pinnedThenByDate(allPosts, 'pubDate').slice(0, 5);
+
+// Normalize each source to a common Highlight shape, then keep the featured ones.
+type Highlight = {
+	kind: 'Project' | 'Essay' | 'Musing' | 'Publication';
+	title: string;
+	href: string;
+	blurb: string;
+	featured: boolean;
+};
+
+const projectHl: Highlight[] = allProjects.map((p) => ({
+	kind: 'Project',
+	title: p.data.title,
+	href: `/projects/${p.id}`,
+	blurb: p.data.summary,
+	featured: p.data.featured === true,
+}));
+const postHl: Highlight[] = allPosts.map((p) => ({
+	kind: p.data.kind === 'essay' ? 'Essay' : 'Musing',
+	title: p.data.title,
+	href: `/blog/${p.id}`,
+	blurb: p.data.description,
+	featured: p.data.featured === true,
+}));
+const pubHl: Highlight[] = publications.map((p) => ({
+	kind: 'Publication',
+	title: p.title,
+	href: p.url ?? '/publications',
+	blurb: `${p.venue}, ${p.year}`,
+	featured: p.featured === true,
+}));
+
+const highlights = featuredAcross(projectHl, postHl, pubHl).slice(0, 6);
 ---
 
 <BaseLayout>
@@ -22,7 +53,29 @@ const posts = sortByDateDesc(
 		<p class="mt-3 text-lg text-zinc-600 dark:text-zinc-400">{SITE_TAGLINE}</p>
 	</section>
 
-	<section class="mt-8">
+	{
+		highlights.length > 0 && (
+			<section class="mt-6">
+				<h2 class="text-xl font-bold">Highlights</h2>
+				<div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+					{highlights.map((h) => (
+						<a
+							href={h.href}
+							class="group flex flex-col rounded-xl border border-zinc-200 p-4 transition hover:-translate-y-1 hover:border-accent hover:shadow-lg dark:border-zinc-800"
+						>
+							<span class="text-[0.65rem] font-medium uppercase tracking-wide text-accent">
+								{h.kind}
+							</span>
+							<h3 class="mt-1 font-semibold group-hover:text-accent">{h.title}</h3>
+							<p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">{h.blurb}</p>
+						</a>
+					))}
+				</div>
+			</section>
+		)
+	}
+
+	<section class="mt-12">
 		<div class="flex items-baseline justify-between">
 			<h2 class="text-xl font-bold">Latest writing</h2>
 			<a href="/blog" class="text-sm hover:text-accent">all posts →</a>
