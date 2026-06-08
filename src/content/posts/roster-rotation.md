@@ -4,7 +4,7 @@ description: A vanilla-JS PWA that generates balanced youth-sports lineups — e
 pubDate: 2026-06-05
 tags: [pwa, vanilla-js, sports, algorithms, offline-first, capacitor]
 heroImage: ./images/roster-rotation-hero.svg
-authorship: ai
+authorship: human
 relatedProjects:
   - roster-rotation
 ---

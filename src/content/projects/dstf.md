@@ -7,7 +7,7 @@ tags: [testing, simulation, modelica, fmu, julia, regression, dymola, python]
 thumbnail: ./images/dstf-pipeline.svg
 repo: https://github.com/ORNL-Modelica/DynamicSystemsTestingFramework
 relatedPosts: [dstf]
-authorship: ai
+authorship: human
 ---
 
 **What it is.** A Python framework for **regression and unit testing of

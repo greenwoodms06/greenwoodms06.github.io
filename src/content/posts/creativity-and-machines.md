@@ -4,7 +4,7 @@ description: A position paper. "Can AI be creative?" is malformed — creativity
 pubDate: 2026-06-04
 tags: [ai, creativity, llm, philosophy, position-paper, essay]
 heroImage: ./images/novelty-value.svg
-authorship: ai
+authorship: human
 kind: essay
 featured: true
 relatedProjects: []
@@ -18,21 +18,21 @@ relatedProjects: []
 
 **Abstract.** The debate over machine creativity is stalled because its
 central question is malformed. Drawing on the standard definition of
-creativity as the conjunction of novelty and value, we argue that
-contemporary AI has made novelty abundant while leaving value-judgment
-scarce, and that the entire dispute is therefore better posed as a
-question about value: who or what supplies it. We distinguish three
-"value oracles" — modeled current preference, post-hoc real-world
-selection, and predicted future preference — and show that AI's
+creativity as the conjunction of novelty and value, this paper argues
+that contemporary AI has made novelty abundant while leaving
+value-judgment scarce, and that the entire dispute is therefore better
+posed as a question about value: who or what supplies it. It distinguishes
+three "value oracles" — modeled current preference, post-hoc real-world
+selection, and predicted future preference — and shows that AI's
 creative capability is sharply domain-dependent. Where value is
 machine-checkable, AI already exhibits autonomous, occasionally
 transformational creativity; where value is human and contested, AI
 converges only by borrowing a leaky proxy of human judgment; and the
-prediction of future taste remains empirically unsolved. We engage the
-two strongest objections — the interpolation ("stochastic parrots")
-critique and the symbol-grounding / no-stakes critique — and conclude
-that neither defeats everyday machine creativity, though the latter
-marks the genuine open frontier. *This is a position paper: a
+prediction of future taste remains empirically unsolved. The two
+strongest objections — the interpolation ("stochastic parrots")
+critique and the symbol-grounding / no-stakes critique — are engaged
+here, with the conclusion that neither defeats everyday machine
+creativity, though the latter marks the genuine open frontier. *This is a position paper: a
 synthesis of existing literature, not a new empirical result.*
 
 ## 1. The malformed question
@@ -53,7 +53,7 @@ other.** The component it has transformed — novelty — is the one the
 folk debate fixates on. The component it has barely touched — value —
 is the one that actually determines whether a machine can be creative,
 and the answer to *that* question is not yes or no but *it depends on
-the domain*, in a way we can make precise.
+the domain*, in a way that can be made precise.
 
 ## 2. Creativity is novelty × value
 
@@ -103,7 +103,7 @@ that the highest-impact research is characterized not by maximal
 novelty but by a *conventional core with an atypical intrusion* — such
 papers were roughly twice as likely to be highly cited [7]. Value,
 empirically, lives in novelty *embedded in convention*, not in raw
-originality. (We flag, in fairness, that Arthur [8], whose
+originality. (In fairness, Arthur [8], whose
 "combinatorial evolution" anchors this view, explicitly reserves a
 non-combinatorial residue — the "harnessing of new phenomena." The
 honest claim is *predominantly* combinatorial, not *exclusively*.)
@@ -142,7 +142,7 @@ one.
 Reframed around value, machine creativity is no longer a yes/no
 proposition. It is a function of **whether the domain affords a value
 signal the machine can apply without us.** Three regimes follow,
-indexed by what we call the *value oracle*.
+indexed by what will be termed the *value oracle*.
 
 ### 4.1 Oracle (ii): checkable value → autonomous, sometimes transformational creativity
 
@@ -236,11 +236,11 @@ human text and therefore samples *within* that distribution; it models
 form without grounding in meaning, and so cannot extrapolate beyond
 the manifold of human culture into genuinely transformational novelty.
 
-The reply is three-fold and, we think, decisive for the modest claim
+The reply is three-fold and arguably decisive for the modest claim
 while conceding the strong one. (i) The appeal to "emergent abilities"
 at scale [21] as evidence of extrapolation is itself contested:
 Schaeffer et al. [22] argue such emergence is partly an artifact of
-discontinuous metrics. We do not lean on it. (ii) The interior of the
+discontinuous metrics. This paper does not lean on it. (ii) The interior of the
 convex hull of human culture already contains effectively unbounded
 *unrealized* novelty — the wheeled suitcase lived inside the hull for
 millennia. Combinational and exploratory creativity do not require

@@ -7,7 +7,7 @@ tags: [pwa, vanilla-js, sports, algorithms, offline-first, capacitor, svg]
 thumbnail: ./images/roster-rotation-thumb.svg
 repo: https://github.com/greenwoodms06/roster-rotation
 demo: https://greenwoodms06.github.io/roster-rotation/
-authorship: ai
+authorship: human
 relatedPosts:
   - roster-rotation
 ---

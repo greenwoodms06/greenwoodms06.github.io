@@ -4,7 +4,7 @@ description: A backend-agnostic harness for regression-testing time-dependent sy
 pubDate: 2026-06-05
 tags: [testing, simulation, modelica, fmu, julia, regression, dymola]
 heroImage: ./images/dstf-pipeline.svg
-authorship: ai
+authorship: human
 relatedProjects: [dstf]
 ---
 

@@ -4,7 +4,7 @@ description: The capstone of soul-test-netflow — same nuclear-reactor pin phys
 pubDate: 2026-05-26
 tags: [python, julia, modelica, modelingtoolkit, dymola, nuclear, thermal-hydraulics, benchmark, acausal-modeling]
 heroImage: ./images/three-paradigm-walls.png
-authorship: ai
+authorship: human
 kind: essay
 relatedProjects:
   - soul-test-netflow
@@ -110,7 +110,7 @@ ecosystem's bigger machinery in the first place.
 - **Not validation.** Every comparison here is code-against-code or
   code-against-a-known-closed-form. None of these were tested against
   measured reactor data — that data is restricted to full-core safety
-  analyses we don't have access to.
+  analyses I don't have access to.
 - **Not generalizable past one machine.** WSL2 on Linux 6.6, Dymola 2026x,
   MTK on Julia 1.11, Python 3.12. One person, one week.
 
