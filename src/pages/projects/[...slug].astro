@@ -103,18 +103,23 @@ const writing = relatedPosts.length
 			writing.length > 0 && (
 				<div class="mt-8 border-t border-zinc-200 pt-4 dark:border-zinc-800">
 					<h2 class="text-sm font-semibold text-zinc-500">Writing about this</h2>
-					<ul class="mt-2 space-y-1">
+					<ul class="mt-2 space-y-3">
 						{writing.map((p) => (
-							<li class="flex flex-wrap items-baseline gap-x-2">
-								<a
-									href={`/blog/${p.id}`}
-									class="text-accent hover:underline"
-								>
-									{p.data.title}
-								</a>
-								<span class="font-mono text-xs text-zinc-500">
-									<FormattedDate date={p.data.pubDate} />
-								</span>
+							<li>
+								<div class="flex flex-wrap items-baseline gap-x-2">
+									<a
+										href={`/blog/${p.id}`}
+										class="text-accent hover:underline"
+									>
+										{p.data.title}
+									</a>
+									<span class="font-mono text-xs text-zinc-500">
+										<FormattedDate date={p.data.pubDate} /> · {p.data.kind}
+									</span>
+								</div>
+								<p class="mt-0.5 text-sm text-zinc-600 dark:text-zinc-400">
+									{p.data.description}
+								</p>
 							</li>
 						))}
 					</ul>
