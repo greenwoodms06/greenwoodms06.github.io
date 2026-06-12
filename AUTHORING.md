@@ -26,14 +26,20 @@ in this order:
 
 ## How to use it
 
-### 1. Copy the template to your working directory
+### 1. Copy the template into this blog's gitignored `docs/`
 
 ```bash
-cp -r docs/post-bundle-template/ /path/to/your/working-dir/my-new-post/
+cp -r docs/post-bundle-template/ docs/my-new-post/
 ```
 
-(Or any other location — the bundle doesn't have to live inside this
-repo. The lift step accepts an absolute path.)
+Stage the working bundle **here, in the blog's gitignored `docs/`** — not in
+the source project's own tracked tree. The blog ignores everything under
+`docs/` except the template, so this is a throwaway build area. Authoring the
+bundle into the source project's `docs/` pollutes that repo with disposable
+scaffolding (`post.md`, `BUILD.md`, `assets/`); only the provenance
+(`CONTEXT.md`, `CLAIMS.md`) belongs back home. The lift step accepts an
+absolute path, so a scratch dir outside any repo works too — just never the
+source project's tracked tree.
 
 ### 2. Pick a variant
 

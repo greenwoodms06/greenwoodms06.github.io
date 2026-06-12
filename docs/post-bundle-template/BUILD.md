@@ -14,19 +14,32 @@ contract; this section is for the authoring side.
 **If you are authoring this bundle** (you're in a project's own repo,
 generating a bundle for the blog):
 
-1. Copy this template dir to a working location. Pick a variant below and
-   fill the sources (`post.md` / `post-short.md` / `paper.md`), `CONTEXT.md`,
-   and — if the post rests on factual claims — `CLAIMS.md`. Render any
-   `assets/diagrams.md` Mermaid to SVG (this blog has no Mermaid).
-2. **Provenance stays home.** Keep `CONTEXT.md` + `CLAIMS.md` committed in
-   the *source project's* repo. They're the verification record for claims
-   the project made about itself and belong next to the code — not in the
-   blog. (`CONTEXT.md`'s glossary/anti-goals also stop a *future* edit to the
-   post from drifting back into a corrected claim.)
-3. **The working copy is disposable.** What you hand the blog — drop it into
-   the blog's gitignored `docs/`, or just give the path — is a throwaway
-   build input. After the lift, the durable source of truth is the published
-   markdown in the blog's `src/content/`; the bundle is *not* tracked there.
+⚠️ **Build the bundle in the blog's gitignored `docs/` — never inside the
+source project's own tracked tree.** The blog ignores everything under
+`docs/` except this template, so `<blog>/docs/<bundle-name>/` is a throwaway
+staging area built for exactly this. The trap: an authoring agent running in
+the source project will default to that project's own `docs/` (its cwd) and
+pollute that repo with disposable scaffolding (`post.md`, `BUILD.md`,
+`assets/`). That is the failure this convention exists to prevent. Stage the
+working bundle in the *blog*; send only provenance *home*.
+
+1. **Stage it in the blog.** Copy this template dir into the blog's
+   gitignored `docs/`:
+   `cp -r <blog>/docs/post-bundle-template <blog>/docs/<bundle-name>`.
+   Pick a variant below and fill the sources (`post.md` / `post-short.md` /
+   `paper.md`), `CONTEXT.md`, and — if the post rests on factual claims —
+   `CLAIMS.md`. Render any `assets/diagrams.md` Mermaid to SVG (this blog has
+   no Mermaid).
+2. **Send only provenance home.** Copy *just* `CONTEXT.md` + `CLAIMS.md` back
+   into the *source project's* repo, committed next to the code. They're the
+   verification record for claims the project made about itself and belong
+   next to the code — not the blog. The disposable parts (`post.md`,
+   `BUILD.md`, `assets/`) stay in the blog's gitignored `docs/` and are never
+   committed to the source repo. (`CONTEXT.md`'s glossary/anti-goals also stop
+   a *future* edit to the post from drifting back into a corrected claim.)
+3. **The staged bundle is disposable.** After the lift, the durable source of
+   truth is the published markdown in the blog's `src/content/`; the staged
+   bundle under `<blog>/docs/` is gitignored and can be deleted.
 4. **Hand it off.** In the blog repo, say *"Lift the bundle at &lt;path&gt;."*
    The full human-facing intake routine is `AUTHORING.md` at the blog root.
 
