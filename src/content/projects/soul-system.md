@@ -2,14 +2,15 @@
 title: 'The Soul System'
 summary: A living philosophy and operational framework that makes human–AI collaboration more principled and self-correcting.
 date: 2026-05-15
+updatedDate: 2026-06-12
 status: active
 tags: [ai, human-ai-collaboration, methodology, claude-code, philosophy]
 thumbnail: ./images/soul-system-layers.svg
-repo: https://github.com/greenwoodms06/Soul-System
+repo: https://github.com/soul-system-works/Soul-System
 featured: true
 order: 1
 authorship: ai
-relatedPosts: []
+relatedPosts: [soul-system-ablation, soul-system-efficacy, soul-system-2-0]
 ---
 
 **What it is.** The Soul System is a living philosophy and operational framework
@@ -53,13 +54,25 @@ A handful of mandatory gates do most of the heavy lifting:
   *Premature Sophistication*, *Universe Collapse*, *Coherent Falsehood* — recorded,
   and folded back into the philosophy as amendments. The version history *is* the
   lessons learned.
-- **Almost zero install.** One import line in a project and the philosophy is live
-  across every session.
+- **Almost zero install.** Two plugin commands and a `/soul-init` in the project,
+  and the contract is live across every session.
 
-## More to come
+## The measurement story
 
-This is the overview — the goal and the shape. Future posts will go deep on the
-parts that earned their place: the Council of voices and when to actually convene
-them, the failure modes that named themselves under real use, the completion gate
-that stops "done" from being a quiet lie, and what dogfooding the system on real
-projects — this very site included — actually taught.
+The system earned its current shape — 2.0 ships one plain page of rules, four
+commands with teeth, and a book for humans — by surviving a measurement program
+designed to kill it. Three posts tell that story in order:
+
+1. [**I gave an AI a philosophy, then tried to prove it was useless**](/blog/soul-system-ablation)
+   — the equal-compute ablation. Most of the doctrine was theatre; memory of the
+   unguessable wasn't.
+2. [**I built the best opponent I could for my AI philosophy. We tied.**](/blog/soul-system-efficacy)
+   — the twin-chain efficacy program against a genuinely good generic setup, with
+   the scoring locked before anything ran.
+3. [**Soul System 2.0: a conscience and a notebook**](/blog/soul-system-2-0) — the
+   release post: what survived, what it won't do, and the numbers behind both.
+
+The formal papers behind the posts are on the
+[publications page](/publications), and the locked-prediction evidence trail —
+every experiment's prediction, scored result, and the program verdict — is
+downloadable as a [results bundle](/posts-media/soul-results-bundle.zip).

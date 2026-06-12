@@ -26,6 +26,27 @@ const publicationSchema = z.object({
 export type Publication = z.infer<typeof publicationSchema>;
 
 const raw: unknown[] = [
+	// ===== 2026 =====
+	{
+		id: 'greenwood-soul-ablation-2026',
+		title: 'Does a Meta-Doctrine System Change Model Behaviour, or Just Make It Legible? A Self-Ablation Study Under Equal Compute',
+		authors: 'S. Greenwood',
+		venue: 'Self-published study report',
+		year: 2026,
+		type: 'report',
+		pdf: '/posts-media/soul-ablation-study.pdf',
+		featured: false,
+	},
+	{
+		id: 'greenwood-soul-what-survives-2026',
+		title: 'What Survives When Best Practice Catches Up? A Twin-Chain Longitudinal Evaluation of a Meta-Doctrine Layer for AI Coding Agents',
+		authors: 'S. Greenwood',
+		venue: 'Self-published study report',
+		year: 2026,
+		type: 'report',
+		pdf: '/posts-media/soul-what-survives.pdf',
+		featured: false,
+	},
 	// ===== 2025 =====
 	{
 		id: 'greenwood-interactive-virtual-radioisotope-2025',
