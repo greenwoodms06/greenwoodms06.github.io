@@ -4,13 +4,13 @@ summary: An Unreal Engine plugin that visualizes hierarchical data-center infras
 date: 2026-06-04
 status: active
 tags: [unreal-engine, plugin, varsa, data-center, digital-twin, hpc, exadigit, visualization, ornl]
-thumbnail: ./images/datacenterexplorer/splash.jpg
+thumbnail: ./images/datacenter-explorer/splash.jpg
 repo: https://code.ornl.gov/exadigit/DatacenterExplorer
 authorship: human
 ---
 
 <video autoplay loop muted playsinline controls>
-  <source src="./images/datacenterexplorer/splash.mp4" type="video/mp4">
+  <source src="./images/datacenter-explorer/splash.mp4" type="video/mp4">
 </video>
 
 **What it is.** An Unreal Engine plugin that ingests a hierarchical JSON
