@@ -8,7 +8,7 @@ repo: https://code.ornl.gov/varsa/unreal/plugins/drawxr
 authorship: human
 ---
 
-![drawxr — the name written in XR](./images/drawxr/drawxr.png)
+![drawxr — the name written in XR](./images/drawxr/drawxr.PNG)
 
 **What it is.** A proof-of-concept Unreal Engine plugin for drawing in
 **AR / VR / MR** — collectively "XR" — built and tested on the **Quest 3**
@@ -34,7 +34,7 @@ geometric modes:
 
 | | | |
 |---|---|---|
-| ![drawxr — 3D free](./images/drawxr/3d_ellipse_wire.png) | ![drawxr — 3D volume constrained](./images/drawxr/3d_box.png)|  ![drawxr — 2D plane mode](./images/drawxr/2d.png) |
+| ![drawxr — 3D free](./images/drawxr/3d_ellipse_wire.PNG) | ![drawxr — 3D volume constrained](./images/drawxr/3d_box.PNG)|  ![drawxr — 2D plane mode](./images/drawxr/2d.PNG) |
 | *3D free draw* | *3D volume constrained* | *2D plane mode* |
 
 ## Wire management
