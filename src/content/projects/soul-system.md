@@ -7,8 +7,6 @@ status: active
 tags: [ai, human-ai-collaboration, methodology, claude-code, philosophy]
 thumbnail: ./images/soul-system/layers.svg
 repo: https://github.com/soul-system-works/Soul-System
-featured: true
-order: 1
 authorship: human
 relatedPosts: [soul-system-ablation, soul-system-efficacy, soul-system-2-0]
 ---

@@ -6,8 +6,6 @@ status: active
 tags: [unreal-engine, plugin, varsa, radiation, visualization, nuclear, paraview, vtk, scientific, ornl]
 thumbnail: ./images/radiation-explorer/thumb.jpg
 repo: https://code.ornl.gov/varsa/unreal/plugins/RadiationExplorer
-featured: true
-order: 7
 authorship: human
 ---
 
