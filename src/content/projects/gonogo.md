@@ -1,24 +1,23 @@
 ---
 title: 'GoNoGo'
-summary: A modular prerequisite-evaluation (checklist) plugin for Unreal Engine 5 — define sets of conditions that must be satisfied, in any order, grouping, or timing, before a game event fires. Genre-agnostic; works with C++ and Blueprints. 31 architecture decisions, 269 test assertions, ships a five-station launch-demo.
+summary: A modular prerequisite-evaluation (checklist) plugin for Unreal Engine — define sets of conditions that must be satisfied, in any order, grouping, or timing, before a game event fires. Genre-agnostic; works with C++ and Blueprints. Ships a five-station launch-demo.
 date: 2026-06-04
 status: active
 tags: [unreal-engine, plugin, varsa, gamedev, blueprint, checklist, ornl]
-thumbnail: ./images/gonogo-splash.jpg
+thumbnail: ./images/gonogo/splash.jpg
 repo: https://code.ornl.gov/varsa/unreal/plugins/GoNoGo
 authorship: human
 ---
 
 <video autoplay loop muted playsinline controls>
-  <source src="/projects-media/gonogo-splash.mp4" type="video/mp4">
+  <source src="./images/gonogo/splash.mp4" type="video/mp4">
 </video>
 
-**What it is.** An Unreal Engine 5 plugin for **checklists** — broadly
+**What it is.** An Unreal Engine plugin for **checklists** — broadly
 construed. A checklist is just *a set of conditions that have to be
 satisfied before a game event fires*, and once you say it that way, the
 same plugin handles quest prerequisites, crafting recipes, safety/launch
-sequences, timed challenges, and hierarchical mission trees. Part of
-ORNL's **VARSA** Unreal plugin suite.
+sequences, timed challenges, and hierarchical mission trees.
 
 **Why.** Every team building a non-trivial game eventually rolls their own
 checklist code, and it always ends up entangled with how the conditions
@@ -74,13 +73,9 @@ orchestrates the sequence with 32 assertions.
   3-of-4 threshold) → master No-Go → scrub.
 - **Attempt 2** resets everything and runs clean → launch.
 
-Drop an `AGoNoGoLaunchDemo` actor into any level and hit Play. Station
-lights flip amber → green/red as conditions land, with audio cues on
-each transition.
-
 ## Extending
 
-GoNoGo is designed to be extended, not forked. Three extension points,
+GoNoGo is designed to be extended. Three extension points,
 each a single subclass:
 
 - **New condition type** — subclass `UGoNoGoCondition`. Override
@@ -92,42 +87,3 @@ each a single subclass:
 - **Custom time source** — implement `IGoNoGoTimeSource` and inject via
   `SetTimeSource()` (so deterministic-time tests and replay can drive
   the clock manually).
-
-## Testing
-
-**269 assertions across 19 test suites**, deterministic — driven by
-`UGoNoGoMockTimeSource`, no real-time waits. Drop an
-`AGoNoGoTestDriver` into any level and hit Play; results render in the
-output log and on screen.
-
-## Design discipline
-
-The plugin's **Design Document** records **31 numbered architecture
-decisions** with the rationale for each — the kind of thing you'd
-normally find in an ADR log, written out as a single resolved-decisions
-table. A few representative ones:
-
-- **#1 Component vs Object.** Hybrid: component wrapper for
-  lifetime/Blueprint, UObject internals for testable logic.
-- **#5 Nesting model.** Two composition patterns instead of one —
-  `DataAssetChecklist` (templated, shared) and `ActorChecklist`
-  (observe an external actor).
-- **#15 Time architecture.** Policy and `TimeConstraint` are orthogonal
-  axes that compose freely — not a single `PolicyWithTimer` mega-class.
-- **#28 DataAsset + inline coexistence.** Both paths are always
-  available; DataAsset takes precedence when assigned, inline fields
-  hide via `EditConditionHides`. Prototype inline, ship via DataAsset.
-- **#29 Cycle detection.** Ancestry-path tracking blocks cycles
-  (A → B → A) but allows diamonds (B → D, C → D).
-
-This is the *why* behind the *what* — and it's the kind of record that
-makes the plugin extensible without forks.
-
-## Documentation in the repo
-
-The repo carries three docs alongside the README: a full **User Guide**
-(~480 lines: conditions / policies / time constraints / consumer API /
-async nodes / save-restore / worked examples), a **Launch Demo Guide**
-(~200 lines: architecture, station roles, customization), and the
-**Design Document** (~460 lines: the 31 decisions plus their full
-rationale).

@@ -4,11 +4,9 @@ summary: The same nuclear-reactor pin / coolant-loop physics, built three differ
 date: 2026-05-26
 status: archived
 tags: [python, julia, modelica, modelingtoolkit, dymola, nuclear, thermal-hydraulics, benchmark, acausal-modeling]
-thumbnail: ./images/three-paradigm-walls.png
+thumbnail: ./images/netflow/three-paradigm-walls.png
 repo: https://github.com/greenwoodms06/soul-test-netflow
-featured: true
-order: 5
-authorship: ai
+authorship: human
 relatedPosts:
   - netflow-python-episode
   - soultest-julia-mtk-episode
@@ -22,8 +20,7 @@ times on the same machine. Each version uses only the standard-library tools
 its language ecosystem ships with: no third-party domain libraries, no tuned
 commercial extensions.
 
-**Why.** To find out, on identical physics under one person's hand, *where
-each ecosystem actually hits a wall*. The simulation isn't the deliverable;
+**Why.** A quick exploration to find out when different tool's performance hits a wall - python, Modelica/Dymola, Julia-MTX. The simulation isn't the deliverable;
 the comparison is.
 
 ## The three legs
@@ -43,7 +40,7 @@ the comparison is.
   Library (MSL) for thermal and fluid connections, and MSL's built-in IF97
   steam-tables water. Driven headlessly from Python. **430 lines of code.**
 
-## Headline (one machine, same week)
+## Headline
 
 | Axis | Python (netflow) | Julia / MTK | Modelica / Dymola |
 |---|---|---|---|

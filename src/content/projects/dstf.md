@@ -4,31 +4,23 @@ summary: A backend-agnostic harness for regression-testing time-dependent system
 date: 2026-06-05
 status: active
 tags: [testing, simulation, modelica, fmu, julia, regression, dymola, python]
-thumbnail: ./images/dstf-pipeline.svg
+thumbnail: ./images/dstf/pipeline.svg
 repo: https://github.com/ORNL-Modelica/DynamicSystemsTestingFramework
 relatedPosts: [dstf]
 authorship: human
 ---
 
 **What it is.** A Python framework for **regression and unit testing of
-time-dependent system behavior** — solver trajectories, FMU outputs, Julia
-models, recorded test-bench traces. It discovers tests, runs each through
+time-dependent system behavior** (e.g., trajetorics, FMU output, Modelica, Julia-MTK/Dyad, or experimental data). It discovers tests, runs each through
 whichever backend owns the model, compares the result against versioned
-baselines within tolerances *you* declare, and reports. One CLI spans five
-ecosystems; the ecosystem is a plug-in, not a special case — Modelica is just
-the first consumer, not the reference model.
+baselines within customizeable tolerances declare, and reports. 
 
-It answers exactly one question — *does this signal match the stored
-reference within tolerance?* — and the discipline is in refusing to grow
-past it. See [the launch post](/blog/dstf) for why that boundary is the
-point.
+![DSTF's six-layer pipeline: Source → Discovery → Backend → Dataset → Metric → MetricTree, with five simulator backends fanning out under the Backend layer.](./images/dstf/pipeline.svg)
 
-![DSTF's six-layer pipeline: Source → Discovery → Backend → Dataset → Metric → MetricTree, with five simulator backends fanning out under the Backend layer.](./images/dstf-pipeline.svg)
-
-## Five backends, one entry point
+## Multiple backends, one entry point
 
 Each backend declares capability flags rather than being special-cased, with
-persistent-worker support where it pays off.
+persistent-worker support where it pays off. These are the initial backends and can be extended to accommodate additional options.
 
 | Backend | Source kind | Notes |
 |---|---|---|
@@ -42,10 +34,10 @@ A single `testing.json` is the entry point; the first `simulators` entry
 whose binary exists wins, so the same config travels across machines without
 per-OS forks.
 
-## Six comparison modes, composed into a MetricTree
+## Multi comparison modes, composed into a MetricTree
 
 You don't assert float-equality on a solver trajectory — you score it. DSTF
-ships six modes and composes them into a tree.
+ships several modes and composes them into a tree.
 
 | Mode | What it scores |
 |---|---|
@@ -91,24 +83,6 @@ scorers against the same fixtures and asserts they agree — because the worst
 failure mode for a what-you-see-is-what-you-commit report is a UI that lies
 about the verdict.
 
-## Install
-
-```bash
-uv tool install dstf        # then run plain: dstf ...
-# or: pipx install dstf
-```
-
-Developers:
-
-```bash
-uv pip install -e ".[dev]"             # core + pytest
-uv pip install -e ".[dev,fmpy,om]"     # plus FMPy + OpenModelica extras
-uv run dstf --help
-```
-
-The Julia backend needs Julia 1.11+ and a one-time `Pkg.instantiate()` on the
-demo project; the Python `SimpleRamp` example needs `scipy`.
-
 ## First run
 
 The repo ships a demo library for each backend. The easiest first run is the
@@ -123,31 +97,3 @@ simulator worker, partitions output under `testing_output/` by backend + OS,
 compares against the `ref_NNNN.json` baselines, and prints pass/fail. Add
 `--report ./reports` for the interactive HTML reporter; `--parallel N` prints
 a live dashboard URL that auto-refreshes.
-
-## A few commands
-
-```bash
-uv run dstf --config testing.json discover                 # find tests, don't run
-uv run dstf --config testing.json run --accept             # accept current results as baselines
-uv run dstf --config testing.json run -i failed            # interactive review by category
-uv run dstf --config testing.json run --parallel 4 --report ./reports
-uv run dstf --config testing.json spec-update patch.json   # apply a reporter-exported JSON-Patch
-uv run dstf --config testing.json run --report-format junit --output test-results.xml   # CI
-```
-
-## Scope — and what it refuses to be
-
-DSTF is a regression tester, full stop. It does **not** estimate parameters
-or calibrate models to data, does **not** do physics-layer root-cause
-analysis (it emits scores and diagnostics and hands those off), is **not** a
-simulator, and hosts **no** ML. Those anti-goals are the design — an economy
-of tools that keeps the core small enough to trust. A few capabilities are
-deliberately still partial: **cross-backend verification** (Dymola → exported
-FMU → FMPy) is wired but experimental; **event-timing** is the one mode
-without a live in-browser preview (it stays CLI-authoritative); the Julia
-**Dyad** front-end is untested; and a rule-based criterion **recommender** is
-designed but not yet built.
-
-The solid spine: 837 pytest passing as of the latest run (≈70 Playwright
-browser tests), five production backends, a demo library for each, and the
-scorer-parity suite that keeps the report honest.

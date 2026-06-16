@@ -4,7 +4,7 @@ summary: A vanilla-JS PWA that generates fair youth-sports lineups — equal pla
 date: 2026-06-05
 status: active
 tags: [pwa, vanilla-js, sports, algorithms, offline-first, capacitor, svg]
-thumbnail: ./images/roster-rotation-thumb.svg
+thumbnail: ./images/roster-rotation/thumb.svg
 repo: https://github.com/greenwoodms06/roster-rotation
 demo: https://greenwoodms06.github.io/roster-rotation/
 authorship: human
@@ -12,12 +12,12 @@ relatedPosts:
   - roster-rotation
 ---
 
-<video controls preload="metadata" width="280">
-  <source src="/projects-media/roster-rotation-overview.mp4" type="video/mp4">
+<video autoplay loop muted playsinline controls preload="metadata" width="280">
+  <source src="./images/roster-rotation/overview.mp4" type="video/mp4">
   A walkthrough: build a roster, generate a lineup, edit it on the sideline.
 </video>
 
-**What it is.** A web app that does one unglamorous job well: it builds a
+**What it is.** A web app tto help manage a
 fair lineup rotation for a youth sports team. Enter a roster, mark who showed
 up, pick a format — four quarters, two halves, a single game — and it
 produces a period-by-period lineup where every player plays as close to the
@@ -40,7 +40,7 @@ The rotation engine balances four goals, and the order *is* the design —
 each goal dominates the ones below it, so the engine never trades a player's
 playing time for a preferred position.
 
-![The four fairness goals in strict priority order: equal time this game, then equal time across the season, then position exposure, then position preferences.](./images/roster-rotation-fairness-ladder.svg)
+![The four fairness goals in strict priority order: equal time this game, then equal time across the season, then position exposure, then position preferences.](./images/roster-rotation/fairness-ladder.svg)
 
 Season fairness (goal 2) is measured as **periods played ÷ periods
 available**, computed only over games a player actually attended. A kid who
@@ -48,19 +48,6 @@ shows up to five games is treated exactly like one who shows up to ten —
 missing a game neither punishes nor rewards you. This *absence neutrality*
 is the single decision that makes the season stats feel fair to parents
 rather than arbitrary.
-
-Supports soccer (5v5 through 11v11), basketball, football, hockey, lacrosse,
-baseball, or a fully custom position set — across 4 quarters, 3 periods, 2
-halves, or 1 undivided game.
-
-## Brute force, on purpose
-
-Each period's position assignment is solved by checking *every* permutation
-rather than reaching for the Hungarian algorithm. For a 9-position lineup
-that's ~363,000 arrangements, which a phone clears in milliseconds; even an
-11-a-side football lineup stays under a second. The payoff is code you can
-read top to bottom and an answer that is provably optimal — with zero
-matrix-library dependencies.
 
 ## The lineup is a live document
 
@@ -109,19 +96,6 @@ game plan. Crucially, formations are **visual only** — they move dots around
 the field but never touch the rotation engine, so changing your shape can
 never break the fairness math or invalidate a stat.
 
-## One codebase, two distribution channels
-
-The PWA is the default target and ships to GitHub Pages untouched. A thin
-Capacitor wrap mirrors the same JS into an Android project for the Play
-Store — including a small native bridge for printing a lineup and the system
-share sheet for backups — without forking the source or adding a framework.
-
-It's built as pure vanilla HTML/CSS/JS: no build step, no dependencies, no
-npm; files load via `<script>` tags and a service worker caches everything
-for offline use. When a new version is available the app surfaces a banner
-and prompts the coach to back up before updating, rather than swapping the
-app out from under them.
-
 ## Privacy is a design choice, not a gap
 
 All data lives in the device's local storage. Nothing is sent to any
@@ -130,20 +104,7 @@ deliberately. Fonts are self-hosted, so the app makes no third-party or
 runtime network calls — which is what lets it honestly disclose, to the Play
 Store and to parents, that it collects nothing.
 
-## Where it stops
-
-The engine optimizes *fairness*, not *winning* — it has no notion of
-matchups, momentum, or specializing your best players late in a close game.
-A positional-play / specialization mode for competitive teams is documented
-but deliberately not built. The Capacitor wrap is Android-only today (iOS is
-plausible but not done), and full keyboard accessibility for list items is a
-tracked gap. Knowing which problems it deliberately doesn't solve is half of
-what makes the one it does solve dependable.
-
 ---
 
 *Live and installable at
 [greenwoodms06.github.io/roster-rotation](https://greenwoodms06.github.io/roster-rotation/).
-The build story — the hard-vs-soft fairness-layer separation that keeps the
-output trustworthy — is in the post
-[Roster Rotation: fair playing time, offline](/blog/roster-rotation).*

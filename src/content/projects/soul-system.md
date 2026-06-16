@@ -5,11 +5,11 @@ date: 2026-05-15
 updatedDate: 2026-06-12
 status: active
 tags: [ai, human-ai-collaboration, methodology, claude-code, philosophy]
-thumbnail: ./images/soul-system-layers.svg
+thumbnail: ./images/soul-system/layers.svg
 repo: https://github.com/soul-system-works/Soul-System
 featured: true
 order: 1
-authorship: ai
+authorship: human
 relatedPosts: [soul-system-ablation, soul-system-efficacy, soul-system-2-0]
 ---
 
@@ -27,14 +27,12 @@ AI to work like a disciplined craftsperson instead of an eager intern?
 
 ## The core idea
 
-It models the work as a few collaborating layers. A **Soul** — the governing
-philosophy, never overridden by urgency. A **Witness** that records what actually
-happened. A **Council** that synthesises patterns over time. A **Judge** that
-decides in the moment. And the **Universe** — reality — consulted continuously,
-not occasionally. The human is the **Body**: they inhabit all of it and own the
-result. The AI is the instrument.
+- `/soul-init` to add it to a project
+- `/soul-handoff` to close out a session and ensure lessons are recorded
+- `/soul-resume` to begin a new session built on the recorded lessons and tasks
+- `/soul-capture idea|witness|finding` to capture and idea, observation, or data for improving your project
 
-![The Soul System architecture](./images/soul-system-architecture.svg)
+![The Soul System architecture](./images/soul-system/architecture.svg)
 
 A handful of mandatory gates do most of the heavy lifting:
 
@@ -48,20 +46,17 @@ A handful of mandatory gates do most of the heavy lifting:
 
 ## What makes it different
 
-- **Composes, doesn't replace.** It layers above TDD, BMAD, Cursor rules, your
-  own conventions. Adopt what helps; ignore what doesn't.
+- **Composes, doesn't replace.** Use along with existing workflows and tools.
 - **It evolves from its own failures.** Real failure patterns get named —
   *Premature Sophistication*, *Universe Collapse*, *Coherent Falsehood* — recorded,
   and folded back into the philosophy as amendments. The version history *is* the
   lessons learned.
-- **Almost zero install.** Two plugin commands and a `/soul-init` in the project,
-  and the contract is live across every session.
 
 ## The measurement story
 
 The system earned its current shape — 2.0 ships one plain page of rules, four
 commands with teeth, and a book for humans — by surviving a measurement program
-designed to kill it. Three posts tell that story in order:
+designed to kill it. Three posts tell that story from initial concept (admittedly very philosophical) to current states:
 
 1. [**I gave an AI a philosophy, then tried to prove it was useless**](/blog/soul-system-ablation)
    — the equal-compute ablation. Most of the doctrine was theatre; memory of the

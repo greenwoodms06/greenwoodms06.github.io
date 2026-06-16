@@ -9,7 +9,7 @@ authorship: human
 ---
 
 <video autoplay loop muted playsinline controls>
-  <source src="/projects-media/scene-manifest-splash.mp4" type="video/mp4">
+  <source src="./images//scene-manifest/splash.mp4" type="video/mp4">
 </video>
 
 **What it is.** An Unreal Engine 5 plugin that round-trips a level

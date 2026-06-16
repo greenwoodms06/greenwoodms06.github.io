@@ -1,10 +1,10 @@
 ---
 title: 'RadiationExplorer'
-summary: An Unreal Engine plugin for scientific visualization and analysis of volumetric radiation data — VTK simulations to interactive isocontours via ParaView, with a managed-pair data-source system, accumulated-dose integrator pattern, and QR-driven AR teleportation. Carries a US patent and an ANS paper for its VIPER predecessor.
+summary: An Unreal Engine plugin for scientific visualization and analysis of volumetric radiation data — VTK simulations to interactive isocontours via ParaView, with a managed-pair data-source system, accumulated-dose integrator pattern.
 date: 2026-06-04
 status: active
 tags: [unreal-engine, plugin, varsa, radiation, visualization, nuclear, paraview, vtk, scientific, ornl]
-thumbnail: ./images/radiation-explorer-thumb.jpg
+thumbnail: ./images/radiation-explorer/thumb.jpg
 repo: https://code.ornl.gov/varsa/unreal/plugins/RadiationExplorer
 featured: true
 order: 7
@@ -12,10 +12,10 @@ authorship: human
 ---
 
 <video autoplay loop muted playsinline controls>
-  <source src="/projects-media/radiation-explorer-splash.mp4" type="video/mp4">
+  <source src="./images/radiation-explorer/splash.mp4" type="video/mp4">
 </video>
 
-**What it is.** An Unreal Engine 5 plugin for **scientific visualization
+**What it is.** An Unreal Engine plugin for **scientific visualization
 and analysis of radiation data** — load volumetric simulation output,
 interpolate values at arbitrary points, and render isocontours and
 particle visualizations in a real-time 3D environment. Applications:
@@ -26,7 +26,7 @@ research, and AR/MR walkthroughs of dose fields.
 fields that are hard to interpret without being *inside* them. Standard
 desktop tools (ParaView, VisIt) show the field; an Unreal-based viewer
 lets you walk through it, measure accumulated dose along a path, and
-explore design alternatives interactively — including in XR.
+explore design alternatives interactively, including in XR.
 
 ## Lineage: VIPER → RadiationExplorer
 
@@ -99,50 +99,3 @@ Three canonical workflows:
 3. **Dynamic spawning** — spawn an actor at runtime, add the component
    via Blueprint, call `Register()` — the pair appears without a
    pre-existing slot.
-
-## AR / XR features
-
-The XR walkthrough demo includes **QR-code teleportation** — scan a
-real-world QR code with the Quest pawn, the actor teleports to the
-matching virtual marker. Two name-resolution methods are supported (the
-actor's name contains the QR text, or the actor carries a
-`QRNAME=UniqueID` tag). The rotation of both the virtual and real QR
-codes matters, so coordinate frames stay consistent across the AR
-hand-off.
-
-## Showcase map
-
-A walkable showroom at `RadiationExplorer/Maps/L_ShowCase` exercises
-every major feature — group visuals, data accessors, visual settings,
-particle visualizers, multi-source accumulation, QR teleportation,
-placeholder displays — laid out as rows and columns the user navigates
-by holding up a palm and tapping arrows. The intended audience is
-developers exploring the plugin's capabilities in editor.
-
-## Dependencies
-
-- Unreal Engine 5.5+
-- ParaView 6.0.1+ (only for the editor-script workflow function)
-- Unreal Python plugin enabled (for the editor scripting)
-
-## License — read this before using
-
-RadiationExplorer is licensed by UT-Battelle. **Commercial use or
-application is prohibited without an agreement in place** — this is
-not an MIT-or-Apache plugin like the others in the VARSA suite.
-Universities and DOE laboratories have a path; commercial entities go
-through a non-exclusive licensing process. Contact `varsa@ornl.gov`
-for terms.
-
-## Cite as
-
-- **VIPER (2022 paper):** Smith, M.; Greenwood, S.; Nelson, N.;
-  Thompson, N.; Peplow, D. *Virtual Interaction with Physics Enhanced
-  Reality (VIPER): Using Augmented Reality to Visualize and Interact
-  with Ionizing Radiation Data.* ANS Annual Meeting, 2022, pp. 805–808.
-  DOI [10.13182/T126-37927](https://doi.org/10.13182/T126-37927).
-- **VIPER (2023 patent):** Greenwood, S.; Smith, M.; Nelson, N.;
-  Thompson, N.; Peplow, D. *VIPER — Method for visualizing and
-  interacting with ionizing radiation data using augmented reality.*
-  US 63/438,888 and US 18/134,649. UT-Battelle, LLC (Oak Ridge National
-  Laboratory).
