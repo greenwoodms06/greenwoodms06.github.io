@@ -8,7 +8,7 @@ repo: https://code.ornl.gov/varsa/unreal/plugins/drawxr
 authorship: human
 ---
 
-![drawxr — the name written in XR](/projects-media/drawxr-splash.png)
+![drawxr — the name written in XR](./images/drawxr/drawxr.png)
 
 **What it is.** A proof-of-concept Unreal Engine plugin for drawing in
 **AR / VR / MR** — collectively "XR" — built and tested on the **Quest 3**
@@ -34,8 +34,8 @@ geometric modes:
 
 | | | |
 |---|---|---|
-| ![drawxr — 3D ellipse with wire on surface](/projects-media/drawxr-3d-ellipse-wire.png) | ![drawxr — 3D ellipse drawing](/projects-media/drawxr-3d-ellipse.png) | ![drawxr — 2D plane mode](/projects-media/drawxr-2d.png) |
-| *3D ellipse, wire on surface* | *3D ellipse, free pose* | *2D plane mode* |
+| ![drawxr — 3D free](./images/drawxr/3d_ellipse_wire.png) | ![drawxr — 3D volume constrained](./images/drawxr/3d_box.png)|  ![drawxr — 2D plane mode](./images/drawxr/2d.png) |
+| *3D free draw* | *3D volume constrained* | *2D plane mode* |
 
 ## Wire management
 
@@ -44,28 +44,11 @@ length-aware. The management menu lists each one with its **color**,
 **gauge (AWG)**, **length in centimeters**, and per-wire visibility /
 delete controls:
 
-![drawxr — wire management menu showing AWG and length](/projects-media/drawxr-menu-length.png)
+| | |
+|---|---|
+| ![drawxr — wire management menu showing AWG and length](./images/drawxr/menu_length.PNG) | ![drawxr — wire management menu showing AWG and length](./images/drawxr/settingsmenu.png) |
 
 Three wires shown here (green at 4/0 AWG / 67.7 cm; red at 5 AWG /
 72.9 cm; blue at 1 AWG / 108.9 cm) — the menu treats each stroke as a
 physical conductor the user is laying out, not just a visual mark. That
-abstraction — *strokes-as-tracked-wires* — is what the plugin is really
-selling.
-
-## Status
-
-Proof-of-concept — the abstraction is "tracked wires with style," not
-"production drawing tool." But the wire-manager pattern is general
-enough to be the spine of a more polished tool if the project warrants
-one.
-
-## Requirements
-
-- Unreal Engine 5.6+
-- [MetaXR Plugin](https://developers.meta.com/horizon/downloads/package/unreal-engine-5-integration/)
-- Tested on Quest 3
-
-## Cite as
-
-Authored by Scott Greenwood at ORNL (2025). Published under MIT OR
-Apache-2.0.
+abstraction — *strokes-as-tracked-wires* — is what the plugin is focused on: managed wires not free art.

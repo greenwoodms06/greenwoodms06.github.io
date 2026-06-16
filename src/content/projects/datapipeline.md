@@ -8,12 +8,14 @@ repo: https://code.ornl.gov/varsa/unreal/plugins/DataPipeline
 authorship: human
 ---
 
+| ![datapipeline](./images/datapipeline/splash.gif) | 
+|:--:| 
+|*Connect external data to actor logic using DataPipeline Plugin*|
+
 **What it is.** An Unreal Engine plugin that fetches external data,
 parses it, maps it to actors, and updates them at runtime — all through
 a single composable pipeline you configure with components in the editor.
-The sister plugin to [**DatacenterExplorer**](/projects/datacenter-explorer):
-DatacenterExplorer puts a hierarchy *in* the scene; DataPipeline brings
-the *live data* to the things in the scene.
+DataPipeline brings the *live data* to the things in the scene and is application agnostic, so let your creativity run wild!*
 
 **Why.** Every interactive Unreal app eventually needs to talk to
 something outside itself — a REST endpoint, a CSV log, a telemetry feed.
@@ -36,11 +38,6 @@ any actor and assigning one module per stage. Run it in **Manual** mode
 (call `FetchOnce()` when you want) or **Polling** mode (automatic
 interval). Mix and match — the schema doesn't know which transport is
 upstream, the resolver doesn't know which schema produced it.
-
-The plugin's `Source/Public/` tree mirrors the stages exactly
-(`Transport/`, `Schema/`, `Resolver/`, `Update/`, plus a `Core/` for
-shared types and a `DataTransforms.h` for the field-mapping
-transformations). The directory layout *is* the abstraction.
 
 ## On the receiving end
 
@@ -81,9 +78,3 @@ Each stage parents a `U…` base class — `UTransport`, `USchema`,
 `UResolver`, `UUpdateStrategy`. Need GraphQL? Subclass `UTransport`. Need
 protobuf? Subclass `USchema`. The plugin's abstraction shape doesn't
 change; the rest of the pipeline composes around the new module.
-
-## Cite as
-
-Authored at ORNL by Scott Greenwood and collaborators (2025).
-DOI [10.11578/dc.20251215.1](https://doi.org/10.11578/dc.20251215.1).
-Published under MIT OR Apache-2.0.

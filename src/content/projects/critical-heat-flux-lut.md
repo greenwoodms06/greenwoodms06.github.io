@@ -3,20 +3,17 @@ title: 'Critical Heat Flux: the Groeneveld lookup table'
 summary: The 2006 Groeneveld CHF lookup table (and assorted correlations) implemented in Excel, MATLAB, and Python.
 date: 2016-03-03
 tags: [nuclear, thermal-hydraulics, matlab, python, excel]
-thumbnail: ./images/chf-boiling-curve.svg
+thumbnail: ./images/chf/chf-boiling-curve.svg
 repo: https://github.com/greenwoodms06/2006_Groeneveld_CriticalHeatFlux_LUT
-featured: true
-order: 2
-authorship: ai
+authorship: human
 relatedPosts: []
 ---
 
-**What it is.** A [multi-language implementation](https://github.com/greenwoodms06/2006_Groeneveld_CriticalHeatFlux_LUT)
-of the **2006 Groeneveld Critical Heat Flux (CHF) lookup table** — the standard tabulated reference for predicting
+**What it is.** A multi-language implementation of the 2006 Groeneveld Critical Heat Flux (CHF) lookup table — the standard tabulated reference for predicting
 the heat flux at which boiling crisis (departure from nucleate boiling) sets in
 for water-cooled rod bundles — plus a handful of assorted CHF correlations.
 
-**Why.** The Groeneveld table is *the* go-to CHF reference in thermal-hydraulics,
+**Why.** The Groeneveld table is a go-to CHF reference in thermal-hydraulics,
 but it ships as printed tables, not code. This packages it up so you can actually
 call it — from a spreadsheet, from MATLAB, or from Python.
 

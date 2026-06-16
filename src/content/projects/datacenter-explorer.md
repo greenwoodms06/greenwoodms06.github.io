@@ -4,15 +4,13 @@ summary: An Unreal Engine plugin that visualizes hierarchical data-center infras
 date: 2026-06-04
 status: active
 tags: [unreal-engine, plugin, varsa, data-center, digital-twin, hpc, exadigit, visualization, ornl]
-thumbnail: ./images/datacenter-explorer-splash.jpg
+thumbnail: ./images/datacenterexplorer/splash.jpg
 repo: https://code.ornl.gov/exadigit/DatacenterExplorer
-featured: true
-order: 6
 authorship: human
 ---
 
 <video autoplay loop muted playsinline controls>
-  <source src="/projects-media/datacenter-explorer-splash.mp4" type="video/mp4">
+  <source src="./images/datacenterexplorer/splash.mp4" type="video/mp4">
 </video>
 
 **What it is.** An Unreal Engine plugin that ingests a hierarchical JSON
@@ -98,12 +96,3 @@ right now*.
 - HPC system monitoring & digital twins
 - Interactive architecture exploration
 - Real-time component-status visualization
-
-## Cite as
-
-Authored at ORNL by Scott Greenwood, Matthias Maiterth, Sedrick Bouknight,
-and Tim Dykes (2025). DOI [10.11578/dc.20251112.2](https://doi.org/10.11578/dc.20251112.2).
-Published under MIT OR Apache-2.0. See the
-[ExaDigiT VIS 2024 paper](https://doi.org/10.1109/VIS55277.2024.00012)
-("Visualizing an Exascale Data Center Digital Twin", IEEE VIS 2024) for
-the broader system context.

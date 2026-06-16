@@ -62,26 +62,3 @@ them.
 Two access patterns: reach for the DataAsset (and let it orchestrate)
 or reach for the underlying asset directly — whichever fits the use
 case.
-
-## Adding a new colormap
-
-**Python workflow** (recommended):
-
-1. Modify and run `./ExternalAssets/scripts/exportColormaps.py` locally.
-   The script calls `matplotlib.pyplot.get_cmap()` for each named map,
-   samples N colors at equal increments, and writes per-colormap `.txt`
-   files. Add new entries to the category lists at the bottom — or
-   hand-author `.txt` files in the same format if you have a colormap
-   matplotlib doesn't.
-2. In Unreal, run `./ExternalAssets/scripts/importColormaps.py` via
-   **Tools → Execute Python Script**, or in the console:
-   `py 'FULL/PATH/TO/importColormaps.py'`.
-
-**Manual workflow:** create a DataAsset using `DA_Colormap` as the base
-and hand-populate the field values with custom color curves, textures,
-etc.
-
-## Cite as
-
-Authored at ORNL by Scott Greenwood and collaborators. Published under
-MIT OR Apache-2.0.
