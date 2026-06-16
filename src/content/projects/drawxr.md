@@ -8,7 +8,7 @@ repo: https://code.ornl.gov/varsa/unreal/plugins/drawxr
 authorship: human
 ---
 
-![drawxr — the name written in XR](./images/drawxr/drawxr.PNG)
+![drawxr — the name written in XR](./images/drawxr/drawxr.png)
 
 **What it is.** A proof-of-concept Unreal Engine plugin for drawing in
 **AR / VR / MR** — collectively "XR" — built and tested on the **Quest 3**
@@ -34,7 +34,7 @@ geometric modes:
 
 | | | |
 |---|---|---|
-| ![drawxr — 3D free](./images/drawxr/3d_ellipse_wire.PNG) | ![drawxr — 3D volume constrained](./images/drawxr/3d_box.PNG)|  ![drawxr — 2D plane mode](./images/drawxr/2d.PNG) |
+| ![drawxr — 3D free](./images/drawxr/3d_ellipse_wire.png) | ![drawxr — 3D volume constrained](./images/drawxr/3d_box.png)|  ![drawxr — 2D plane mode](./images/drawxr/2d.png) |
 | *3D free draw* | *3D volume constrained* | *2D plane mode* |
 
 ## Wire management
@@ -46,7 +46,7 @@ delete controls:
 
 | | |
 |---|---|
-| ![drawxr — wire management menu showing AWG and length](./images/drawxr/menu_length.PNG) | ![drawxr — wire management menu showing AWG and length](./images/drawxr/settingsmenu.png) |
+| ![drawxr — wire management menu showing AWG and length](./images/drawxr/menu_length.png) | ![drawxr — wire management menu showing AWG and length](./images/drawxr/settingsmenu.png) |
 
 Three wires shown here (green at 4/0 AWG / 67.7 cm; red at 5 AWG /
 72.9 cm; blue at 1 AWG / 108.9 cm) — the menu treats each stroke as a
