@@ -2,24 +2,37 @@
 
 The publishing agent reads this file to know how to handle assets
 during the lift. Drop final-format assets here; the lift step copies
-them into the right place under `src/content/posts/images/` or
-`public/posts-media/`.
+them into the right place: still images and per-entry video into the
+entry's own **bundle folder** (`src/content/<collection>/<slug>/`),
+animated GIFs and shared downloads into **`public/resources/<topic>/`**.
+
+Each post and project is a *folder* — `src/content/posts/<slug>/index.md`
+(or `index.mdx`) — with its assets sitting beside it, referenced by
+filename. (The folder name is the URL; `index` is stripped from the slug.)
 
 ## Where assets end up
 
 | Asset type | Goes to | Referenced from body as |
 |---|---|---|
-| Still images for posts (SVG, PNG, JPG, WebP) | `src/content/posts/images/<slug>-foo.{svg,png,jpg}` | `./images/<slug>-foo.png` |
-| Animated GIFs | `public/posts-media/<slug>-foo.gif` | `/posts-media/<slug>-foo.gif` |
-| MP4 video | `public/posts-media/<slug>-foo.mp4` | `<video><source src="/posts-media/<slug>-foo.mp4">…</video>` |
-| PDFs | `public/posts-media/<slug>.pdf` | `/posts-media/<slug>.pdf` |
+| Still images (SVG, PNG, JPG, WebP) | the entry's bundle folder, `src/content/posts/<slug>/foo.svg` | `![alt](./foo.svg)` · `heroImage: ./foo.svg` |
+| MP4 video | the entry's bundle folder; entry becomes `index.mdx` | `import v from './foo.mp4'` → `<source src={v} type="video/mp4" />` |
+| Animated GIFs | `public/resources/<slug>/foo.gif` | `![alt](/resources/<slug>/foo.gif)` |
+| PDFs / ZIPs (downloads) | `public/resources/<topic>/foo.{pdf,zip}` | `[label](/resources/<topic>/foo.pdf)` |
 
-**Variant C (project + post):** the project page has its own parallel
-homes — project stills go to `src/content/projects/images/` (referenced
-`./images/<slug>-foo.svg`), and project video / animated media / PDFs go
-to `public/projects-media/` (referenced `/projects-media/<slug>-foo.mp4`).
-A video used on both the post and the project page is copied into both
-`public/posts-media/` and `public/projects-media/`.
+**Why the split:** still images go through Astro's optimizer (responsive
+`srcset`, WebP) so they must live under `src/` in the bundle. Animated GIFs
+would have their animation stripped by that pipeline, and downloads (PDF/ZIP)
+are often shared across several entries — so both live in `public/resources/`
+and are referenced by absolute URL. MP4 stays in the bundle but is pulled in
+via an `import` (a raw relative `<source src="./x.mp4">` is *not* processed
+and 404s).
+
+**Variant C (project + post):** same rules per side — each page's stills and
+video live in its own bundle folder (`src/content/projects/<slug>/` and
+`src/content/posts/<slug>/`). An image used on both pages is copied into both
+bundles (a few KB; self-containment beats deduping). A shared *download*
+(one PDF/ZIP linked from both) lives once in `public/resources/<topic>/` and
+is linked by absolute URL from both.
 
 The blog's README §"Images" section is the source of truth for *why*
 these conventions exist. Summary:
@@ -30,36 +43,39 @@ these conventions exist. Summary:
   for the same content, sharper. GIFs work if MP4 isn't available.
 - **SVG** for hand-authored charts / diagrams. Resolution-independent.
 - **Animated media bypasses Astro's image pipeline** (it would strip
-  the animation). Drop those in `public/posts-media/` and reference
-  by absolute URL.
-- **Raw-HTML asset paths must be absolute.** The `./images/…` relative
-  form is resolved **only** by Markdown `![]()` and the `<Image>`
-  component. Any path you write inside raw HTML — `<video>`, `<img>`,
-  `<source src>`, `poster=` — ships verbatim and resolves against the
-  page URL, so `poster="./images/x.png"` builds to a dead
-  `/blog/images/x.png`. In raw HTML, always use the absolute `public/`
-  URL (`/posts-media/…`). A `<video>` needs no `poster` at all —
-  `preload="metadata"` shows the first frame.
+  the animation). Drop those in `public/resources/<topic>/` and
+  reference by absolute URL.
+- **Raw-HTML relative paths don't resolve — import bundle video in MDX.**
+  A relative `./foo.svg` is processed **only** by Markdown `![]()` and the
+  `<Image>` component. Inside raw HTML — `<video>`, `<source src>`,
+  `<img src>`, `poster=` — a relative path ships verbatim and resolves
+  against the page URL, so `<source src="./demo.mp4">` builds to a dead
+  link. To embed a bundle video, make the entry `index.mdx` and `import`
+  it (`import demo from './demo.mp4'` → `<source src={demo} />`). A
+  `<video>` needs no `poster`; `preload="metadata"` shows the first frame.
+  (Use `autoPlay` / `playsInline` camelCase in MDX.)
 - **Click-to-expand** is automatic — any `<img>` inside `<article>` is
   wrapped in a link to the loaded resolution at build time. Don't add
   your own anchor wrappers.
 
 ## Naming
 
-Use the post's slug as a prefix, then a kebab-case descriptor:
+The bundle folder already namespaces the file, so **no slug prefix** —
+just a kebab-case descriptor:
 
-- `ideas-are-cheap-hero.svg`
-- `creativity-and-machines-two-stroke-engine.svg`
-- `gonogo-launch-demo.mp4`
+- `hero.svg`
+- `two-stroke-engine.svg`
+- `launch-demo.mp4`
 
-This keeps the `posts/images/` and `public/posts-media/` directories
-sortable and prevents accidental collisions.
+Files in `public/resources/<topic>/` keep a descriptive name too
+(`results-bundle.zip`, `ablation-study.pdf`).
 
 ## Hand-authoring SVG diagrams
 
 When `diagrams.md` carries Mermaid sources, render to SVG (not Mermaid)
 because this site has no Mermaid integration. Match the palette in the
-existing diagrams under `src/content/posts/images/`:
+existing diagrams in the post bundles (e.g.
+`src/content/posts/creativity-and-machines/novelty-value.svg`):
 
 - Strong / solved / AI-superhuman: green `#34a853` on `#e6f4ea`
 - Weak / contested / AI-leaky: red `#ea4335` on `#fce8e6`

@@ -6,7 +6,7 @@ title: 'SHORT TITLE — punchy'
 description: One sentence; same conventions as post.md.
 pubDate: YYYY-MM-DD
 tags: [tag1, tag2]
-heroImage: ./images/hero.svg
+heroImage: ./hero.svg
 authorship: ai
 relatedProjects: []
 ---

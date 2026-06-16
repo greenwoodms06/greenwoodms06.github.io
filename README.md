@@ -46,7 +46,7 @@ time (`src/content.config.ts`).
   `relatedPosts` under "Writing about this").
 - **Too small for a post?** Add a dated bullet in the project body, not a new post.
 
-**Add a project** → one Markdown file in `src/content/projects/` (+ an optional thumbnail):
+**Add a project** → a folder `src/content/projects/<slug>/` with an `index.md` inside (+ optional assets beside it):
 
 ```yaml
 ---
@@ -55,7 +55,7 @@ summary: One-line blurb for the card.
 date: 2026-05-22
 status: active            # wip | active | archived
 tags: [astro, graphics]
-thumbnail: ./images/my-project.png   # optional, optimized at build
+thumbnail: ./my-project.png          # optional, optimized at build
 repo: https://github.com/...         # optional
 demo: https://...                    # optional
 featured: true            # surfaces on the home grid
@@ -67,7 +67,7 @@ authorship: human         # human | ai (see below)
 The project writeup goes here.
 ```
 
-**Add a post** → one Markdown/MDX file in `src/content/posts/`:
+**Add a post** → a folder `src/content/posts/<slug>/` with an `index.md` inside (or `index.mdx` when it embeds video):
 
 ```yaml
 ---
@@ -76,7 +76,7 @@ description: Short summary for listings and SEO.
 pubDate: 2026-05-22
 updatedDate: 2026-05-23   # optional
 tags: [devlog]
-heroImage: ./images/hero.png         # optional
+heroImage: ./hero.png                # optional
 draft: false              # true = excluded from the production build
 relatedProjects: [project-slug]      # optional
 authorship: human         # human | ai (see below)
@@ -101,29 +101,40 @@ Two pieces of behavior are enforced on every project/post detail page by
   large as you have it — preferably **≥ 1800 px wide**. Smaller sources still work
   but won't go sharper than they are.
 
-**Author this way:**
+**Author this way — per-entry bundles:**
 
-- Drop the file into the collection's `images/` directory next to the markdown
-  (`src/content/projects/images/` or `src/content/posts/images/`).
-- Reference it from frontmatter as `heroImage: ./images/foo.png` (posts) or
-  `thumbnail: ./images/foo.png` (projects), or from the body as `![alt](./images/foo.png)`.
-- Use SVG when the figure is line-art / a chart you authored; PNG/JPG for screenshots
-  and bitmap figures.
-- **Animated GIFs bypass the image pipeline.** Drop them under
-  `public/projects-media/` (or `public/posts-media/`) and reference by absolute URL
-  in the body — `![alt](/projects-media/foo.gif)`. Astro's `image()` schema helper
-  optimizes still images and would strip GIF animation; staying outside the pipeline
-  preserves it. The click-to-expand script still wraps these in a link to the file.
-- **MP4 video is preferred over GIF when both exist** — typically 3-4× smaller for
-  the same content, much sharper. Same `public/` placement; embed with raw HTML
-  inside the markdown body (Astro passes it through):
-  ```html
-  <video autoplay loop muted playsinline controls>
-    <source src="/projects-media/foo.mp4" type="video/mp4">
+Each post or project is a *folder* — `src/content/posts/<slug>/index.md` (or
+`index.mdx`) — with its assets sitting right beside it, referenced by filename
+(no subdirectory). The folder name is the URL (`src/content/posts/<slug>/` →
+`/blog/<slug>`; `index` is stripped from the slug).
+
+- **Still images (SVG / PNG / JPG / WebP)** — drop the file in the entry's folder
+  and reference it from frontmatter as `heroImage: ./hero.svg` (posts) or
+  `thumbnail: ./hero.svg` (projects), or from the body as `![alt](./figure.svg)`.
+  These pass through Astro's optimizer (responsive `srcset`, WebP), which is why
+  they must live in the bundle (under `src/`). Use SVG for line-art / charts you
+  authored; PNG/JPG for screenshots and bitmap figures.
+- **MP4 video** — also lives in the entry's folder, but make the entry
+  `index.mdx` and `import` the file so Astro bundles it. A raw relative
+  `<source src="./foo.mp4">` is **not** processed and 404s — use an import:
+  ```mdx
+  import demo from './demo.mp4';
+
+  <video autoPlay loop muted playsInline controls>
+    <source src={demo} type="video/mp4" />
   </video>
   ```
-  The click-to-expand script targets `<img>` only, so videos use the browser's
-  native fullscreen control instead.
+- **Animated GIFs and downloads (PDF / ZIP)** — these must *not* go through the
+  image pipeline (it strips GIF animation), and shared downloads shouldn't be
+  duplicated per entry, so they live in **`public/resources/<topic>/`** and are
+  referenced by absolute URL: `![alt](/resources/<topic>/demo.gif)`,
+  `[PDF version](/resources/<topic>/paper.pdf)`. MP4 is preferred over GIF when
+  both exist — 3-4× smaller, sharper.
+
+The split rule: **if Astro can safely process it and it belongs to one entry, it
+goes in the bundle (`./file`); animated media and shared downloads go in
+`public/resources/<topic>/` (absolute URL).** The click-to-expand script targets
+`<img>` only, so videos use the browser's native fullscreen control instead.
 
 **Watch out:** Any image rendered *outside* `<article>` (cards on listing pages,
 nav, footer) is not auto-expanded. If you add a new component that wants the same

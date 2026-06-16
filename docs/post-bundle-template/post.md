@@ -7,7 +7,7 @@ title: 'TITLE HERE'
 description: One sentence that lands on the listing pages and in SEO. Keep under ~200 chars.
 pubDate: YYYY-MM-DD
 tags: [tag1, tag2]
-heroImage: ./images/hero.svg                # optional — leave commented if no hero
+heroImage: ./hero.svg                # optional — leave commented if no hero
 # updatedDate: YYYY-MM-DD                   # optional — only when materially revising after publish
 authorship: ai                              # ai | human — see BUILD.md
 relatedProjects: []                         # e.g. [soul-test-netflow]
@@ -24,7 +24,7 @@ tables, blockquotes, footnotes[^example] all work via GFM.
 
 Inline images:
 
-![alt text — explain what the figure shows, since some readers won't load it](./images/concept.svg)
+![alt text — explain what the figure shows, since some readers won't load it](./concept.svg)
 
 ## Closing
 

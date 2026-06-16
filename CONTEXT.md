@@ -25,7 +25,7 @@ workflow itself is documented in `AUTHORING.md`; this file holds the
   page type (decided 2026-06-12).
 - **Publications** — `src/data/publications.ts`, sourced from the CV *plus*
   self-published study reports (type `report`, venue "Self-published study
-  report", PDF hosted under `public/posts-media/`). Nothing on the page may
+  report", PDF hosted under `public/resources/<topic>/`). Nothing on the page may
   imply a refereed venue that doesn't exist.
 - **Superseded post** — when a newer post tells the same story better, the
   older one is dropped, not kept alongside (the unpublished

@@ -74,11 +74,13 @@ The lift agent will:
 
 - Read `BUILD.md` first.
 - Read each source markdown.
-- Copy assets into the correct destination (`src/content/posts/images/`
-  for stills, `public/posts-media/` for animated media + PDFs).
+- Copy assets into place: stills and per-entry video into the entry's
+  own bundle folder (`src/content/posts/<slug>/`), animated GIFs +
+  downloads (PDF/ZIP) into `public/resources/<topic>/`.
 - Generate any derived artifacts the BUILD.md asks for (a PDF via
   `pandoc paper.md --pdf-engine=xelatex`, an updated image record, etc.).
-- Write the post(s) into `src/content/posts/`.
+- Write the post(s) as `src/content/posts/<slug>/index.md` (or
+  `index.mdx` when the post embeds video).
 - Build and verify (footnotes, references, srcsets, click-to-expand
   script, PDF accessibility).
 - Surface the slugs it picked, ask for redirection if you want them
