@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" font-family="ui-sans-serif, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="dpBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eff6ff"/>
+      <stop offset="1" stop-color="#dbeafe"/>
+    </linearGradient>
+    <marker id="dpArr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <rect width="800" height="500" fill="url(#dpBg)"/>
+
+  <text x="400" y="86" font-size="17" font-weight="700" letter-spacing="3" fill="#3b82f6" text-anchor="middle">EXTERNAL DATA &#8594; ACTORS, AT RUNTIME</text>
+
+  <!-- source -->
+  <rect x="64" y="224" width="96" height="52" rx="13" fill="#ffffff" stroke="#3b82f6" stroke-width="3"/>
+  <text x="112" y="259" font-size="24" font-weight="700" fill="#1d4ed8" text-anchor="middle">{ }</text>
+  <text x="112" y="300" font-size="13" font-weight="700" letter-spacing="1" fill="#1d4ed8" text-anchor="middle">SOURCES</text>
+  <text x="112" y="320" font-size="12" fill="#60a5fa" text-anchor="middle">REST &#183; JSON &#183; CSV</text>
+  <path d="M 166 250 L 196 250" stroke="#2563eb" stroke-width="4" marker-end="url(#dpArr)"/>
+
+  <!-- pipeline: one bar, four stages -->
+  <rect x="202" y="208" width="400" height="84" rx="20" fill="#ffffff" stroke="#3b82f6" stroke-width="4"/>
+  <line x1="302" y1="214" x2="302" y2="286" stroke="#bfdbfe" stroke-width="2"/>
+  <line x1="402" y1="214" x2="402" y2="286" stroke="#bfdbfe" stroke-width="2"/>
+  <line x1="502" y1="214" x2="502" y2="286" stroke="#bfdbfe" stroke-width="2"/>
+  <text x="252" y="246" font-size="15" font-weight="700" fill="#1d4ed8" text-anchor="middle">FETCH</text>
+  <text x="352" y="246" font-size="15" font-weight="700" fill="#1d4ed8" text-anchor="middle">PARSE</text>
+  <text x="452" y="246" font-size="15" font-weight="700" fill="#1d4ed8" text-anchor="middle">MAP</text>
+  <text x="552" y="246" font-size="15" font-weight="700" fill="#1d4ed8" text-anchor="middle">UPDATE</text>
+  <g fill="#93c5fd">
+    <circle cx="252" cy="270" r="4"/>
+    <circle cx="352" cy="270" r="4"/>
+    <circle cx="452" cy="270" r="4"/>
+    <circle cx="552" cy="270" r="4"/>
+  </g>
+
+  <path d="M 604 250 L 642 250" stroke="#2563eb" stroke-width="4" marker-end="url(#dpArr)"/>
+
+  <!-- actor (isometric cube) -->
+  <g transform="translate(700,250)">
+    <polygon points="0,-30 30,-12 0,6 -30,-12" fill="#93c5fd"/>
+    <polygon points="-30,-12 0,6 0,40 -30,22" fill="#3b82f6"/>
+    <polygon points="30,-12 0,6 0,40 30,22" fill="#2563eb"/>
+  </g>
+  <text x="700" y="324" font-size="13" font-weight="700" letter-spacing="1" fill="#1d4ed8" text-anchor="middle">ACTORS</text>
+
+  <text x="400" y="432" font-size="14" font-weight="600" letter-spacing="2" fill="#60a5fa" text-anchor="middle">ONE COMPOSABLE PIPELINE &#183; C++ AND BLUEPRINT CONFIGURABLE</text>
+</svg>

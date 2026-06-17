@@ -4,6 +4,7 @@ summary: A modular Unreal Engine plugin for fetching, parsing, and routing exter
 date: 2026-06-04
 status: active
 tags: [unreal-engine, plugin, varsa, data-pipeline, http, json, real-time, ornl]
+thumbnail: ./thumb.svg
 repo: https://code.ornl.gov/varsa/unreal/plugins/DataPipeline
 authorship: human
 ---
