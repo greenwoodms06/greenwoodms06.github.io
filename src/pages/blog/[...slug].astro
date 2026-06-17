@@ -5,6 +5,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import AuthorshipBadge from '../../components/AuthorshipBadge.astro';
 import TableOfContents from '../../components/TableOfContents.astro';
+import PageViews from '../../components/PageViews.astro';
 import { displayTags, readingTime } from '../../lib/content';
 
 export async function getStaticPaths() {
@@ -55,6 +56,8 @@ const allTags = displayTags(post);
 					</span>
 				)
 			}
+			{' '}
+			<PageViews divider />
 		</p>
 		<AuthorshipBadge authorship={authorship} variant="note" />
 		{
