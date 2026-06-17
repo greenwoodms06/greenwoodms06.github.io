@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 600" width="820" height="600"
+     font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif"
+     role="img" aria-label="GoNoGo state flow: a per-condition state machine (Inactive to Pending to Satisfied, Failed, or Expired) feeds an evaluation pipeline (notify policy and time constraint, refresh locks, Evaluate) that sets the checklist's aggregate state (Inactive to InProgress to Resolved Go or Resolved No-Go).">
+  <rect width="820" height="600" fill="#ffffff"/>
+  <text x="410" y="34" text-anchor="middle" font-size="13" fill="#5f6368" letter-spacing="0.10em">ONE CONDITION CHANGE — FROM PENDING TO GO / NO-GO</text>
+
+  <defs>
+    <marker id="ah" markerWidth="11" markerHeight="11" refX="6" refY="3.2" orient="auto"><path d="M0,0 L7,3.2 L0,6.4 Z" fill="#5f6368"/></marker>
+    <marker id="ahg" markerWidth="11" markerHeight="11" refX="6" refY="3.2" orient="auto"><path d="M0,0 L7,3.2 L0,6.4 Z" fill="#34a853"/></marker>
+    <marker id="ahr" markerWidth="11" markerHeight="11" refX="6" refY="3.2" orient="auto"><path d="M0,0 L7,3.2 L0,6.4 Z" fill="#ea4335"/></marker>
+    <marker id="aha" markerWidth="11" markerHeight="11" refX="6" refY="3.2" orient="auto"><path d="M0,0 L7,3.2 L0,6.4 Z" fill="#f9ab00"/></marker>
+    <marker id="ahb" markerWidth="11" markerHeight="11" refX="6" refY="3.2" orient="auto"><path d="M0,0 L7,3.2 L0,6.4 Z" fill="#4285f4"/></marker>
+  </defs>
+
+  <!-- ===================== SECTION 1: condition state machine ===================== -->
+  <text x="40" y="72" font-size="12" font-weight="700" fill="#5f6368" letter-spacing="0.06em">1 · PER-CONDITION STATE MACHINE</text>
+
+  <!-- Inactive -->
+  <rect x="40" y="88" width="140" height="60" rx="12" fill="#f1f3f4" stroke="#5f6368" stroke-width="2"/>
+  <text x="110" y="116" text-anchor="middle" font-size="17" font-weight="700" fill="#202124">Inactive</text>
+  <text x="110" y="135" text-anchor="middle" font-size="11" fill="#5f6368">initial state</text>
+
+  <!-- Pending -->
+  <rect x="300" y="88" width="140" height="60" rx="12" fill="#f1f3f4" stroke="#5f6368" stroke-width="2"/>
+  <text x="370" y="116" text-anchor="middle" font-size="17" font-weight="700" fill="#202124">Pending</text>
+  <text x="370" y="135" text-anchor="middle" font-size="11" fill="#5f6368">awaiting resolution</text>
+
+  <!-- Locked badge under Pending -->
+  <line x1="370" y1="148" x2="370" y2="160" stroke="#5f6368" stroke-width="1.4" stroke-dasharray="3 3"/>
+  <rect x="296" y="160" width="148" height="24" rx="8" fill="#f1f3f4" stroke="#5f6368" stroke-width="1.4" stroke-dasharray="4 3"/>
+  <text x="370" y="176" text-anchor="middle" font-size="11" fill="#5f6368">Locked — held by policy</text>
+
+  <!-- Inactive -> Pending -->
+  <line x1="180" y1="118" x2="296" y2="118" stroke="#5f6368" stroke-width="2.4" marker-end="url(#ah)"/>
+  <text x="238" y="104" text-anchor="middle" font-size="11" fill="#5f6368">Activate()</text>
+  <text x="238" y="135" text-anchor="middle" font-size="10.5" fill="#5f6368">OnActivated()</text>
+
+  <!-- terminal pills -->
+  <rect x="600" y="70" width="180" height="46" rx="12" fill="#e6f4ea" stroke="#34a853" stroke-width="2"/>
+  <text x="690" y="98" text-anchor="middle" font-size="16" font-weight="700" fill="#137333">Satisfied</text>
+  <rect x="600" y="126" width="180" height="46" rx="12" fill="#fce8e6" stroke="#ea4335" stroke-width="2"/>
+  <text x="690" y="154" text-anchor="middle" font-size="16" font-weight="700" fill="#c5221f">Failed</text>
+  <rect x="600" y="182" width="180" height="46" rx="12" fill="#fef7e0" stroke="#f9ab00" stroke-width="2"/>
+  <text x="690" y="210" text-anchor="middle" font-size="16" font-weight="700" fill="#b06000">Expired</text>
+
+  <!-- Pending -> terminals (fan) -->
+  <line x1="440" y1="116" x2="600" y2="93"  stroke="#34a853" stroke-width="2.2" marker-end="url(#ahg)"/>
+  <line x1="440" y1="118" x2="600" y2="149" stroke="#ea4335" stroke-width="2.2" marker-end="url(#ahr)"/>
+  <line x1="440" y1="120" x2="600" y2="205" stroke="#f9ab00" stroke-width="2.2" marker-end="url(#aha)"/>
+  <text x="520" y="86" text-anchor="middle" font-size="10.5" fill="#137333">CanTransitionTo()</text>
+
+  <text x="690" y="246" text-anchor="middle" font-size="10.5" fill="#5f6368">terminal — only Reset() leaves</text>
+
+  <!-- Reset return -->
+  <path d="M690,228 V268 H110 V148" fill="none" stroke="#5f6368" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#ah)"/>
+  <text x="400" y="262" text-anchor="middle" font-size="11" fill="#5f6368">Reset() — replay to Inactive</text>
+
+  <!-- ===================== SECTION 2: evaluation pipeline ===================== -->
+  <text x="40" y="306" font-size="12" font-weight="700" fill="#5f6368" letter-spacing="0.06em">2 · EVERY ACCEPTED CHANGE RUNS THE EVALUATION PIPELINE</text>
+
+  <rect x="40" y="318" width="740" height="116" rx="12" fill="#e8f0fe" stroke="#4285f4" stroke-width="1.8"/>
+
+  <rect x="56" y="338" width="156" height="76" rx="10" fill="#ffffff" stroke="#4285f4" stroke-width="1.6"/>
+  <text x="134" y="364" text-anchor="middle" font-size="13" font-weight="700" fill="#1967d2">SetConditionState</text>
+  <text x="134" y="383" text-anchor="middle" font-size="10.5" fill="#5f6368">guards: initialized ·</text>
+  <text x="134" y="397" text-anchor="middle" font-size="10.5" fill="#5f6368">not final · exists · unlocked</text>
+
+  <rect x="244" y="338" width="156" height="76" rx="10" fill="#ffffff" stroke="#4285f4" stroke-width="1.6"/>
+  <text x="322" y="364" text-anchor="middle" font-size="13" font-weight="700" fill="#1967d2">TrySetState</text>
+  <text x="322" y="383" text-anchor="middle" font-size="10.5" fill="#5f6368">CanTransitionTo()</text>
+  <text x="322" y="397" text-anchor="middle" font-size="10.5" fill="#5f6368">→ fire delegate</text>
+
+  <rect x="432" y="338" width="156" height="76" rx="10" fill="#ffffff" stroke="#4285f4" stroke-width="1.6"/>
+  <text x="510" y="360" text-anchor="middle" font-size="13" font-weight="700" fill="#1967d2">Notify + Refresh</text>
+  <text x="510" y="378" text-anchor="middle" font-size="10.5" fill="#5f6368">policy &amp; time constraint ·</text>
+  <text x="510" y="392" text-anchor="middle" font-size="10.5" fill="#5f6368">broadcast · refresh locks</text>
+
+  <rect x="620" y="338" width="144" height="76" rx="10" fill="#ffffff" stroke="#4285f4" stroke-width="1.6"/>
+  <text x="692" y="360" text-anchor="middle" font-size="13" font-weight="700" fill="#1967d2">Evaluate()</text>
+  <text x="692" y="378" text-anchor="middle" font-size="10.5" fill="#5f6368">Policy.Evaluate()</text>
+  <text x="692" y="392" text-anchor="middle" font-size="10.5" fill="#5f6368">▸ TC.ValidateResolution()</text>
+
+  <line x1="212" y1="376" x2="244" y2="376" stroke="#4285f4" stroke-width="2.2" marker-end="url(#ahb)"/>
+  <line x1="400" y1="376" x2="432" y2="376" stroke="#4285f4" stroke-width="2.2" marker-end="url(#ahb)"/>
+  <line x1="588" y1="376" x2="620" y2="376" stroke="#4285f4" stroke-width="2.2" marker-end="url(#ahb)"/>
+
+  <!-- band -> aggregate -->
+  <path d="M370,434 V480" fill="none" stroke="#4285f4" stroke-width="2.2" marker-end="url(#ahb)"/>
+  <text x="378" y="462" text-anchor="start" font-size="11" fill="#1967d2">updates aggregate state</text>
+
+  <!-- ===================== SECTION 3: checklist aggregate state ===================== -->
+  <text x="40" y="476" font-size="12" font-weight="700" fill="#5f6368" letter-spacing="0.06em">3 · RESULTING CHECKLIST STATE</text>
+
+  <rect x="40" y="488" width="140" height="60" rx="12" fill="#f1f3f4" stroke="#5f6368" stroke-width="2"/>
+  <text x="110" y="516" text-anchor="middle" font-size="16" font-weight="700" fill="#202124">Inactive</text>
+  <text x="110" y="535" text-anchor="middle" font-size="11" fill="#5f6368">not initialized</text>
+
+  <rect x="300" y="488" width="140" height="60" rx="12" fill="#f1f3f4" stroke="#5f6368" stroke-width="2"/>
+  <text x="370" y="516" text-anchor="middle" font-size="16" font-weight="700" fill="#202124">InProgress</text>
+  <text x="370" y="535" text-anchor="middle" font-size="11" fill="#5f6368">being evaluated</text>
+
+  <rect x="600" y="486" width="180" height="46" rx="12" fill="#e6f4ea" stroke="#34a853" stroke-width="2"/>
+  <text x="690" y="514" text-anchor="middle" font-size="16" font-weight="700" fill="#137333">Resolved · Go</text>
+  <rect x="600" y="540" width="180" height="46" rx="12" fill="#fce8e6" stroke="#ea4335" stroke-width="2"/>
+  <text x="690" y="568" text-anchor="middle" font-size="16" font-weight="700" fill="#c5221f">Resolved · No-Go</text>
+
+  <line x1="180" y1="518" x2="296" y2="518" stroke="#5f6368" stroke-width="2.4" marker-end="url(#ah)"/>
+  <text x="238" y="510" text-anchor="middle" font-size="11" fill="#5f6368">initialize</text>
+
+  <line x1="440" y1="516" x2="600" y2="505" stroke="#34a853" stroke-width="2.2" marker-end="url(#ahg)"/>
+  <line x1="440" y1="520" x2="600" y2="557" stroke="#ea4335" stroke-width="2.2" marker-end="url(#ahr)"/>
+  <text x="524" y="498" text-anchor="middle" font-size="10.5" fill="#5f6368">fires OnResolved</text>
+</svg>

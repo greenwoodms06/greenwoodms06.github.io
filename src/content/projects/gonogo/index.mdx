@@ -29,6 +29,8 @@ those three axes cleanly so you don't have to.
 
 ## The architectural punchline — three composable axes
 
+![Three composable axes — Policy, Time Constraint, and Condition Type — each an independent choice feeding one checklist component](./axes.svg)
+
 | Axis | Options |
 |---|---|
 | **Policy** — how conditions combine | AllRequired · OrderedSequence (Forward/Reverse/Custom) · AnyNOfM · WeightedThreshold |
@@ -61,6 +63,17 @@ against.
   phantom IDs in custom orderings, and transitive cycles through nested
   DataAsset references. Invalid assets show red in the Content Browser
   before they break runtime.
+
+## How a checklist resolves
+
+Each entry is a little state machine — `Inactive → Pending → Satisfied /
+Failed / Expired` — and every accepted change runs the same evaluation
+pipeline: notify the policy and time constraint, refresh locks, then
+`Evaluate()` (the policy proposes a result, the time constraint gets to
+veto it). That single pipeline is what turns individual condition changes
+into the checklist's aggregate **Go / No-Go**.
+
+![GoNoGo state flow: a per-condition state machine feeds an evaluation pipeline that sets the checklist's aggregate Inactive / InProgress / Resolved-Go / Resolved-No-Go state](./state-flow.svg)
 
 ## The launch-demo
 
