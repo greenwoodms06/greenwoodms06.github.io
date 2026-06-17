@@ -3,6 +3,7 @@ import { defineConfig, fontProviders } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
+import remarkGfm from 'remark-gfm';
 
 // https://astro.build/config
 export default defineConfig({
@@ -31,6 +32,9 @@ export default defineConfig({
 		},
 	],
 	markdown: {
+		// Explicit so MDX inherits it too — Astro's built-in GFM applies to .md
+		// but isn't passed through to .mdx, which broke tables in .mdx entries.
+		remarkPlugins: [remarkGfm],
 		shikiConfig: {
 			themes: { light: 'github-light', dark: 'github-dark' },
 			wrap: true,
