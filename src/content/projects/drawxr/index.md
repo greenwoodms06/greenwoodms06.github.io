@@ -4,11 +4,10 @@ summary: A proof-of-concept Unreal Engine plugin for drawing in AR / VR / MR —
 date: 2026-06-04
 status: active
 tags: [unreal-engine, plugin, varsa, xr, vr, ar, mr, quest, metaxr, ornl]
+thumbnail: ./drawxr.png
 repo: https://code.ornl.gov/varsa/unreal/plugins/drawxr
 authorship: human
 ---
-
-![drawxr — the name written in XR](./drawxr.png)
 
 **What it is.** A proof-of-concept Unreal Engine plugin for drawing in
 **AR / VR / MR** — collectively "XR" — built and tested on the **Quest 3**
