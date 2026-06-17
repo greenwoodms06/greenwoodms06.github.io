@@ -8,7 +8,7 @@ repo: https://code.ornl.gov/varsa/unreal/plugins/DataPipeline
 authorship: human
 ---
 
-| ![datapipeline](/resources/datapipeline/splash.gif) | 
+| ![datapipeline](./splash.gif) | 
 |:--:| 
 |*Connect external data to actor logic using DataPipeline Plugin*|
 
