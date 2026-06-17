@@ -4,7 +4,13 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AuthorshipBadge from '../../components/AuthorshipBadge.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
-import { displayTags, isPublished, sortByDateDesc } from '../../lib/content';
+import TableOfContents from '../../components/TableOfContents.astro';
+import {
+	displayTags,
+	isPublished,
+	sortByDateDesc,
+	readingTime,
+} from '../../lib/content';
 
 export async function getStaticPaths() {
 	const projects = await getCollection('projects');
@@ -15,7 +21,8 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
-const { Content } = await render(project);
+const { Content, headings } = await render(project);
+const minutes = readingTime(project.body ?? '');
 const { title, summary, thumbnail, repo, demo, authorship, relatedPosts } =
 	project.data;
 const allTags = displayTags(project);
@@ -30,10 +37,13 @@ const writing = relatedPosts.length
 ---
 
 <BaseLayout title={title} description={summary} image={thumbnail}>
-	<article class="prose-measure mx-auto">
-		<a href="/projects" class="text-sm text-zinc-500 hover:text-accent"
-			>← projects</a
-		>
+	<div
+		class="mx-auto grid max-w-5xl grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_13rem]"
+	>
+		<article class="prose-measure mx-auto w-full min-w-0">
+			<a href="/projects" class="text-sm text-zinc-500 hover:text-accent"
+				>← projects</a
+			>
 		<h1 class="mt-2 text-3xl font-bold">{title}</h1>
 		<p class="mt-1 text-zinc-600 dark:text-zinc-400">{summary}</p>
 		{
@@ -126,5 +136,9 @@ const writing = relatedPosts.length
 				</div>
 			)
 		}
-	</article>
+		</article>
+		<aside class="hidden lg:block">
+			<TableOfContents headings={headings} minutes={minutes} />
+		</aside>
+	</div>
 </BaseLayout>

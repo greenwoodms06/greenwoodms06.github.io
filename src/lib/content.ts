@@ -1,5 +1,11 @@
 // Pure helpers for ordering and filtering content-collection entries.
 
+// Rough reading time in minutes from raw markdown body (~200 wpm), floored at 1.
+export function readingTime(body: string): number {
+	const words = body.trim().split(/\s+/).filter(Boolean).length;
+	return Math.max(1, Math.round(words / 200));
+}
+
 export function sortByDateDesc<T extends { data: Record<string, any> }>(
 	items: T[],
 	key: string,

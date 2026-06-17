@@ -29,6 +29,13 @@
 	max-width: 70ch;
 }
 
+/* Active table-of-contents link (set by scroll-spy). Compound selector beats
+   the Tailwind utilities on the link, so no !important needed. */
+.toc-link.is-active {
+	color: var(--color-accent);
+	border-color: var(--color-accent);
+}
+
 /*
   Shiki dual-theme: code blocks render with light vars by default; under .dark
   swap to the dark theme's variables. (Astro emits .astro-code with --shiki-* vars.)
