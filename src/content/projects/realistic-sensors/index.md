@@ -5,6 +5,7 @@ date: 2026-06-04
 status: active
 tags: [unreal-engine, plugin, varsa, sensors, simulation, synthetic-data, machine-learning, robotics, ornl]
 repo: https://code.ornl.gov/varsa/unreal/plugins/RealisticSensors
+thumbnail: ./data_fusion_turducken.png
 authorship: human
 ---
 
