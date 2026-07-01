@@ -8,7 +8,7 @@ title: 'On X, Y, and Z'
 description: One sentence — paper's headline claim in plain language.
 pubDate: YYYY-MM-DD
 tags: [tag1, position-paper]
-heroImage: ./images/hero.svg
+heroImage: ./hero.svg
 authorship: ai
 relatedProjects: []
 ---
@@ -16,7 +16,7 @@ relatedProjects: []
 > **Companion to:** [*SHORT TITLE*](/blog/SHORT-SLUG)
 > — the short essay version of this argument.
 >
-> **Download:** [PDF version](/posts-media/PAPER-SLUG.pdf)
+> **Download:** [PDF version](/resources/<topic>/PAPER-SLUG.pdf)
 > (typeset for offline / archival reading).
 
 **Abstract.** Two to four sentences. State the central claim, the
@@ -35,7 +35,7 @@ bottom.
 
 Use H3 for subsections under H2-numbered sections.
 
-![figure caption — concise, names the source](./images/figure.svg)
+![figure caption — concise, names the source](./figure.svg)
 
 ## 2. Next section
 

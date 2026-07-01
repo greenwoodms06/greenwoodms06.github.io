@@ -1,0 +1,38 @@
+---
+// Live per-page view count from GoatCounter's /counter endpoint for the current
+// path. Requires the visitor-counter endpoint to be enabled in GoatCounter site
+// settings ("Allow visitors to see pageview counts"). Stays hidden if the
+// endpoint is off or the page has no data yet, so it never shows a broken "—".
+interface Props {
+	// Render a leading " · " separator (for appending inside an existing meta line).
+	divider?: boolean;
+	class?: string;
+}
+const { divider = false, class: className } = Astro.props;
+---
+
+<span class:list={['goat-views', className]} hidden>
+	{divider && <span aria-hidden="true">· </span>}<span data-goat-count>—</span> views
+</span>
+
+<script is:inline>
+	(function () {
+		var el = document.querySelector('.goat-views');
+		if (!el) return;
+		var url =
+			'https://greenwoodms06.goatcounter.com/counter/' +
+			encodeURIComponent(location.pathname) +
+			'.json';
+		fetch(url)
+			.then(function (r) {
+				return r.ok ? r.json() : Promise.reject();
+			})
+			.then(function (j) {
+				el.querySelector('[data-goat-count]').textContent = j.count;
+				el.hidden = false;
+			})
+			.catch(function () {
+				/* endpoint disabled or no data yet — stay hidden */
+			});
+	})();
+</script>

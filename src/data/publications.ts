@@ -34,7 +34,7 @@ const raw: unknown[] = [
 		venue: 'Self-published study report',
 		year: 2026,
 		type: 'report',
-		pdf: '/posts-media/soul-ablation-study.pdf',
+		pdf: '/resources/soul-system/soul-ablation-study.pdf',
 		featured: false,
 	},
 	{
@@ -44,7 +44,7 @@ const raw: unknown[] = [
 		venue: 'Self-published study report',
 		year: 2026,
 		type: 'report',
-		pdf: '/posts-media/soul-what-survives.pdf',
+		pdf: '/resources/soul-system/soul-what-survives.pdf',
 		featured: false,
 	},
 	// ===== 2025 =====

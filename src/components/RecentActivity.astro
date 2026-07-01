@@ -1,0 +1,57 @@
+---
+// Homepage "Recently" strip: newest items across posts + projects, mixed.
+import FormattedDate from './FormattedDate.astro';
+
+export interface Activity {
+	kind: 'Project' | 'Essay' | 'Musing';
+	title: string;
+	href: string;
+	date: Date;
+}
+
+interface Props {
+	items: Activity[];
+}
+
+const { items } = Astro.props;
+const kindClass: Record<Activity['kind'], string> = {
+	Project: 'text-accent',
+	Essay: 'text-accent',
+	Musing: 'text-zinc-500',
+};
+---
+
+{
+	items.length > 0 && (
+		<section class="mt-10">
+			<h2 class="font-mono text-xs uppercase tracking-wide text-zinc-400">
+				Recently
+			</h2>
+			<ul class="mt-4 space-y-1">
+				{items.map((it) => (
+					<li>
+						<a
+							href={it.href}
+							class="group flex items-baseline gap-3 rounded-lg px-2 py-1.5 -mx-2 transition hover:bg-zinc-50 dark:hover:bg-zinc-900"
+						>
+							<span class="shrink-0 font-mono text-xs text-zinc-400">
+								<FormattedDate date={it.date} />
+							</span>
+							<span
+								class:list={[
+									'shrink-0 w-16 font-mono text-[0.65rem] uppercase tracking-wide',
+									kindClass[it.kind],
+								]}
+							>
+								{it.kind}
+							</span>
+							<span class="min-w-0 truncate font-medium group-hover:text-accent">
+								{it.title}
+							</span>
+						</a>
+					</li>
+				))}
+			</ul>
+		</section>
+	)
+}

@@ -51,7 +51,7 @@ Pick one and delete the others. The variant decides which source files are load-
 
 - [ ] **(A) Single post** — `post.md` only. The post stands alone. Use this for most things.
 - [ ] **(B) Short + long pair** — `post-short.md` (the discoverable narrative) + `paper.md` (the long-form companion). Use this when you have one argument worth two artifacts: a 1,000–1,500-word essay and a 2,500+ word deep-dive.
-- [ ] **(C) Project + post** — Body chose to publish this work as both a project page and a dated post. The post is the dated account; the project page (`/projects/<slug>`) is the evergreen artifact. This bundle produces the post; **if the project page doesn't already exist on the blog, the lift agent also authors it** from the project's repo `README` + `docs/`. Wire them both ways — post `relatedProjects: [slug]`, project `relatedPosts: [slug]` — and route project assets to the project side: stills to `src/content/projects/images/` (referenced `./images/…`), video / animated media to `public/projects-media/` (referenced `/projects-media/…`).
+- [ ] **(C) Project + post** — Body chose to publish this work as both a project page and a dated post. The post is the dated account; the project page (`/projects/<slug>`) is the evergreen artifact. This bundle produces the post; **if the project page doesn't already exist on the blog, the lift agent also authors it** from the project's repo `README` + `docs/`. Wire them both ways — post `relatedProjects: [slug]`, project `relatedPosts: [slug]` — and route project assets to the project's own bundle: stills + per-entry video into `src/content/projects/<slug>/` (referenced `./foo.svg`; video via MDX import), animated GIFs + downloads into `public/resources/<topic>/` (referenced `/resources/<topic>/…`).
 
 ## What to produce
 
@@ -59,7 +59,7 @@ Depending on the variant above:
 
 1. **A short post** — from `post.md` or `post-short.md`. General-interest, narrative, ~1,000–1,500 words. The discoverable artifact.
 2. **(Variant B only) A linked deep-dive** — from `paper.md`. arXiv-style position paper or long-form companion, ~2,500+ words, with references and (optional) appendix. The short post links to it via `/blog/<paper-slug>`.
-3. **(Variant B, optional) A PDF of the paper** — for download / archival. Generated via `pandoc paper.md --pdf-engine=xelatex`; lives in `public/posts-media/<paper-slug>.pdf`; linked from the paper post.
+3. **(Variant B, optional) A PDF of the paper** — for download / archival. Generated via `pandoc paper.md --pdf-engine=xelatex`; lives in `public/resources/<topic>/<paper-slug>.pdf`; linked from the paper post by absolute URL.
 4. **(Optional, later) A social teaser** — an ~800-word thread extracted from the post. Do NOT build this as a third page; it's promo copy.
 
 ## Source documents (in this folder)
@@ -79,7 +79,7 @@ Depending on the variant above:
 
 **To source** — see `assets/IMAGES.md` for full specs, suggested public-domain / CC sources, licenses, and alt text. Use only public-domain or properly-licensed images, and record the final source + license in `assets/IMAGES.md` before publishing.
 
-**Diagram sources** — `assets/diagrams.md` may contain Mermaid sources. This blog has no Mermaid integration today; render them to SVG (hand-author or `mmdc`) and drop the SVG into `assets/`. Match the existing palette in `src/content/posts/images/novelty-value.svg` for consistency.
+**Diagram sources** — `assets/diagrams.md` may contain Mermaid sources. This blog has no Mermaid integration today; render them to SVG (hand-author or `mmdc`) and drop the SVG into `assets/`. Match the existing palette in a published bundle (e.g. `src/content/posts/creativity-and-machines/novelty-value.svg`) for consistency.
 
 ### Suggested figure → section map
 
@@ -100,8 +100,8 @@ These are the recurring failure modes when adapting a bundle into the blog. If y
 2. **Keep every citation.** Don't drop footnotes (post) or `[n]` references (paper). If you restyle references to the site's format, preserve author / year / venue verbatim.
 3. **Preserve the per-document honesty stance.** A short post may keep corrections off-stage (sober narrative, no myth-dwelling); a paper may foreground them as a credibility feature. Don't swap these.
 4. **Don't invent new factual claims.** Everything load-bearing has been verified. New examples, statistics, or anecdotes you add are unverified and must be flagged or omitted.
-5. **Honor the §Images rule** in the blog's README. Source images ≥ 1800 px wide where possible; MP4 over GIF; animated media in `public/posts-media/` (not `src/content/posts/images/`).
-6. **Raw-HTML asset paths must be absolute.** Inside any raw HTML you write in Markdown (`<video>`, `<img>`, `<source>`, `poster=`), reference assets by their absolute `public/` URL (`/posts-media/…`) — the `./images/…` relative form is processed **only** by Markdown `![]()` and the `<Image>` component. In raw HTML it ships verbatim and resolves against the page URL, so `poster="./images/x.png"` builds to a dead `/blog/images/x.png`. A `<video>` needs no `poster`; `preload="metadata"` shows the first frame. (See `assets/README.md`.)
+5. **Honor the §Images rule** in the blog's README. Source images ≥ 1800 px wide where possible; MP4 over GIF; still images + per-entry video in the entry's bundle folder (`src/content/<coll>/<slug>/`), animated GIFs + downloads in `public/resources/<topic>/`.
+6. **Raw-HTML relative paths don't resolve — import bundle video in MDX.** A relative `./foo` is processed **only** by Markdown `![]()` and the `<Image>` component. Inside raw HTML (`<video>`, `<source>`, `<img>`, `poster=`) it ships verbatim and resolves against the page URL, so `<source src="./x.mp4">` builds to a dead link. To embed a bundle video, make the entry `index.mdx` and import it (`import demo from './demo.mp4'` → `<source src={demo} />`, with `autoPlay`/`playsInline` camelCase). Animated GIFs and downloads instead live in `public/resources/<topic>/` and are referenced by absolute URL. A `<video>` needs no `poster`; `preload="metadata"` shows the first frame. (See `assets/README.md`.)
 
 ## Open decisions for the human (resolve before publishing)
 

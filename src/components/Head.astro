@@ -50,3 +50,11 @@ const ogImage = new URL(ogImageSrc, Astro.site);
 <meta property="twitter:title" content={pageTitle} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={ogImage} />
+
+<!-- GoatCounter analytics (privacy-friendly, no cookies). is:inline keeps Astro
+     from bundling it so the data-attribute + async load stay intact. -->
+<script
+	is:inline
+	data-goatcounter="https://greenwoodms06.goatcounter.com/count"
+	async
+	src="//gc.zgo.at/count.js"></script>
