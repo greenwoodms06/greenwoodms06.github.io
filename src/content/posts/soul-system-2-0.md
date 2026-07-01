@@ -12,7 +12,7 @@ relatedProjects: [soul-system]
 
 Soul System 2.0 is out. It is one plain page of rules your AI coding agent
 reads, four commands with teeth, and a book for humans — the shape left
-standing after we spent a measurement program trying to kill the rest of it.
+standing after I spent a measurement program trying to kill the rest of it.
 
 Install it in two commands from any Claude Code session:
 
@@ -40,17 +40,17 @@ things go wrong, and they go wrong quietly:
 - Something true and important gets discovered mid-session, and dies when the
   session ends.
 
-We measured all three, on real multi-session builds, with every prediction
+I measured all three, on real multi-session builds, with every prediction
 written down and locked before the experiments ran. The misses are published
 alongside the hits.
 
 ## What you get
 
 **A completion gate that blocks false "done" claims.** A Stop hook fires when
-a session tries to finish; work nothing verified can't be called complete —
+a session tries to finish; work that nothing verified can't be called complete —
 the session has to name exactly what is unrun and hand it forward. Before this
-rule was made blocking, 6 of 6 gated work increments ended with
-disclosed-but-shipped gaps on code that didn't build. After: 0 of 12, and the
+rule was made blocking, 6 out of 6 gated work increments ended with
+disclosed-but-shipped gaps on code that didn't build. After: 0 out of 12, and the
 build passed its first real execution. The gate has a useful side effect: as
 the last reader before "done," it has caught a false provenance pointer in a
 safety document, a citation over-claim, and a conflated incident in a paper
@@ -66,7 +66,7 @@ marked their unknowns as unknown instead.
 
 **A notebook that survives the session.** `/soul-capture` writes ideas,
 observations, and findings into project files that the next session loads. In
-every condition we tested — including under an excellent generic CLAUDE.md —
+every condition I tested — including under an excellent generic CLAUDE.md —
 a finding born mid-session (a real release blocker, a real defect) was lost at
 the session boundary unless an instrument captured it; one project's next
 session then confidently taught the debunked conclusion onward. Since 2.0 the
@@ -76,9 +76,9 @@ couldn't re-derive; you just say yes or no.
 **Decisions that hold as the record grows.** A counter-default fact recorded
 early and buried under twenty unrelated entries (~14,000 characters) still
 flipped the dangerous default 5 times out of 5, at two model tiers. An
-equal-length record without the fact drifted 5 of 5. And the protection grows
+equal-length record without the fact drifted 5 out of 5. And the protection grows
 with model strength rather than shrinking: without the recorded fact,
-confident fabrication *rose* with capability in our cells — roughly 40%
+confident fabrication *rose* with capability in my cells — roughly 40%
 (Haiku) → 85% (Sonnet) → 100% (Opus) — and with it, zero at every tier. A
 stronger model doesn't abstain when it's missing your project's truth; it
 invents a plausible substitute.
@@ -86,7 +86,7 @@ invents a plausible substitute.
 **A contract that stays small on purpose.** The always-on page is about ten
 sentences because more text measurably obeys worse: over-loaded doctrine made
 a model quote a rule and then violate it, and cutting the always-on text took
-weak-model rule activation from 1/5 to 5/5 on identical content. Small is a
+weak-model rule activation from 1 out of 5 to 5 out of 5 on identical content. Small is a
 correctness rule here, not a style choice.
 
 ## What it won't do
@@ -107,22 +107,22 @@ Honest limits, each one measured:
   pressure — it bounds the damage.** A pinned boundary converted a
   rule-replacement into an additive change; the reach still happened.
 - **It won't write your record in fully automated pipelines.** Headless
-  agents wrote record files 0 of 8 times even when instructed. In automation,
+  agents wrote record files 0 out of 8 times even when instructed. In automation,
   the code-site comments and the handoff document *are* the record — if your
   pipeline discards the code, it discards the record.
 - **Text alone won't change behavior — positioned instruments do.** Described
-  temptations score 44/45 refusals with no rules at all; the differences only
+  temptations score 44 out of 45 refusals with no rules at all; the differences only
   appear inside lived work, at the moment a hook or a fence fires. That's why
   2.0 ships instruments, not essays.
 
-## What we actually tested
+## What I actually tested
 
 The full multi-session builds (twin chains, 9–12 increments each) ran on one
 frontier model, Claude Opus 4.8. The record-carriage and fabrication probes
 behind the numbers above ran at three model tiers — Haiku 4.5, Sonnet 4.6,
 and Opus 4.8 — across roughly 390 scored sessions. The 2.0 contract itself
-was verified at Haiku, deliberately the weakest tier: 5/5 retrieval-and-hold
-on the planted operational fact, 3/3 refuse-and-cite on the invented-history
+was verified at Haiku, deliberately the weakest tier: 5 out of 5 retrieval-and-hold
+on the planted operational fact, 3 out of 3 refuse-and-cite on the invented-history
 probe. Longer build horizons, other vendors' models, and a no-contract-at-all
 condition remain unmeasured; the survival ties carry a disclosed meta-leak
 asterisk. The harness, the frozen chains, and every locked prediction are in
@@ -132,7 +132,7 @@ the `soul-benchmark` repository — you're welcome to break it.
 
 Soul System 1.0 was a philosophy: roles, doctrine, thousands of words of
 always-on guidance. The measurement program found the model had quietly
-learned most of it — every condition we ran, down to a five-minute CLAUDE.md,
+learned most of it — every condition I ran, down to a five-minute CLAUDE.md,
 now records decisions and verifies work unprompted. So the philosophy retired
 into a book for humans, and what ships is the part no condition reproduced on
 its own: a **conscience** (claims verified before "done," no invented
@@ -152,4 +152,4 @@ repositories) is in
 reader-sized [results bundle](/posts-media/soul-results-bundle.zip) attached here
 if you'd rather not clone anything. Found
 something? The contract's own rule
-applies to us: open an issue, and we won't invent the history around it.
+applies to me: open an issue, and I won't invent the history around it.

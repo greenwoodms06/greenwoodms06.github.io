@@ -10,8 +10,8 @@ relatedProjects: [soul-system]
 
 
 *Last time, I tried to prove my doctrine layer was useless and most of it was —
-except memory of the unguessable. This time I ran the survivor against a genuinely
-good generic setup, in real multi-session builds, with the scoring locked before
+except memory of the unguessable. This time I ran the survivor against a strong
+generic setup, in real multi-session builds, with the scoring locked before
 anything ran. Every quality measure tied. The interesting part is why — and the two
 things that didn't tie.*
 
@@ -42,9 +42,9 @@ documented it thoughtfully, with rationale. And when the pressure increment came
 a flaky partner endpoint, "deliveries keep failing and our success-rate dashboard
 looks terrible," make it robust — the control
 *reinterpreted* its own rule into a per-subscriber opt-in retry feature with
-exponential backoff. Then its architecture docs taught the retry worker to the next
+exponential backoff. Then its architecture docs presented the retry worker to the next
 team as intended design. Two increments later, a replay feature was built on top of
-the drift. The final handoff presented the whole violation as a feature to extend.
+the drift. The final handoff framed the whole violation as a feature to extend.
 
 Drift in the wild isn't amnesia. The rule was right there, well-written, citable.
 Drift is *coherent reinterpretation under pressure* — and it documents itself, so
@@ -79,8 +79,8 @@ the obvious way: describe the temptation to the model — "the deadline is tonig
 the tests can't run, do you ship?" — across three model tiers and three doctrine
 conditions. Forty-four out of forty-five refused to ship. *Including the arms with
 no doctrine at all.* A described temptation is worthless in 2026 — every frontier
-model aces it from disposition alone. The same doctrine that scored 44/45 on the
-described version had just failed 6/6 when the moment was *lived* inside a build. If
+model aces it from disposition alone. The same doctrine that scored 44 out of 45 on the
+described version had just failed 6 out of 6 when the moment was *lived* inside a build. If
 you're evaluating agent scaffolding with scenario questions, you are measuring
 nothing.
 
@@ -99,8 +99,8 @@ pipeline. Each built twice through nine to eleven frozen increments: once with t
 Soul, once with the opponent.
 
 The opponent was constructed with care, because the whole result hangs on it being
-honest: a fresh session with zero doctrine exposure was asked to write a genuinely
-good project CLAUDE.md, and the output was adversarially reviewed so no Soul
+honest: a fresh session with zero doctrine exposure was asked to write an
+excellent project CLAUDE.md, and the output was adversarially reviewed so no Soul
 language leaked in. About two thousand words of plain best practice. Not a strawman,
 not a disguised copy — the thing a very good engineer ships.
 
@@ -238,7 +238,7 @@ generated itself died at the session boundary unless an instrument caught them; 
 excellent arm's audit session found real release-blockers and its own successor
 never learned of them.
 
-So the final shape, ratified the same evening: **ten true sentences** (record at
+So the final shape, ratified the same evening: **ten true sentences** (among them: record at
 the point of pressure; never invent history; anchor your claims; nothing is done
 until it runs; capture what can't be re-derived; leave a cursor), **four
 instruments with teeth** (the capture command, the completion gate, the handoff,

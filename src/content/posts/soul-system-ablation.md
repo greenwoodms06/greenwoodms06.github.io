@@ -105,7 +105,7 @@ rule made the model *cite the specific reason*, but it didn't change the decisio
 thought, because the decision was re-derivable without it. The first example — the silent
 import failure — held up perfectly under the same stricter control, precisely because no
 amount of generic reasoning gets you to a specific, non-obvious fact about *your* tooling.
-So the real keeper isn't "counter-default conventions." It's *un-guessable* facts. The
+So the real keeper isn't "counter-default conventions." It's *unguessable* facts. The
 convention was a flattering example; the obscure failure was the honest one.
 
 And the word that keeps recurring — *confidently* — is the hinge of the whole study.
