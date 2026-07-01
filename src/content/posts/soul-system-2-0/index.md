@@ -83,8 +83,8 @@ confident fabrication *rose* with capability in my cells — roughly 40%
 stronger model doesn't abstain when it's missing your project's truth; it
 invents a plausible substitute.
 
-**A contract that stays small on purpose.** The always-on page is about ten
-sentences because more text measurably obeys worse: over-loaded doctrine made
+**A contract that stays small on purpose.** The always-on page is kept
+deliberately short because more text measurably obeys worse: over-loaded doctrine made
 a model quote a rule and then violate it, and cutting the always-on text took
 weak-model rule activation from 1 out of 5 to 5 out of 5 on identical content. Small is a
 correctness rule here, not a style choice.
