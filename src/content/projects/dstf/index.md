@@ -6,13 +6,14 @@ status: active
 tags: [testing, simulation, modelica, fmu, julia, regression, dymola, python]
 thumbnail: ./pipeline.svg
 repo: https://github.com/ORNL-Modelica/DynamicSystemsTestingFramework
+featured: true
 authorship: human
 ---
 
 **What it is.** A Python framework for **regression and unit testing of
-time-dependent system behavior** (e.g., trajetorics, FMU output, Modelica, Julia-MTK/Dyad, or experimental data). It discovers tests, runs each through
+time-dependent system behavior** (e.g., trajectories, FMU output, Modelica, Julia-MTK/Dyad, or experimental data). It discovers tests, runs each through
 whichever backend owns the model, compares the result against versioned
-baselines within customizeable tolerances declare, and reports. 
+baselines within customizable tolerances, and reports.
 
 ![DSTF's six-layer pipeline: Source → Discovery → Backend → Dataset → Metric → MetricTree, with five simulator backends fanning out under the Backend layer.](./pipeline.svg)
 
@@ -33,7 +34,7 @@ A single `testing.json` is the entry point; the first `simulators` entry
 whose binary exists wins, so the same config travels across machines without
 per-OS forks.
 
-## Multi comparison modes, composed into a MetricTree
+## Six comparison modes, composed into a MetricTree
 
 You don't assert float-equality on a solver trajectory — you score it. DSTF
 ships several modes and composes them into a tree.
