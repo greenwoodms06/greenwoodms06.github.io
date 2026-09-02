@@ -11,6 +11,7 @@ import {
 	isPublished,
 	sortByDateDesc,
 	readingTime,
+	KIND_LABEL,
 } from '../../lib/content';
 
 export async function getStaticPaths() {
@@ -24,17 +25,17 @@ export async function getStaticPaths() {
 const { project } = Astro.props;
 const { Content, headings } = await render(project);
 const minutes = readingTime(project.body ?? '');
-const { title, summary, thumbnail, repo, demo, authorship, relatedPosts } =
-	project.data;
+const { title, summary, thumbnail, repo, demo, authorship } = project.data;
 const allTags = displayTags(project);
-const writing = relatedPosts.length
-	? sortByDateDesc(
-			(await getCollection('posts')).filter(
-				(p) => relatedPosts.includes(p.id) && isPublished(p),
-			),
-			'pubDate',
-		)
-	: [];
+// One-way wiring: posts name their projects; this list is derived, never typed.
+const writing = sortByDateDesc(
+	(await getCollection('posts')).filter(
+		(p) =>
+			isPublished(p) &&
+			p.data.relatedProjects.some((r) => r.id === project.id),
+	),
+	'pubDate',
+);
 ---
 
 <BaseLayout title={title} description={summary} image={thumbnail}>
@@ -46,7 +47,7 @@ const writing = relatedPosts.length
 				>← projects</a
 			>
 		<h1 class="mt-2 text-3xl font-bold">{title}</h1>
-		<p class="mt-1 text-zinc-600 dark:text-zinc-400">{summary}</p>
+		<p class="mt-1 text-zinc-600">{summary}</p>
 		{
 			(repo || demo) && (
 				<div class="mt-4 flex flex-wrap gap-3">
@@ -90,7 +91,7 @@ const writing = relatedPosts.length
 				/>
 			)
 		}
-		<div class="prose prose-zinc mt-8 max-w-none dark:prose-invert">
+		<div class="prose prose-zinc mt-8 max-w-none">
 			<Content />
 		</div>
 
@@ -113,7 +114,7 @@ const writing = relatedPosts.length
 		</script>
 		{
 			writing.length > 0 && (
-				<div class="mt-8 border-t border-zinc-200 pt-4 dark:border-zinc-800">
+				<div class="mt-8 border-t border-zinc-200 pt-4">
 					<h2 class="text-sm font-semibold text-zinc-500">Writing about this</h2>
 					<ul class="mt-2 space-y-3">
 						{writing.map((p) => (
@@ -126,10 +127,10 @@ const writing = relatedPosts.length
 										{p.data.title}
 									</a>
 									<span class="font-mono text-xs text-zinc-500">
-										<FormattedDate date={p.data.pubDate} /> · {p.data.kind}
+										<FormattedDate date={p.data.pubDate} /> · {KIND_LABEL[p.data.kind]}
 									</span>
 								</div>
-								<p class="mt-0.5 text-sm text-zinc-600 dark:text-zinc-400">
+								<p class="mt-0.5 text-sm text-zinc-600">
 									{p.data.description}
 								</p>
 							</li>

@@ -5,6 +5,7 @@ pubDate: 2026-06-05
 tags: [testing, simulation, modelica, fmu, julia, regression, dymola]
 heroImage: ./pipeline.svg
 authorship: human
+kind: devlog
 relatedProjects: [dstf]
 ---
 

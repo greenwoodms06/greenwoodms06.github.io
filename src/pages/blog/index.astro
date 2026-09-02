@@ -2,27 +2,35 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PostListItem from '../../components/PostListItem.astro';
-import { pinnedThenByDate, isPublished } from '../../lib/content';
+import {
+	pinnedThenByDate,
+	isPublished,
+	isWriting,
+	WRITING_KINDS,
+	KIND_LABEL,
+} from '../../lib/content';
 
+// Notes are timeline-only (see lib/content.ts); the index lists the rest.
 const posts = pinnedThenByDate(
-	(await getCollection('posts')).filter(isPublished),
+	(await getCollection('posts')).filter(
+		(p) => isPublished(p) && isWriting(p.data.kind),
+	),
 	'pubDate',
 );
 
 const chips = [
 	{ value: 'all', label: 'All' },
-	{ value: 'essay', label: 'Essays' },
-	{ value: 'musing', label: 'Musings' },
+	...WRITING_KINDS.map((k) => ({ value: k, label: `${KIND_LABEL[k]}s` })),
 ];
 ---
 
 <BaseLayout
 	title="Writing"
-	description="Essays and musings — the occasional rabbit hole."
+	description="Essays, devlogs, and how-tos — the occasional rabbit hole."
 >
 	<h1 class="text-2xl font-bold">Writing</h1>
-	<p class="mt-1 text-zinc-600 dark:text-zinc-400">
-		Essays and musings — the occasional rabbit hole.
+	<p class="mt-1 text-zinc-600">
+		Essays, devlogs, and how-tos — the occasional rabbit hole.
 	</p>
 
 	<div class="mt-5 flex gap-2" role="group" aria-label="Filter writing by kind">
@@ -32,7 +40,7 @@ const chips = [
 					type="button"
 					data-filter={c.value}
 					aria-pressed={c.value === 'all' ? 'true' : 'false'}
-					class="kind-chip rounded-full border border-zinc-300 px-3 py-1 text-sm transition hover:border-accent aria-pressed:border-accent aria-pressed:bg-accent aria-pressed:text-white dark:border-zinc-700"
+					class="kind-chip rounded-full border border-zinc-300 px-3 py-1 text-sm transition hover:border-accent aria-pressed:border-accent aria-pressed:bg-accent aria-pressed:text-white"
 				>
 					{c.label}
 				</button>

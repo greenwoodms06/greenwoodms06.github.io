@@ -1,5 +1,16 @@
 import { describe, it, expect } from 'vitest';
-import { sortByDateDesc, isPublished, displayTags, pinnedThenByDate, featuredAcross } from './content';
+import {
+	sortByDateDesc,
+	isPublished,
+	displayTags,
+	pinnedThenByDate,
+	featuredAcross,
+	groupByYear,
+	isWriting,
+	POST_KINDS,
+	KIND_LABEL,
+	type TimelineItem,
+} from './content';
 import { publications } from '../data/publications';
 
 describe('content helpers', () => {
@@ -106,11 +117,63 @@ describe('content helpers', () => {
 	});
 });
 
+describe('post kinds', () => {
+	it('every kind has a reader-facing label', () => {
+		for (const k of POST_KINDS) expect(typeof KIND_LABEL[k]).toBe('string');
+	});
+
+	it('notes are timeline-only; the other kinds are on the Writing index', () => {
+		expect(isWriting('note')).toBe(false);
+		expect(isWriting('how-to')).toBe(true);
+		expect(isWriting('devlog')).toBe(true);
+		expect(isWriting('essay')).toBe(true);
+	});
+});
+
+describe('groupByYear', () => {
+	const mk = (title: string, date: string, extra: Partial<TimelineItem> = {}): TimelineItem => ({
+		title,
+		href: '/x',
+		group: 'writing',
+		label: 'Essay',
+		date: new Date(date),
+		...extra,
+	});
+
+	it('orders years newest first', () => {
+		const out = groupByYear([mk('a', '2020-03-01'), mk('b', '2026-01-01')]);
+		expect(out.map((y) => y.year)).toEqual([2026, 2020]);
+	});
+
+	it('orders dated items newest first within a year', () => {
+		const out = groupByYear([mk('a', '2026-01-01'), mk('b', '2026-06-01')]);
+		expect(out[0].items.map((i) => i.title)).toEqual(['b', 'a']);
+	});
+
+	it('puts year-only items after dated ones, alphabetically', () => {
+		const out = groupByYear([
+			mk('zeta', '2026-01-01', { yearOnly: true }),
+			mk('alpha', '2026-01-01', { yearOnly: true }),
+			mk('dated', '2026-01-01'),
+		]);
+		expect(out[0].items.map((i) => i.title)).toEqual(['dated', 'alpha', 'zeta']);
+	});
+
+	it('does not mutate the input', () => {
+		const a = mk('a', '2020-01-01');
+		const b = mk('b', '2026-01-01');
+		const input = [a, b];
+		groupByYear(input);
+		expect(input[0]).toBe(a);
+	});
+});
+
 describe('publications data', () => {
 	const TYPES = [
 		'journal',
 		'conference',
 		'report',
+		'self-published',
 		'thesis',
 		'presentation',
 		'poster',
@@ -130,5 +193,20 @@ describe('publications data', () => {
 	it('every id is unique', () => {
 		const ids = publications.map((p) => p.id);
 		expect(new Set(ids).size).toBe(ids.length);
+	});
+
+	// Decision 2026-09-02: self-published, AI-assisted papers stay on the list but
+	// never share the "Report" type with institutional technical reports, and
+	// always carry the disclosure. This fails if either is undone.
+	it('self-published papers are typed as such and disclose AI assistance', () => {
+		const self = publications.filter((p) => p.venue?.startsWith('Self-published'));
+		expect(self.length).toBeGreaterThan(0);
+		for (const p of self) {
+			expect(p.type).toBe('self-published');
+			expect(p.aiAssisted).toBe(true);
+		}
+		for (const p of publications.filter((p) => p.type === 'report')) {
+			expect(p.venue?.startsWith('Self-published')).toBe(false);
+		}
 	});
 });

@@ -5,8 +5,8 @@ pubDate: 2026-05-21
 tags: [julia, modelingtoolkit, nuclear, thermal-hydraulics, benchmark, acausal-modeling]
 heroImage: ./perf-scaling.png
 authorship: ai
-relatedProjects:
-  - soul-test-netflow
+kind: devlog
+relatedProjects: [soul-test-netflow]
 ---
 
 **What it is.** The same fuel-pin → coolant-loop physics as the

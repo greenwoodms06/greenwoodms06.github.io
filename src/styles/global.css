@@ -1,9 +1,6 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 
-/* Class-based dark mode (toggled on <html>) instead of prefers-color-scheme. */
-@custom-variant dark (&:where(.dark, .dark *));
-
 @theme {
 	--color-accent: #f97316;
 	--color-accent-soft: #fdba74;
@@ -17,7 +14,8 @@
 		scroll-behavior: smooth;
 	}
 	body {
-		@apply bg-white text-zinc-800 antialiased dark:bg-zinc-950 dark:text-zinc-200;
+		@apply bg-white text-zinc-800 antialiased;
+		color-scheme: light;
 	}
 	code {
 		font-family: var(--font-mono);
@@ -36,15 +34,3 @@
 	border-color: var(--color-accent);
 }
 
-/*
-  Shiki dual-theme: code blocks render with light vars by default; under .dark
-  swap to the dark theme's variables. (Astro emits .astro-code with --shiki-* vars.)
-*/
-html.dark .astro-code,
-html.dark .astro-code span {
-	color: var(--shiki-dark) !important;
-	background-color: var(--shiki-dark-bg) !important;
-	font-style: var(--shiki-dark-font-style) !important;
-	font-weight: var(--shiki-dark-font-weight) !important;
-	text-decoration: var(--shiki-dark-text-decoration) !important;
-}

@@ -4,8 +4,9 @@ description: 'A step-by-step setup guide for building HoloLens 2 augmented-reali
 pubDate: 2022-05-06
 tags: [unreal-engine, how-to, hololens2, augmented-reality]
 draft: false
-relatedProjects: [unreal-engine-experiments]
+relatedProjects: []
 authorship: human
+kind: how-to
 ---
 
 This post provides a sequential list of things to do setup a project for the HoloLens 2 using Unreal Engine 4.27+.

@@ -6,6 +6,7 @@ tags: [meta]
 draft: false
 relatedProjects: []
 authorship: ai
+kind: note
 ---
 
 Side projects have a way of piling up. A LIDAR-to-3D-print pipeline here, a

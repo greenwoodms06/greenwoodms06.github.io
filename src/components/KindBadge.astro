@@ -1,19 +1,19 @@
 ---
-// Small pill marking a post as an Essay or a Musing. Musings get a subtler look.
+// Small pill marking a post's kind. Essays get the accent; the rest stay muted.
+import { KIND_LABEL, type PostKind } from '../lib/content';
 interface Props {
-	kind?: 'musing' | 'essay';
+	kind: PostKind;
 }
-const { kind = 'musing' } = Astro.props;
-const label = kind === 'essay' ? 'Essay' : 'Musing';
+const { kind } = Astro.props;
 const cls =
 	kind === 'essay'
-		? 'border-accent/40 bg-accent-soft/30 text-accent dark:bg-accent/10'
-		: 'border-zinc-300 text-zinc-500 dark:border-zinc-700 dark:text-zinc-400';
+		? 'border-accent/40 bg-accent-soft/30 text-accent'
+		: 'border-zinc-300 text-zinc-500';
 ---
 
 <span
 	class:list={[
 		'rounded border px-1.5 py-0.5 text-[0.65rem] font-medium uppercase tracking-wide',
 		cls,
-	]}>{label}</span
+	]}>{KIND_LABEL[kind]}</span
 >

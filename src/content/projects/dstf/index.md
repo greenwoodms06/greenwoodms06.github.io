@@ -6,7 +6,6 @@ status: active
 tags: [testing, simulation, modelica, fmu, julia, regression, dymola, python]
 thumbnail: ./pipeline.svg
 repo: https://github.com/ORNL-Modelica/DynamicSystemsTestingFramework
-relatedPosts: [dstf]
 authorship: human
 ---
 

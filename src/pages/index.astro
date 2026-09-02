@@ -1,29 +1,29 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-import PostListItem from '../components/PostListItem.astro';
-import RecentActivity from '../components/RecentActivity.astro';
-import type { Activity } from '../components/RecentActivity.astro';
-import { pinnedThenByDate, isPublished, featuredAcross } from '../lib/content';
-import { publications } from '../data/publications';
+import Timeline from '../components/Timeline.astro';
+import {
+	isPublished,
+	featuredAcross,
+	groupByYear,
+	KIND_LABEL,
+	type TimelineItem,
+} from '../lib/content';
+import { publications, PUBLICATION_TYPE_LABEL } from '../data/publications';
 import { SITE_TITLE, SITE_TAGLINE } from '../consts';
 
 const allProjects = await getCollection('projects');
 const allPosts = (await getCollection('posts')).filter(isPublished);
+const allGallery = await getCollection('gallery');
 
-const projects = pinnedThenByDate(allProjects, 'date').slice(0, 6);
-const posts = pinnedThenByDate(allPosts, 'pubDate').slice(0, 5);
-
-// Normalize each source to a common Highlight shape, then keep the featured ones.
+// Highlights: featured items, mixed round-robin across sources.
 type Highlight = {
-	kind: 'Project' | 'Essay' | 'Musing' | 'Publication';
+	kind: string;
 	title: string;
 	href: string;
 	blurb: string;
 	featured: boolean;
 };
-
 const projectHl: Highlight[] = allProjects.map((p) => ({
 	kind: 'Project',
 	title: p.data.title,
@@ -32,48 +32,68 @@ const projectHl: Highlight[] = allProjects.map((p) => ({
 	featured: p.data.featured === true,
 }));
 const postHl: Highlight[] = allPosts.map((p) => ({
-	kind: p.data.kind === 'essay' ? 'Essay' : 'Musing',
+	kind: KIND_LABEL[p.data.kind],
 	title: p.data.title,
 	href: `/blog/${p.id}`,
-	blurb: p.data.description,
+	blurb: p.data.description ?? '',
 	featured: p.data.featured === true,
 }));
 const pubHl: Highlight[] = publications.map((p) => ({
-	kind: 'Publication',
+	kind: PUBLICATION_TYPE_LABEL[p.type],
 	title: p.title,
-	href: p.url ?? '/publications',
-	blurb: `${p.venue}, ${p.year}`,
+	href: `/publications#${p.id}`,
+	blurb: [p.venue, p.year].filter(Boolean).join(', '),
 	featured: p.featured === true,
 }));
-
 const highlights = featuredAcross(projectHl, postHl, pubHl).slice(0, 6);
 
-// Recently: newest items across posts + projects (prefers updatedDate), mixed.
-const recent: Activity[] = [
+// The ledger: one entry per thing, on its original date (not updatedDate —
+// this is a history, and revisions are visible on the thing itself).
+const items: TimelineItem[] = [
 	...allPosts.map((p) => ({
-		kind: (p.data.kind === 'essay' ? 'Essay' : 'Musing') as Activity['kind'],
 		title: p.data.title,
 		href: `/blog/${p.id}`,
-		date: new Date(p.data.updatedDate ?? p.data.pubDate),
+		group: 'writing' as const,
+		label: KIND_LABEL[p.data.kind],
+		date: p.data.pubDate,
 	})),
 	...allProjects.map((p) => ({
-		kind: 'Project' as Activity['kind'],
 		title: p.data.title,
 		href: `/projects/${p.id}`,
-		date: new Date(p.data.updatedDate ?? p.data.date),
+		group: 'projects' as const,
+		label: 'Project',
+		date: p.data.date,
 	})),
-]
-	.sort((a, b) => +b.date - +a.date)
-	.slice(0, 5);
+	...publications.map((p) => ({
+		title: p.title,
+		href: `/publications#${p.id}`,
+		group: 'publications' as const,
+		label: PUBLICATION_TYPE_LABEL[p.type],
+		date: new Date(Date.UTC(p.year, 0, 1)),
+		yearOnly: true,
+	})),
+	...allGallery.map((g) => ({
+		title: g.data.title,
+		href: g.data.href,
+		group: 'gallery' as const,
+		label: g.data.source,
+		date: g.data.date,
+		external: true,
+	})),
+];
+const years = groupByYear(items);
 ---
 
 <BaseLayout>
 	<section class="py-6">
 		<h1 class="text-4xl font-bold tracking-tight sm:text-5xl">{SITE_TITLE}</h1>
-		<p class="mt-3 text-lg text-zinc-600 dark:text-zinc-400">{SITE_TAGLINE}</p>
+		<p class="mt-3 text-lg text-zinc-600">{SITE_TAGLINE}</p>
+		<p class="mt-3 max-w-prose text-zinc-600">
+			A running history of what I've built, written, and published — nuclear
+			simulation, graphics, Unreal Engine, and the occasional rabbit hole.
+			<a href="/about" class="text-accent hover:underline">About me</a>.
+		</p>
 	</section>
-
-	<RecentActivity items={recent} />
 
 	{
 		highlights.length > 0 && (
@@ -83,13 +103,13 @@ const recent: Activity[] = [
 					{highlights.map((h) => (
 						<a
 							href={h.href}
-							class="group flex flex-col rounded-xl border border-zinc-200 p-4 transition hover:-translate-y-1 hover:border-accent hover:shadow-lg dark:border-zinc-800"
+							class="group flex flex-col rounded-xl border border-zinc-200 p-4 transition hover:border-accent"
 						>
 							<span class="text-[0.65rem] font-medium uppercase tracking-wide text-accent">
 								{h.kind}
 							</span>
 							<h3 class="mt-1 font-semibold group-hover:text-accent">{h.title}</h3>
-							<p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">{h.blurb}</p>
+							<p class="mt-1 text-sm text-zinc-600">{h.blurb}</p>
 						</a>
 					))}
 				</div>
@@ -97,41 +117,5 @@ const recent: Activity[] = [
 		)
 	}
 
-	<section class="mt-12">
-		<div class="flex items-baseline justify-between">
-			<h2 class="text-xl font-bold">Latest writing</h2>
-			<a href="/blog" class="text-sm hover:text-accent">all posts →</a>
-		</div>
-		{
-			posts.length > 0 ? (
-				<div class="mt-2">
-					{posts.map((p) => (
-						<PostListItem post={p} />
-					))}
-				</div>
-			) : (
-				<p class="mt-4 text-sm text-zinc-500">Nothing written yet.</p>
-			)
-		}
-	</section>
-
-	<section class="mt-12">
-		<div class="flex items-baseline justify-between">
-			<h2 class="text-xl font-bold">Projects</h2>
-			<a href="/projects" class="text-sm hover:text-accent">all projects →</a>
-		</div>
-		{
-			projects.length > 0 ? (
-				<div class="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-					{projects.map((p) => (
-						<ProjectCard project={p} />
-					))}
-				</div>
-			) : (
-				<p class="mt-4 text-sm text-zinc-500">
-					No featured projects yet — check back soon.
-				</p>
-			)
-		}
-	</section>
+	<Timeline years={years} />
 </BaseLayout>

@@ -13,7 +13,7 @@ export async function GET(context) {
 			.sort((a, b) => +new Date(b.data.pubDate) - +new Date(a.data.pubDate))
 			.map((post) => ({
 				title: post.data.title,
-				description: post.data.description,
+				description: post.data.description ?? post.data.title,
 				pubDate: post.data.pubDate,
 				link: `/blog/${post.id}/`,
 				categories: displayTags(post),

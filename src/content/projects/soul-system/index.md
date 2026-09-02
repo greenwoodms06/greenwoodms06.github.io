@@ -8,7 +8,6 @@ tags: [ai, human-ai-collaboration, methodology, claude-code, philosophy]
 thumbnail: ./layers.svg
 repo: https://github.com/soul-system-works/Soul-System
 authorship: human
-relatedPosts: [soul-system-ablation, soul-system-efficacy, soul-system-2-0]
 ---
 
 **What it is.** The Soul System is a living philosophy and operational framework

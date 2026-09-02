@@ -1,13 +1,17 @@
 ---
+import { getCollection } from 'astro:content';
 import { SITE_TITLE, NAV, SOCIALS } from '../consts';
-import ThemeToggle from './ThemeToggle.astro';
 
+// Gallery appears in the nav only once it has something in it.
+const nav = (await getCollection('gallery')).length
+	? [...NAV.slice(0, 3), { href: '/gallery', label: 'Gallery' }, ...NAV.slice(3)]
+	: [...NAV];
 const here = Astro.url.pathname;
 const isActive = (href: string) =>
 	href === '/' ? here === '/' : here.startsWith(href);
 ---
 
-<header class="border-b border-zinc-200 dark:border-zinc-800">
+<header class="border-b border-zinc-200">
 	<div class="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
 		<a
 			href="/"
@@ -16,7 +20,7 @@ const isActive = (href: string) =>
 		>
 		<nav class="flex items-center gap-4 text-sm">
 			{
-				NAV.map((n) => (
+				nav.map((n) => (
 					<a
 						href={n.href}
 						class:list={[
@@ -29,7 +33,6 @@ const isActive = (href: string) =>
 				))
 			}
 			<a href={SOCIALS.github} class="hover:text-accent">GitHub</a>
-			<ThemeToggle />
 		</nav>
 	</div>
 </header>

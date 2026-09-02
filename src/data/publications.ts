@@ -12,6 +12,8 @@ const publicationSchema = z.object({
 		'journal',
 		'conference',
 		'report',
+		// Self-published, not refereed; distinct from institutional 'report'.
+		'self-published',
 		'thesis',
 		'presentation',
 		'poster',
@@ -21,9 +23,36 @@ const publicationSchema = z.object({
 	url: z.string().url().optional(),
 	pdf: z.string().optional(),
 	featured: z.boolean().default(false),
+	// Reader-facing disclosure, same meaning as `authorship: ai` on posts.
+	aiAssisted: z.boolean().default(false),
 });
 
 export type Publication = z.infer<typeof publicationSchema>;
+
+// Canonical type order and reader-facing labels, shared by the Publications
+// page, its rows, and the home timeline.
+export const PUBLICATION_TYPE_ORDER: Publication['type'][] = [
+	'journal',
+	'conference',
+	'report',
+	'self-published',
+	'thesis',
+	'presentation',
+	'poster',
+	'media',
+	'patent',
+];
+export const PUBLICATION_TYPE_LABEL: Record<Publication['type'], string> = {
+	journal: 'Journal',
+	conference: 'Conference',
+	report: 'Report',
+	'self-published': 'Self-published',
+	thesis: 'Thesis',
+	presentation: 'Presentation',
+	poster: 'Poster',
+	media: 'Media',
+	patent: 'Patent',
+};
 
 const raw: unknown[] = [
 	// ===== 2026 =====
@@ -33,9 +62,10 @@ const raw: unknown[] = [
 		authors: 'S. Greenwood',
 		venue: 'Self-published study report',
 		year: 2026,
-		type: 'report',
+		type: 'self-published',
 		pdf: '/resources/soul-system/soul-ablation-study.pdf',
 		featured: false,
+		aiAssisted: true,
 	},
 	{
 		id: 'greenwood-soul-what-survives-2026',
@@ -43,9 +73,10 @@ const raw: unknown[] = [
 		authors: 'S. Greenwood',
 		venue: 'Self-published study report',
 		year: 2026,
-		type: 'report',
+		type: 'self-published',
 		pdf: '/resources/soul-system/soul-what-survives.pdf',
 		featured: false,
+		aiAssisted: true,
 	},
 	// ===== 2025 =====
 	{

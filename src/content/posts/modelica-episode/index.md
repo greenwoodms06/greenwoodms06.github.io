@@ -5,8 +5,8 @@ pubDate: 2026-05-26
 tags: [modelica, dymola, nuclear, thermal-hydraulics, benchmark, acausal-modeling]
 heroImage: ./unfreeze-headline.png
 authorship: ai
-relatedProjects:
-  - soul-test-netflow
+kind: devlog
+relatedProjects: [soul-test-netflow]
 ---
 
 **What it is.** The same fuel-pin → coolant-loop physics as the

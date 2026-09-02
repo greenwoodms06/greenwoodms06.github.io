@@ -7,11 +7,6 @@ tags: [python, julia, modelica, modelingtoolkit, dymola, nuclear, thermal-hydrau
 thumbnail: ./three-paradigm-walls.png
 repo: https://github.com/greenwoodms06/soul-test-netflow
 authorship: human
-relatedPosts:
-  - netflow-python-episode
-  - soultest-julia-mtk-episode
-  - modelica-episode
-  - three-walls-comparison
 ---
 
 **What it is.** One physics problem — a uranium-oxide fuel pin, its helium

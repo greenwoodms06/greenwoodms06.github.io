@@ -4,7 +4,7 @@ description: Soul System 2.0 is out — one plain page of rules your AI coding a
 pubDate: 2026-06-12
 tags: [ai, human-ai-collaboration, methodology, claude-code]
 authorship: ai
-kind: essay
+kind: devlog
 featured: true
 relatedProjects: [soul-system]
 ---

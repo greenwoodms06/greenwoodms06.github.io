@@ -6,7 +6,6 @@ tags: [nuclear, thermal-hydraulics, matlab, python, excel]
 thumbnail: ./boiling-curve.svg
 repo: https://github.com/greenwoodms06/2006_Groeneveld_CriticalHeatFlux_LUT
 authorship: human
-relatedPosts: []
 ---
 
 **What it is.** A multi-language implementation of the 2006 Groeneveld Critical Heat Flux (CHF) lookup table — the standard tabulated reference for predicting

@@ -36,7 +36,7 @@ export default defineConfig({
 		// but isn't passed through to .mdx, which broke tables in .mdx entries.
 		remarkPlugins: [remarkGfm],
 		shikiConfig: {
-			themes: { light: 'github-light', dark: 'github-dark' },
+			theme: 'github-light',
 			wrap: true,
 		},
 	},

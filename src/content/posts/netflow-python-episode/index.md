@@ -5,8 +5,8 @@ pubDate: 2026-05-21
 tags: [python, nuclear, thermal-hydraulics, numerical-solver, scipy]
 heroImage: ./rosetta.png
 authorship: ai
-relatedProjects:
-  - soul-test-netflow
+kind: devlog
+relatedProjects: [soul-test-netflow]
 ---
 
 **What it is.** A general-purpose solver for one shape of physics problem: a

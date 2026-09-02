@@ -6,8 +6,7 @@ tags: [python, julia, modelica, modelingtoolkit, dymola, nuclear, thermal-hydrau
 heroImage: ./three-paradigm-walls.png
 authorship: human
 kind: essay
-relatedProjects:
-  - soul-test-netflow
+relatedProjects: [soul-test-netflow]
 ---
 
 **The claim.** Same physics, three machines, three walls — and the walls
