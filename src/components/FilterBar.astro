@@ -1,0 +1,62 @@
+---
+// Plain-text filter row. Buttons carry `data-filter`; items under `target`
+// carry `attr` (e.g. data-group); `groups` (optional) are containers hidden
+// when none of their items remain visible (year sections).
+interface Chip {
+	value: string;
+	label: string;
+}
+interface Props {
+	chips: Chip[];
+	target: string;
+	attr: string;
+	groups?: string;
+	label: string;
+}
+const { chips, target, attr, groups, label } = Astro.props;
+---
+
+<div
+	class="filterbar flex flex-wrap gap-x-5 gap-y-1 font-sans text-sm text-muted"
+	role="group"
+	aria-label={label}
+	data-target={target}
+	data-attr={attr}
+	data-groups={groups}
+>
+	{
+		chips.map((c) => (
+			<button
+				type="button"
+				data-filter={c.value}
+				aria-pressed={c.value === 'all' ? 'true' : 'false'}
+				class="border-b-2 border-transparent pb-0.5 transition hover:text-accent aria-pressed:border-accent aria-pressed:font-semibold aria-pressed:text-accent"
+			>
+				{c.label}
+			</button>
+		))
+	}
+</div>
+
+<script>
+	document.querySelectorAll<HTMLElement>('.filterbar').forEach((bar) => {
+		const { target, attr, groups } = bar.dataset;
+		if (!target || !attr) return;
+		const chips = bar.querySelectorAll<HTMLButtonElement>('[data-filter]');
+		const items = document.querySelectorAll<HTMLElement>(target);
+		chips.forEach((chip) => {
+			chip.addEventListener('click', () => {
+				const want = chip.dataset.filter;
+				chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
+				items.forEach((el) => {
+					el.classList.toggle('hidden', !(want === 'all' || el.getAttribute(attr) === want));
+				});
+				if (groups) {
+					document.querySelectorAll<HTMLElement>(groups).forEach((g) => {
+						g.classList.toggle('hidden', !g.querySelector(`${target}:not(.hidden)`));
+					});
+				}
+			});
+		});
+	});
+</script>

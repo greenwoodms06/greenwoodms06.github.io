@@ -1,51 +1,26 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
 import Timeline from '../components/Timeline.astro';
 import {
 	isPublished,
-	featuredAcross,
+	pinnedThenByDate,
 	groupByYear,
 	KIND_LABEL,
 	type TimelineItem,
 } from '../lib/content';
 import { publications, PUBLICATION_TYPE_LABEL } from '../data/publications';
-import { SITE_TITLE, SITE_TAGLINE } from '../consts';
 
 const allProjects = await getCollection('projects');
 const allPosts = (await getCollection('posts')).filter(isPublished);
 const allGallery = await getCollection('gallery');
 
-// Highlights: featured items, mixed round-robin across sources.
-type Highlight = {
-	kind: string;
-	title: string;
-	href: string;
-	blurb: string;
-	featured: boolean;
-};
-const projectHl: Highlight[] = allProjects.map((p) => ({
-	kind: 'Project',
-	title: p.data.title,
-	href: `/projects/${p.id}`,
-	blurb: p.data.summary,
-	featured: p.data.featured === true,
-}));
-const postHl: Highlight[] = allPosts.map((p) => ({
-	kind: KIND_LABEL[p.data.kind],
-	title: p.data.title,
-	href: `/blog/${p.id}`,
-	blurb: p.data.description ?? '',
-	featured: p.data.featured === true,
-}));
-const pubHl: Highlight[] = publications.map((p) => ({
-	kind: PUBLICATION_TYPE_LABEL[p.type],
-	title: p.title,
-	href: `/publications#${p.id}`,
-	blurb: [p.venue, p.year].filter(Boolean).join(', '),
-	featured: p.featured === true,
-}));
-const highlights = featuredAcross(projectHl, postHl, pubHl).slice(0, 6);
+// Pinned projects: the only images on the home page.
+const pinned = pinnedThenByDate(
+	allProjects.filter((p) => p.data.featured),
+	'date',
+).slice(0, 4);
 
 // The ledger: one entry per thing, on its original date (not updatedDate —
 // this is a history, and revisions are visible on the thing itself).
@@ -85,32 +60,20 @@ const years = groupByYear(items);
 ---
 
 <BaseLayout>
-	<section class="py-6">
-		<h1 class="text-4xl font-bold tracking-tight sm:text-5xl">{SITE_TITLE}</h1>
-		<p class="mt-3 text-lg text-zinc-600">{SITE_TAGLINE}</p>
-		<p class="mt-3 max-w-prose text-zinc-600">
-			A running history of what I've built, written, and published — nuclear
-			simulation, graphics, Unreal Engine, and the occasional rabbit hole.
-			<a href="/about" class="text-accent hover:underline">About me</a>.
-		</p>
-	</section>
+	<h1 class="sr-only">On… — a running history of what Scott Greenwood has built, written, and published</h1>
+	<p class="max-w-[640px] text-[19px] leading-relaxed">
+		A running history of what I've built, written, and published — nuclear
+		simulation, graphics, Unreal Engine, and the occasional rabbit hole.
+		<a href="/about" class="text-accent underline decoration-accent-soft underline-offset-4 hover:decoration-accent">About me</a>.
+	</p>
 
 	{
-		highlights.length > 0 && (
-			<section class="mt-6">
-				<h2 class="text-xl font-bold">Highlights</h2>
-				<div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-					{highlights.map((h) => (
-						<a
-							href={h.href}
-							class="group flex flex-col rounded-xl border border-zinc-200 p-4 transition hover:border-accent"
-						>
-							<span class="text-[0.65rem] font-medium uppercase tracking-wide text-accent">
-								{h.kind}
-							</span>
-							<h3 class="mt-1 font-semibold group-hover:text-accent">{h.title}</h3>
-							<p class="mt-1 text-sm text-zinc-600">{h.blurb}</p>
-						</a>
+		pinned.length > 0 && (
+			<section class="mt-10">
+				<h2 class="font-sans text-xs font-semibold uppercase tracking-wider text-muted">Pinned projects</h2>
+				<div class="mt-3 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+					{pinned.map((p) => (
+						<ProjectCard project={p} />
 					))}
 				</div>
 			</section>

@@ -4,7 +4,6 @@ import {
 	isPublished,
 	displayTags,
 	pinnedThenByDate,
-	featuredAcross,
 	groupByYear,
 	isWriting,
 	POST_KINDS,
@@ -87,34 +86,6 @@ describe('content helpers', () => {
 		});
 	});
 
-	describe('featuredAcross', () => {
-		it('flattens groups and keeps only featured===true', () => {
-			const projects = [{ featured: true, title: 'P' }, { featured: false, title: 'Q' }];
-			const pubs = [{ featured: true, title: 'R' }];
-			expect(featuredAcross(projects, pubs).map((i) => i.title)).toEqual(['P', 'R']);
-		});
-
-		it('returns an empty array when nothing is featured', () => {
-			expect(featuredAcross([{ featured: false }], [{ featured: false }])).toEqual([]);
-		});
-
-		it('interleaves featured items round-robin so no source starves', () => {
-			const a = [
-				{ featured: true, id: 'a1' },
-				{ featured: true, id: 'a2' },
-				{ featured: true, id: 'a3' },
-			];
-			const b = [{ featured: true, id: 'b1' }];
-			const c = [{ featured: true, id: 'c1' }];
-			expect(featuredAcross(a, b, c).map((i) => i.id)).toEqual([
-				'a1',
-				'b1',
-				'c1',
-				'a2',
-				'a3',
-			]);
-		});
-	});
 });
 
 describe('post kinds', () => {

@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PostListItem from '../../components/PostListItem.astro';
+import FilterBar from '../../components/FilterBar.astro';
 import {
 	pinnedThenByDate,
 	isPublished,
@@ -28,44 +29,14 @@ const chips = [
 	title="Writing"
 	description="Essays, devlogs, and how-tos — the occasional rabbit hole."
 >
-	<h1 class="text-2xl font-bold">Writing</h1>
-	<p class="mt-1 text-zinc-600">
+	<h1 class="text-3xl font-semibold">Writing</h1>
+	<p class="mt-1 font-sans text-[15px] text-muted">
 		Essays, devlogs, and how-tos — the occasional rabbit hole.
 	</p>
-
-	<div class="mt-5 flex gap-2" role="group" aria-label="Filter writing by kind">
-		{
-			chips.map((c) => (
-				<button
-					type="button"
-					data-filter={c.value}
-					aria-pressed={c.value === 'all' ? 'true' : 'false'}
-					class="kind-chip rounded-full border border-zinc-300 px-3 py-1 text-sm transition hover:border-accent aria-pressed:border-accent aria-pressed:bg-accent aria-pressed:text-white"
-				>
-					{c.label}
-				</button>
-			))
-		}
+	<div class="mt-6 border-b border-rule pb-2.5">
+		<FilterBar chips={chips} target="#writing-list [data-kind]" attr="data-kind" label="Filter writing by kind" />
 	</div>
-
-	<div class="mt-4" id="writing-list">
+	<div class="mt-2" id="writing-list">
 		{posts.map((p) => <PostListItem post={p} />)}
 	</div>
 </BaseLayout>
-
-<script>
-	const chips = document.querySelectorAll<HTMLButtonElement>('.kind-chip');
-	const items = document.querySelectorAll<HTMLElement>('#writing-list [data-kind]');
-	chips.forEach((chip) => {
-		chip.addEventListener('click', () => {
-			const want = chip.dataset.filter;
-			chips.forEach((c) =>
-				c.setAttribute('aria-pressed', String(c === chip)),
-			);
-			items.forEach((el) => {
-				const show = want === 'all' || el.dataset.kind === want;
-				el.classList.toggle('hidden', !show);
-			});
-		});
-	});
-</script>

@@ -1,68 +1,28 @@
 ---
-// Sticky "On this page" nav built from an article's h2/h3 headings.
-// Astro auto-assigns id slugs to markdown headings, so #slug anchors just work.
+// In-flow "Contents" strip built from an article's h2 headings. Replaces the
+// 2026-06-17 sticky rail: the site is one centered reading column again
+// (CONTEXT.md, "no sidebars"). Shows only when there are at least two sections.
 import type { MarkdownHeading } from 'astro';
 
 interface Props {
 	headings: MarkdownHeading[];
-	minutes?: number;
 }
-
-const { headings, minutes } = Astro.props;
-const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
+const { headings } = Astro.props;
+const toc = headings.filter((h) => h.depth === 2);
 ---
 
 {
-	toc.length > 0 && (
-		<nav aria-label="Table of contents" class="sticky top-24 text-sm">
-			<p class="font-mono text-xs uppercase tracking-wide text-zinc-400">
-				On this page
-			</p>
-			<ul class="mt-3 space-y-2 border-l border-zinc-200">
-				{toc.map((h) => (
-					<li>
-						<a
-							href={`#${h.slug}`}
-							data-toc-link={h.slug}
-							class:list={[
-								'toc-link -ml-px block border-l border-transparent pl-3 text-zinc-500 transition hover:border-accent hover:text-accent',
-								h.depth === 3 && 'pl-6 text-[0.8rem]',
-							]}
-						>
-							{h.text}
-						</a>
-					</li>
-				))}
-			</ul>
-			{minutes && (
-				<p class="mt-4 pl-3 font-mono text-xs text-zinc-400">{minutes} min read</p>
-			)}
+	toc.length >= 2 && (
+		<nav
+			aria-label="Contents"
+			class="mt-7 flex flex-wrap gap-x-4 gap-y-1 border-y border-rule py-3 font-sans text-sm text-muted"
+		>
+			<span class="text-[11px] font-semibold uppercase tracking-wider">Contents</span>
+			{toc.map((h) => (
+				<a href={`#${h.slug}`} class="hover:text-accent">
+					{h.text}
+				</a>
+			))}
 		</nav>
 	)
 }
-
-<script>
-	// Scroll-spy: mark the TOC link whose section is currently in view.
-	const links = [
-		...document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]'),
-	];
-	if (links.length) {
-		const targets = links
-			.map((l) => document.getElementById(l.dataset.tocLink!))
-			.filter((el): el is HTMLElement => el !== null);
-
-		const activate = (id: string) =>
-			links.forEach((l) =>
-				l.classList.toggle('is-active', l.dataset.tocLink === id),
-			);
-
-		const observer = new IntersectionObserver(
-			(entries) => {
-				const onscreen = entries.filter((e) => e.isIntersecting);
-				if (onscreen.length) activate(onscreen[0].target.id);
-			},
-			{ rootMargin: '0px 0px -70% 0px', threshold: 1 },
-		);
-		targets.forEach((t) => observer.observe(t));
-	}
-</script>

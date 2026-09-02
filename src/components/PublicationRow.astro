@@ -17,37 +17,36 @@ const authorParts = pub.authors.split(', ');
 <div
 	id={pub.id}
 	data-type={pub.type}
-	class="pub-row scroll-mt-24 border-b border-zinc-100 py-3 last:border-0"
+	class="pub-row scroll-mt-24 border-b border-rule-soft py-3.5 last:border-0"
 >
-	<div class="flex flex-wrap items-baseline gap-2">
-		<span
-			class="rounded border border-accent/40 bg-accent-soft/30 px-1.5 py-0.5 text-[0.6rem] font-medium uppercase tracking-wide text-accent"
-			>{typeLabel[pub.type]}</span
-		>
-		<span class="font-semibold">{pub.title}</span>
-		{pub.featured && <span title="Featured" class="text-amber-500">★</span>}
+	<div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+		<span class="font-sans text-[11px] uppercase tracking-wider text-muted">{typeLabel[pub.type]}</span>
 		{pub.aiAssisted && <AuthorshipBadge authorship="ai" variant="chip" />}
 		{
 			pub.url && (
-				<a href={pub.url} class="text-xs text-accent hover:underline">
+				<a href={pub.url} class="font-sans text-xs text-accent hover:underline">
 					DOI ↗
 				</a>
 			)
 		}
 		{
 			pub.pdf && (
-				<a href={pub.pdf} class="text-xs text-accent hover:underline">
+				<a href={pub.pdf} class="font-sans text-xs text-accent hover:underline">
 					PDF
 				</a>
 			)
 		}
 	</div>
-	<p class="mt-0.5 text-sm text-zinc-600">
+	<p class="mt-0.5 text-[17px] font-semibold leading-snug">
+		{pub.title}
+		{pub.featured && <span title="Featured" class="ml-1 text-accent">★</span>}
+	</p>
+	<p class="mt-0.5 font-sans text-sm text-muted">
 		{
 			authorParts.map((a, i) => (
 				<>
 					{i > 0 ? ', ' : ''}
-					{a.includes('Greenwood') ? <strong>{a}</strong> : a}
+					{a.includes('Greenwood') ? <strong class="font-semibold text-ink">{a}</strong> : a}
 				</>
 			))
 		}

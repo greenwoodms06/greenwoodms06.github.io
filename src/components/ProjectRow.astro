@@ -18,7 +18,7 @@ const statusLabel: Record<string, string> = {
 
 <a
 	href={`/projects/${project.id}`}
-	class="group flex gap-4 border-b border-zinc-100 py-4 last:border-0"
+	class="group flex gap-5 border-b border-rule-soft py-5 last:border-0"
 >
 	{
 		thumbnail ? (
@@ -27,33 +27,25 @@ const statusLabel: Record<string, string> = {
 				alt={title}
 				widths={[160, 320]}
 				sizes="120px"
-				class="h-[68px] w-[108px] flex-none rounded-md object-cover"
+				class="h-[72px] w-[116px] flex-none border border-rule bg-white object-cover"
 			/>
 		) : (
-			<div class="flex h-[68px] w-[108px] flex-none items-center justify-center rounded-md bg-gradient-to-br from-accent/20 to-accent-soft/30">
-				<span class="font-mono text-xl font-bold text-accent/70">
-					{title.charAt(0)}
-				</span>
+			<div class="flex h-[72px] w-[116px] flex-none items-center justify-center border border-rule bg-inset">
+				<span class="text-2xl font-semibold text-muted">{title.charAt(0)}</span>
 			</div>
 		)
 	}
 	<div class="min-w-0">
-		<div class="flex items-center gap-2">
-			<h3 class="font-semibold group-hover:text-accent">{title}</h3>
-			<span class="rounded-full border border-zinc-300 px-1.5 py-0.5 text-[0.65rem] uppercase tracking-wide text-zinc-500">
+		<div class="flex flex-wrap items-baseline gap-3">
+			<h3 class="text-[19px] font-semibold leading-snug group-hover:text-accent">{title}</h3>
+			<span class="font-sans text-[11px] uppercase tracking-wider text-muted">
 				{statusLabel[status] ?? status}
 			</span>
-		</div>
-		<p class="mt-1 text-sm text-zinc-600">{summary}</p>
-		<div class="mt-2 flex flex-wrap items-center gap-1">
 			<AuthorshipBadge authorship={authorship} variant="chip" />
-			{
-				tags.slice(0, 4).map((t) => (
-					<span class="rounded bg-accent-soft/30 px-2 py-0.5 text-xs text-accent">
-						#{t}
-					</span>
-				))
-			}
+		</div>
+		<p class="mt-1 font-sans text-sm leading-relaxed text-muted">{summary}</p>
+		<div class="mt-2 flex flex-wrap gap-x-3 font-sans text-xs text-muted">
+			{tags.slice(0, 5).map((t) => <span>#{t}</span>)}
 		</div>
 	</div>
 </a>

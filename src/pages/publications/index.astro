@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PublicationRow from '../../components/PublicationRow.astro';
+import FilterBar from '../../components/FilterBar.astro';
 import {
 	publications,
 	PUBLICATION_TYPE_ORDER as TYPE_ORDER,
@@ -34,34 +35,22 @@ const chips = [
 	title="Publications"
 	description="Journal articles, conference papers, technical reports, self-published studies, presentations, and posters."
 >
-	<h1 class="text-2xl font-bold">Publications</h1>
-	<p class="mt-1 text-zinc-600">
+	<h1 class="text-3xl font-semibold">Publications</h1>
+	<p class="mt-1 max-w-[640px] font-sans text-[15px] leading-relaxed text-muted">
 		Journal articles, conference papers, technical reports, presentations, and
-		posters. <span class="italic">A selection — more added over time.</span>
-		Self-published studies are not refereed and are marked where they were
-		drafted with AI assistance.
+		posters — a selection, more added over time. Self-published studies are not
+		refereed and are marked where they were drafted with AI assistance.
 	</p>
 
-	<div class="mt-5 flex flex-wrap gap-2" role="group" aria-label="Filter publications by type">
-		{
-			chips.map((c) => (
-				<button
-					type="button"
-					data-filter={c.value}
-					aria-pressed={c.value === 'all' ? 'true' : 'false'}
-					class="type-chip rounded-full border border-zinc-300 px-3 py-1 text-sm transition hover:border-accent aria-pressed:border-accent aria-pressed:bg-accent aria-pressed:text-white"
-				>
-					{c.label}
-				</button>
-			))
-		}
+	<div class="mt-6 border-b border-rule pb-2.5">
+		<FilterBar chips={chips} target="#pub-list .pub-row" attr="data-type" groups="#pub-list .pub-year" label="Filter publications by type" />
 	</div>
 
-	<div class="mt-6" id="pub-list">
+	<div id="pub-list">
 		{
 			byYear.map((group) => (
 				<section class="pub-year" data-year={group.year}>
-					<h2 class="mt-6 border-b-2 border-zinc-200 pb-1 text-lg font-bold text-accent">
+					<h2 class="mt-7 border-b border-rule pb-1 font-sans text-sm font-semibold text-muted">
 						{group.year}
 					</h2>
 					{group.items.map((pub) => (
@@ -72,24 +61,3 @@ const chips = [
 		}
 	</div>
 </BaseLayout>
-
-<script>
-	const chips = document.querySelectorAll<HTMLButtonElement>('.type-chip');
-	const rows = document.querySelectorAll<HTMLElement>('#pub-list .pub-row');
-	const years = document.querySelectorAll<HTMLElement>('#pub-list .pub-year');
-	chips.forEach((chip) => {
-		chip.addEventListener('click', () => {
-			const want = chip.dataset.filter;
-			chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
-			rows.forEach((row) => {
-				const show = want === 'all' || row.dataset.type === want;
-				row.classList.toggle('hidden', !show);
-			});
-			// Hide a year heading when all its rows are filtered out.
-			years.forEach((y) => {
-				const anyVisible = y.querySelectorAll('.pub-row:not(.hidden)').length > 0;
-				y.classList.toggle('hidden', !anyVisible);
-			});
-		});
-	});
-</script>

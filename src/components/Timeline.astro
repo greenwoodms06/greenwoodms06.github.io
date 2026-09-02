@@ -2,6 +2,7 @@
 // The home-page ledger: everything on the site, grouped by year, newest first,
 // with a filter row by source. Rows are title-only on purpose — this is for
 // scanning a history, and the section indexes carry the blurbs.
+import FilterBar from './FilterBar.astro';
 import type { TimelineYear, TimelineGroup } from '../lib/content';
 
 interface Props {
@@ -28,45 +29,41 @@ const monthDay = (d: Date) =>
 	d.toLocaleDateString('en-us', { month: 'short', day: 'numeric', timeZone: 'UTC' });
 ---
 
-<section class="mt-12" id="timeline">
-	<div class="flex flex-wrap items-baseline justify-between gap-3">
-		<h2 class="text-xl font-bold">Everything, by date</h2>
-		<div class="flex flex-wrap gap-2" role="group" aria-label="Filter the timeline">
-			{
-				chips.map((c) => (
-					<button
-						type="button"
-						data-filter={c.value}
-						aria-pressed={c.value === 'all' ? 'true' : 'false'}
-						class="tl-chip rounded-full border border-zinc-300 px-3 py-1 text-sm transition hover:border-accent aria-pressed:border-accent aria-pressed:bg-accent aria-pressed:text-white"
-					>
-						{c.label}
-					</button>
-				))
-			}
-		</div>
+<section class="mt-14" id="timeline">
+	<div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-b border-rule pb-2.5">
+		<h2 class="text-2xl font-semibold">Everything, by date</h2>
+		<FilterBar
+			chips={chips}
+			target="#timeline .tl-row"
+			attr="data-group"
+			groups="#timeline .tl-year"
+			label="Filter the timeline"
+		/>
 	</div>
 	{
 		years.map((y) => (
-			<section class="tl-year mt-6" data-year={y.year}>
-				<h3 class="border-b border-zinc-200 pb-1 font-mono text-sm font-semibold text-zinc-500">
+			<section
+				class="tl-year grid grid-cols-[3rem_minmax(0,1fr)] gap-x-3 sm:grid-cols-[4.5rem_minmax(0,1fr)] sm:gap-x-4"
+				data-year={y.year}
+			>
+				<h3 class="sticky top-4 self-start pt-4 font-sans text-sm font-semibold text-muted">
 					{y.year}
 				</h3>
-				<ul class="mt-2">
+				<ul class="pt-1">
 					{y.items.map((it) => (
 						<li
-							class="tl-row flex items-baseline gap-3 py-1.5"
+							class="tl-row grid grid-cols-[3.25rem_5rem_minmax(0,1fr)] items-baseline gap-2 border-b border-rule-soft py-2.5 sm:grid-cols-[3.5rem_7rem_minmax(0,1fr)] sm:gap-4"
 							data-group={it.group}
 						>
-							<span class="w-14 shrink-0 font-mono text-xs text-zinc-400">
+							<span class="font-mono text-xs text-muted">
 								{!it.yearOnly && (
 									<time datetime={it.date.toISOString()}>{monthDay(it.date)}</time>
 								)}
 							</span>
 							<span
 								class:list={[
-									'w-24 shrink-0 font-mono text-[0.65rem] uppercase tracking-wide',
-									it.group === 'publications' ? 'text-zinc-500' : 'text-accent',
+									'font-sans text-[11px] uppercase tracking-wider',
+									it.group === 'projects' ? 'text-accent' : 'text-muted',
 								]}
 							>
 								{it.label}
@@ -75,7 +72,7 @@ const monthDay = (d: Date) =>
 								href={it.href}
 								rel={it.external ? 'noopener' : undefined}
 								target={it.external ? '_blank' : undefined}
-								class="min-w-0 font-medium hover:text-accent"
+								class="min-w-0 text-[17px] leading-snug hover:text-accent"
 							>
 								{it.title}
 								{it.external && <span aria-hidden="true"> ↗</span>}
@@ -87,22 +84,3 @@ const monthDay = (d: Date) =>
 		))
 	}
 </section>
-
-<script>
-	const chips = document.querySelectorAll<HTMLButtonElement>('.tl-chip');
-	const rows = document.querySelectorAll<HTMLElement>('#timeline .tl-row');
-	const years = document.querySelectorAll<HTMLElement>('#timeline .tl-year');
-	chips.forEach((chip) => {
-		chip.addEventListener('click', () => {
-			const want = chip.dataset.filter;
-			chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
-			rows.forEach((row) => {
-				row.classList.toggle('hidden', !(want === 'all' || row.dataset.group === want));
-			});
-			years.forEach((y) => {
-				const any = y.querySelectorAll('.tl-row:not(.hidden)').length > 0;
-				y.classList.toggle('hidden', !any);
-			});
-		});
-	});
-</script>

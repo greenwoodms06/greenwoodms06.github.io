@@ -1,36 +1,91 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 
+/* One light theme: warm paper, near-black ink, a single blue accent.
+   Direction "A · warm paper ledger", chosen 2026-09-02 from a field survey of
+   personal engineering sites (docs/site-research-2026-09-02.md). */
 @theme {
-	--color-accent: #f97316;
-	--color-accent-soft: #fdba74;
-	--font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-	--font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, monospace;
+	--color-paper: #f8f6f1;
+	--color-inset: #efece5;
+	--color-ink: #2b2a27;
+	--color-muted: #6b6863;
+	--color-rule: #ddd8cf;
+	--color-rule-soft: #e8e4dc;
+	--color-accent: #1e5a8a;
+	--color-accent-soft: #b9c9d8;
+	--font-serif: var(--font-source-serif), Georgia, 'Times New Roman', serif;
+	--font-sans: var(--font-plex-sans), system-ui, sans-serif;
+	--font-mono: var(--font-plex-mono), ui-monospace, SFMono-Regular, monospace;
 }
 
 @layer base {
 	html {
-		font-family: var(--font-sans);
+		font-family: var(--font-serif);
 		scroll-behavior: smooth;
-	}
-	body {
-		@apply bg-white text-zinc-800 antialiased;
 		color-scheme: light;
 	}
-	code {
+	body {
+		@apply bg-paper text-ink antialiased;
+		font-size: 17px;
+	}
+	code,
+	kbd,
+	pre {
 		font-family: var(--font-mono);
+	}
+	h1,
+	h2,
+	h3,
+	h4 {
+		font-family: var(--font-serif);
+		font-weight: 600;
 	}
 }
 
-/* Readable measure for long-form articles. */
+/* Readable measure for long-form reading (~68ch at 18px serif). */
 .prose-measure {
-	max-width: 70ch;
+	max-width: 68ch;
 }
 
-/* Active table-of-contents link (set by scroll-spy). Compound selector beats
-   the Tailwind utilities on the link, so no !important needed. */
-.toc-link.is-active {
-	color: var(--color-accent);
-	border-color: var(--color-accent);
+/* Reading column: the typography plugin tuned to the paper palette. */
+.prose {
+	font-size: 18px;
+	line-height: 1.6;
+	--tw-prose-body: var(--color-ink);
+	--tw-prose-headings: var(--color-ink);
+	--tw-prose-lead: var(--color-muted);
+	--tw-prose-links: var(--color-accent);
+	--tw-prose-bold: var(--color-ink);
+	--tw-prose-counters: var(--color-muted);
+	--tw-prose-bullets: var(--color-rule);
+	--tw-prose-hr: var(--color-rule);
+	--tw-prose-quotes: var(--color-ink);
+	--tw-prose-quote-borders: var(--color-rule);
+	--tw-prose-captions: var(--color-muted);
+	--tw-prose-code: var(--color-ink);
+	--tw-prose-pre-code: var(--color-ink);
+	--tw-prose-pre-bg: var(--color-inset);
+	--tw-prose-th-borders: var(--color-rule);
+	--tw-prose-td-borders: var(--color-rule-soft);
 }
-
+.prose :where(code):not(:where(pre code)) {
+	background: var(--color-inset);
+	padding: 0.1em 0.35em;
+	border-radius: 3px;
+	font-weight: 400;
+	font-size: 0.85em;
+}
+.prose :where(code)::before,
+.prose :where(code)::after {
+	content: none;
+}
+.prose :where(pre) {
+	border-radius: 4px;
+}
+.prose :where(img) {
+	border: 1px solid var(--color-rule);
+}
+/* Shiki's github-light paints a white block; keep code on the inset tint. */
+.astro-code {
+	background-color: var(--color-inset) !important;
+}

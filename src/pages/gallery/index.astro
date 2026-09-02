@@ -11,37 +11,30 @@ const items = pinnedThenByDate(await getCollection('gallery'), 'date');
 ---
 
 <BaseLayout title="Gallery" description="Artwork, renders, and video — shown here, hosted where they live.">
-	<h1 class="text-2xl font-bold">Gallery</h1>
-	<p class="mt-1 text-zinc-600">
+	<h1 class="text-3xl font-semibold">Gallery</h1>
+	<p class="mt-1 font-sans text-[15px] text-muted">
 		Artwork, renders, and video. Each one links out to where it lives.
 	</p>
 	{
 		items.length === 0 ? (
-			<p class="mt-6 text-sm text-zinc-500">Nothing here yet.</p>
+			<p class="mt-6 font-sans text-sm text-muted">Nothing here yet.</p>
 		) : (
-			<div class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+			<div class="mt-8 grid gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
 				{items.map((g) => (
-					<a
-						href={g.data.href}
-						target="_blank"
-						rel="noopener"
-						class="group flex flex-col overflow-hidden rounded-xl border border-zinc-200 transition hover:border-accent"
-					>
+					<a href={g.data.href} target="_blank" rel="noopener" class="group flex flex-col gap-2">
 						<Image
 							src={g.data.thumbnail}
 							alt={g.data.title}
 							widths={[400, 800]}
 							sizes="(max-width: 768px) 100vw, 33vw"
-							class="aspect-[4/3] w-full object-cover"
+							class="aspect-video w-full border border-rule bg-white object-cover"
 						/>
-						<div class="p-4">
-							<div class="flex items-baseline justify-between gap-2 font-mono text-xs text-zinc-500">
-								<FormattedDate date={g.data.date} />
-								<span>{g.data.source} ↗</span>
-							</div>
-							<h3 class="mt-1 font-semibold group-hover:text-accent">{g.data.title}</h3>
-							{g.data.blurb && <p class="mt-1 text-sm text-zinc-600">{g.data.blurb}</p>}
+						<div class="flex items-baseline justify-between gap-2 font-mono text-xs text-muted">
+							<FormattedDate date={g.data.date} />
+							<span class="font-sans uppercase tracking-wider">{g.data.source} ↗</span>
 						</div>
+						<h3 class="text-[17px] font-semibold leading-snug group-hover:text-accent">{g.data.title}</h3>
+						{g.data.blurb && <p class="font-sans text-[13px] leading-snug text-muted">{g.data.blurb}</p>}
 					</a>
 				))}
 			</div>

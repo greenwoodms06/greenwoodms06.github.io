@@ -8,11 +8,11 @@ const projects = pinnedThenByDate(await getCollection('projects'), 'date');
 ---
 
 <BaseLayout title="Projects" description="Things I've built and tinkered with.">
-	<h1 class="text-2xl font-bold">Projects</h1>
-	<p class="mt-1 text-zinc-600">
+	<h1 class="text-3xl font-semibold">Projects</h1>
+	<p class="mt-1 font-sans text-[15px] text-muted">
 		A running list of things I've built and tinkered with.
 	</p>
-	<div class="mt-6">
+	<div class="mt-6 border-t border-rule">
 		{projects.map((p) => <ProjectRow project={p} />)}
 	</div>
 </BaseLayout>
