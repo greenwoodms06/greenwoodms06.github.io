@@ -10,7 +10,7 @@ graphics, 3D printing, and code. A project showcase with a writing stream hangin
 - **[Astro 6](https://astro.build)** + TypeScript — static site, content collections
 - **[Tailwind CSS 4](https://tailwindcss.com)** (via `@tailwindcss/vite`) + `@tailwindcss/typography`
 - **MDX**, **RSS**, and **sitemap** via the official Astro integrations
-- **Shiki** syntax highlighting (light/dark)
+- **Shiki** syntax highlighting (light only — the site has one theme, decided 2026-09-02)
 - Build-time image optimization with **sharp** (`astro:assets`)
 - **Vitest** for unit tests
 - Hosted free on **GitHub Pages**
@@ -30,8 +30,9 @@ npm run check      # astro check (type + content validation)
 
 ## Authoring content
 
-Two content collections live under `src/content/`, validated by zod schemas at build
-time (`src/content.config.ts`).
+Three content collections live under `src/content/`, validated by zod schemas at build
+time (`src/content.config.ts`): **projects**, **posts**, and **gallery**. The home page
+is one chronological ledger of all three plus the publications list, grouped by year.
 
 ### Project or post?
 
@@ -39,11 +40,15 @@ time (`src/content.config.ts`).
   has a `status`, not a publish date that matters; you revise it *in place*. Answers
   "what is this and where's the code."
 - **Post** = a dated *account* — a how-to, setup guide, lesson, or milestone. It has a
-  `pubDate` you'd never edit away; a follow-up is a *new* post.
+  `pubDate` you'd never edit away; a follow-up is a *new* post. Every post declares a
+  `kind`: `how-to`, `devlog` (a project episode or release), `essay`, or `note` (a
+  scrap — an image, a clip, a paragraph; shows on the home timeline but not on the
+  Writing index, and is the only kind that may omit `description`).
 - **When a topic wants both** (e.g. Unreal Engine): the **project is the umbrella hub**,
   the **posts are the dated episodes**. Describe the artifact in the project; don't
-  re-summarize the how-tos there — link to them (the project page auto-lists its
-  `relatedPosts` under "Writing about this").
+  re-summarize the how-tos there — the project page auto-lists every post that names
+  it in `relatedProjects` under "Writing about this". Wiring is one-way: only the post
+  side is typed, and a misspelled project id fails the build.
 - **Too small for a post?** Add a dated bullet in the project body, not a new post.
 
 **Add a project** → a folder `src/content/projects/<slug>/` with an `index.md` inside (+ optional assets beside it):
@@ -58,9 +63,8 @@ tags: [astro, graphics]
 thumbnail: ./my-project.png          # optional, optimized at build
 repo: https://github.com/...         # optional
 demo: https://...                    # optional
-featured: true            # surfaces on the home grid
+featured: true            # surfaces in the home Highlights
 order: 0                  # optional manual sort
-relatedPosts: [post-slug]            # optional
 authorship: human         # human | ai (see below)
 ---
 
@@ -75,17 +79,35 @@ title: My Post
 description: Short summary for listings and SEO.
 pubDate: 2026-05-22
 updatedDate: 2026-05-23   # optional
-tags: [devlog]
+kind: devlog              # note | how-to | devlog | essay (required)
+tags: [unreal-engine]
 heroImage: ./hero.png                # optional
 draft: false              # true = excluded from the production build
-relatedProjects: [project-slug]      # optional
+relatedProjects: [project-slug]      # optional; must be existing project ids
 authorship: human         # human | ai (see below)
 ---
 
 The post body goes here.
 ```
 
-Cross-link projects ↔ posts with the `relatedPosts` / `relatedProjects` slug arrays.
+A **note** is the same thing with `kind: note`, no `description`, and a paragraph or a
+single image for a body — the lowest-friction entry on the site.
+
+**Add a gallery item** → a folder `src/content/gallery/<slug>/` with an `index.md` and a
+thumbnail beside it. Gallery items **link out** (ArtStation, YouTube, …); the repo holds
+only the optimized thumbnail, never the full-size work (decided 2026-09-02). The Gallery
+nav entry appears once the collection has an item.
+
+```yaml
+---
+title: Some render
+date: 2026-09-01
+thumbnail: ./thumb.jpg               # required; ≥ 800 px wide, EXIF stripped
+href: https://www.artstation.com/... # where it lives
+source: ArtStation                   # shown as the link label
+blurb: One line, optional.
+---
+```
 
 ### Images
 

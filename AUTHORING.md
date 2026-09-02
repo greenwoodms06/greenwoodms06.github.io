@@ -1,5 +1,11 @@
 # Authoring a post bundle
 
+**Scope (2026-09-02):** the bundle workflow below is for *paper-grade* posts — a
+study write-up with claims to verify, a PDF to produce, assets to license. An
+ordinary post, devlog, how-to, or note is just a folder with an `index.md` in
+`src/content/posts/`; see the README's *Authoring content* section and skip
+everything on this page.
+
 A **post bundle** is a working directory that holds everything a single
 post (or short + long pair) needs: the source markdown, a `BUILD.md`
 publish contract, supporting context, and asset files. Bundles let

@@ -6,7 +6,9 @@ workflow itself is documented in `AUTHORING.md`; this file holds the
 
 ## Glossary
 
-- **Post** — a dated account on the Writing page (`src/content/posts/`).
+- **Post** — a dated account (`src/content/posts/`) with a `kind`: `how-to`,
+  `devlog`, `essay`, or `note`. Notes are scraps and are timeline-only (decided
+  2026-09-02); the other three list on the Writing page.
   Its `pubDate` is the date the canonical draft was completed, not the day
   it landed on this blog. When several posts arrive as an arc, they keep
   their authentic staggered dates so date-sorting reproduces reading order
@@ -14,19 +16,27 @@ workflow itself is documented in `AUTHORING.md`; this file holds the
   source history supports).
 - **Project** — the evergreen artifact (`src/content/projects/`). A project
   page describes the thing as it stands; posts describe what happened.
-- **Related wiring** — the two-way link between the collections:
-  post `relatedProjects: [project-id]` ↔ project `relatedPosts: [post-ids]`.
-  Both sides are maintained by hand; a lift that adds a post about a project
-  updates both.
-- **"Writing about this"** — the rendered form of a project's
-  `relatedPosts`: a list at the *bottom* of the project page showing title,
-  date · kind, and the post's description. Deliberately not a sidebar — the
-  whole site is a single centered reading column, and that holds for every
-  page type (decided 2026-06-12).
+- **Related wiring** — one-way (decided 2026-09-02, replacing the hand-kept
+  two-way form): a post names its projects in `relatedProjects`, validated as
+  collection references so a wrong id fails the build. Projects declare nothing.
+- **"Writing about this"** — derived: every published post naming the project,
+  newest first, at the *bottom* of the project page with title, date · kind,
+  and description. Deliberately not a sidebar (decided 2026-06-12); the
+  table-of-contents rail added 2026-06-17 on detail pages at wide widths is the
+  one exception, pending the 2026-09 style pass.
+- **Timeline** — the home page: one ledger of posts, projects, gallery items,
+  and publications, grouped by year, newest first, title-only rows, filterable
+  by source. Publications carry a year only and sort after the dated items of
+  their year. Items sit on their *original* date, never `updatedDate` — this is
+  a history.
+- **Gallery** — `src/content/gallery/`, link-out only: one thumbnail here, the
+  work where it lives (ArtStation, YouTube, …). No detail page.
 - **Publications** — `src/data/publications.ts`, sourced from the CV *plus*
-  self-published study reports (type `report`, venue "Self-published study
-  report", PDF hosted under `public/resources/<topic>/`). Nothing on the page may
-  imply a refereed venue that doesn't exist.
+  self-published study reports (type `self-published`, never `report` — that
+  type is for institutional technical reports; `aiAssisted: true` shows the
+  disclosure badge; PDF hosted under `public/resources/<topic>/`; DOI via Zenodo
+  when minted). Nothing on the page may imply a refereed venue that doesn't
+  exist. A test in `src/lib/content.test.ts` enforces the type and the badge.
 - **Superseded post** — when a newer post tells the same story better, the
   older one is dropped, not kept alongside (the unpublished
   `soul-system-1-0` post was dropped 2026-06-12 in favor of the
@@ -38,6 +48,26 @@ workflow itself is documented in `AUTHORING.md`; this file holds the
 
 ## Anti-goals
 
-- No sidebars; no second layout system for one page type.
+- No sidebars beyond the TOC rail; no second layout system for one page type.
+- No dark mode (decided 2026-09-02): one light theme, `color-scheme: light`.
+  Halves every colour decision; the pre-release stage says delete as you go.
 - No invented history in any content — release posts, project pages, and
   publication entries claim only what the source record supports.
+- No full-size media in the repo beyond short demo clips: video lives on
+  YouTube, artwork on ArtStation; the site links out.
+
+## Privacy checklist (before anything is committed)
+
+The site already carries name, photo, employer affiliation, and GitHub; the
+items below are what would *add* exposure.
+
+- **No minors.** Nothing near Roster Rotation content names a child, a team,
+  a schedule, or shows a face.
+- **Strip metadata from anything under `public/`.** Only images that go
+  through the `src/` pipeline lose EXIF; files in `public/` (GIF, PDF, ZIP,
+  video) are served verbatim, and phone media carries GPS.
+- **Employer work only once released.** ORNL plugin pages describe what the
+  released README says; nothing internal, no unreleased screenshots.
+- **Git history is permanent.** A public repo keeps deleted files. Stage
+  drafts in the gitignored `docs/`, never in `src/` until final.
+- **No routine or location.** No home-area shots, no real-time whereabouts.
