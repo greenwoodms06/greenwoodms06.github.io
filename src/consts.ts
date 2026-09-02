@@ -14,4 +14,7 @@ export const NAV = [
 
 export const SOCIALS = {
 	github: 'https://github.com/greenwoodms06',
+	youtube: 'https://www.youtube.com/@flashreels2959',
+	// Group channel at ORNL; Scott's work videos live there too.
+	youtubeVarsa: 'https://www.youtube.com/@ornl-varsa',
 } as const;

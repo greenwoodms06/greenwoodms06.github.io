@@ -52,7 +52,7 @@ Library 4.0, and `package.mo` now declares version `1.0`.
 
 ## Where it has been used
 
-Publications on this site that name TRANSFORM:
+Publications on this site built on TRANSFORM:
 
 - [Demonstration of the Advanced Dynamic System Modeling Tool TRANSFORM in a Molten Salt Reactor Application via a Model of the Molten Salt Demonstration Reactor](/publications#greenwood-transform-msdr-demonstration-2019) — *Nuclear Technology*, 2019
 - [Status Report on the MSRE Transform Model for Thermal-Hydraulic Benchmarking](/publications#greenwood-msre-transform-thermal-hydraulic-benchmarking-2019) — ORNL/TM-2019/1359
@@ -60,11 +60,19 @@ Publications on this site that name TRANSFORM:
 - [TRANSFORM – A Vision for Modern Advanced Reactor System-Level Modeling and Simulation Using Modelica](/publications#greenwood-transform-vision-modern-reactor-2020) — ANS Winter Meeting, 2020
 - [TRANSFORM: Description and Applications](/publications#greenwood-transform-description-applications-2021) — poster, ORNL Software and Data Expo, 2021
 - [Dynamic Thermal Hydraulic Modeling TRANSFORM-ed](/publications#greenwood-dynamic-thermal-hydraulic-transformed-pres-2016) — presentation, 2016
+- [Thermo-Fluid Modeling Framework for Supercomputer Digital Twins: Part 1, Demonstration at Exascale](/publications#kumar-thermo-fluid-supercomputer-part1-2024) and [Part 2, Automated Cooling Models](/publications#greenwood-thermo-fluid-supercomputing-part2-2024) — America Modelica Conference, 2024
+- [Modeling HFIR's Steady State Heat Transfer Code with Modelica](/publications#barr-hfir-steady-state-modelica-2025) — poster, 2025
+
+Reactors first, then data-center cooling and a research reactor: the same
+fluid and heat-transfer components carry over. The repo's
+[Publications wiki page](https://github.com/ORNL-Modelica/TRANSFORM-Library/wiki/Publications)
+keeps the full list of work built on it.
 
 ## Related
 
 - **Training.** The [TRANSFORM-Training](https://github.com/ORNL-Modelica/TRANSFORM-Training) repo is the place to start if you want to learn the library rather than read it.
-- **Demo reel.** [TRANSFORM — Get Results!](https://www.youtube.com/watch?v=esUoh9zBK-M) on ORNL's YouTube channel (2019).
+- **Demo reel.** [TRANSFORM — Get Results!](https://www.youtube.com/watch?v=lEhW7kK8ypw) (first published 2019).
+- **Videos.** Two training videos, [A Simple ODE](https://www.youtube.com/watch?v=yN2L_oqN8YQ) and [Simple Heat Transfer Loop](https://www.youtube.com/watch?v=-LWV-svpzGg), and [simulation data on a T-s diagram](https://www.youtube.com/watch?v=RWcYprr90g0), all on the ORNL-VARSA channel.
 - **Testing.** [DSTF](/projects/dstf) is the regression harness I built for exactly this kind of library, with Dymola and OpenModelica among its backends.
 
 **Citing it.** Greenwood, M. S. *TRANSFORM — TRANsient Simulation Framework of
