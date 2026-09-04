@@ -3,7 +3,6 @@ import { defineConfig, fontProviders } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
-import remarkGfm from 'remark-gfm';
 
 // https://astro.build/config
 export default defineConfig({
@@ -40,10 +39,14 @@ export default defineConfig({
 			fallbacks: ['ui-monospace', 'monospace'],
 		},
 	],
+	// Astro 7's default, compressHTML: 'jsx', drops the template newlines between
+	// sibling expressions (the author list rendered "Greenwood , M. Naranjo" under
+	// the classic mode on the Rust compiler). Separators in this markup sit on the
+	// same line as their tags, which JSX rules preserve.
+	compressHTML: 'jsx',
 	markdown: {
-		// Explicit so MDX inherits it too — Astro's built-in GFM applies to .md
-		// but isn't passed through to .mdx, which broke tables in .mdx entries.
-		remarkPlugins: [remarkGfm],
+		// Astro 7's Sätteri processor applies GFM (tables, task lists) to .md and
+		// .mdx alike, so the remark-gfm plugin that used to fix .mdx tables is gone.
 		shikiConfig: {
 			theme: 'github-light',
 			wrap: true,
