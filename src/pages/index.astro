@@ -15,6 +15,8 @@ import { publications, PUBLICATION_TYPE_LABEL } from '../data/publications';
 const allProjects = await getCollection('projects');
 const allPosts = (await getCollection('posts')).filter(isPublished);
 const allGallery = await getCollection('gallery');
+// One timeline row per guide (its contents page); chapters stay off the ledger.
+const guideContents = (await getCollection('guides')).filter((g) => !g.id.includes('/'));
 
 // Pinned projects: the only images on the home page.
 const pinned = pinnedThenByDate(
@@ -47,6 +49,16 @@ const items: TimelineItem[] = [
 		date: new Date(Date.UTC(p.year, 0, 1)),
 		yearOnly: true,
 	})),
+	...guideContents.map((g) => {
+		if (!g.data.published) throw new Error(`Guide ${g.id}: index.md needs a published date`);
+		return {
+			title: g.data.title,
+			href: `/guides/${g.id}`,
+			group: 'writing' as const,
+			label: 'Guide',
+			date: g.data.published,
+		};
+	}),
 	...allGallery.map((g) => ({
 		title: g.data.title,
 		href: g.data.href,

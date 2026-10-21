@@ -1,0 +1,110 @@
+1
+00:00:00,000 --> 00:00:03,000
+Using several AI models
+together sounds powerful.
+
+2
+00:00:03,000 --> 00:00:06,000
+But reliable collaboration
+starts with understanding
+
+3
+00:00:06,000 --> 00:00:09,000
+which part of the system does what.
+
+4
+00:00:09,000 --> 00:00:12,000
+A model generates responses.
+
+5
+00:00:12,000 --> 00:00:15,000
+A harness manages the
+agent's tools and context.
+
+6
+00:00:15,000 --> 00:00:18,000
+An orchestrator coordinates the workflow.
+
+7
+00:00:18,000 --> 00:00:21,000
+The interface is where you interact.
+
+8
+00:00:21,000 --> 00:00:24,000
+A sandbox limits what
+execution can access.
+
+9
+00:00:24,000 --> 00:00:28,000
+Imagine adding CSV export to an app.
+
+10
+00:00:28,000 --> 00:00:32,000
+Agree on the requirements, then
+let an agent implement them.
+
+11
+00:00:32,000 --> 00:00:36,000
+Run tests, ask a separate
+reviewer to find concrete defects,
+
+12
+00:00:36,000 --> 00:00:40,000
+and send failures back for repair.
+
+13
+00:00:40,000 --> 00:00:44,000
+After repairs, a fresh
+verifier checks the candidate
+
+14
+00:00:44,000 --> 00:00:48,000
+against each original requirement.
+
+15
+00:00:48,000 --> 00:00:52,000
+For example: does the export
+respect the selected filter?
+
+16
+00:00:52,000 --> 00:00:55,000
+Record the evidence.
+
+17
+00:00:55,000 --> 00:00:58,000
+Agreement alone does not
+establish correctness.
+
+18
+00:00:58,000 --> 00:01:01,500
+LangGraph provides
+workflow building blocks.
+
+19
+00:01:01,500 --> 00:01:05,000
+Deep Agents adds a reusable harness.
+
+20
+00:01:05,000 --> 00:01:08,500
+Deep Agents Code supplies
+a terminal application.
+
+21
+00:01:08,500 --> 00:01:12,000
+An existing interface can
+connect through an integration.
+
+22
+00:01:12,000 --> 00:01:16,000
+Start with one bounded
+task, clear stopping rules,
+
+23
+00:01:16,000 --> 00:01:20,000
+and checks you can inspect.
+Compare with a single agent.
+
+24
+00:01:20,000 --> 00:01:24,000
+Add complexity when it earns its place.
+

@@ -30,9 +30,10 @@ npm run check      # astro check (type + content validation)
 
 ## Authoring content
 
-Three content collections live under `src/content/`, validated by zod schemas at build
-time (`src/content.config.ts`): **projects**, **posts**, and **gallery**. The home page
-is one chronological ledger of all three plus the publications list, grouped by year.
+Four content collections live under `src/content/`, validated by zod schemas at build
+time (`src/content.config.ts`): **projects**, **posts**, **gallery**, and **guides**. The
+home page is one chronological ledger of all four (one row per guide, not per chapter)
+plus the publications list, grouped by year.
 
 ### Project or post?
 
@@ -109,10 +110,36 @@ blurb: One line, optional.
 ---
 ```
 
+**Add a guide** → a folder `src/content/guides/<guide>/` with an `index.md` (the contents
+page, `order: 0`) and one `<chapter>.md` per chapter beside it, served at
+`/guides/<guide>` and `/guides/<guide>/<chapter>`. A guide is an evergreen multi-page
+reference revised in place, so it carries a `reviewed` date rather than a `pubDate` and
+stays off RSS and the Writing index; its contents page takes one timeline row, dated by
+`published` (required there). Introduce it with an ordinary post that links to it. The template (`src/pages/guides/[...slug].astro`) adds chapter position and
+previous/next links from `order`. Link chapters by absolute URL (`/guides/<guide>/<chapter>`)
+and list every chapter in `index.md` — `src/lib/guides.test.ts` fails on a broken or
+relative link, or a contents page that misses a chapter.
+
+```yaml
+---
+title: Sandboxes and execution boundaries
+description: One line for SEO and link previews.
+reviewed: 2026-10-21      # last checked against its sources
+published: 2026-10-21     # index.md only: first appearance; its timeline date
+order: 3                  # reading position; unique within the guide
+caseStudy: soul-system    # optional: a project id; adds a "Project case study" banner
+authorship: ai            # human | ai
+---
+```
+
+**Generated media** (rendered video, diagrams drawn from code or Mermaid) are committed
+beside the entry like any other asset; the sources that produce them, and how to rerun
+them, live in `media-src/` (see `media-src/README.md`). Nothing there is built.
+
 ### Images
 
-Two pieces of behavior are enforced on every project/post detail page by
-`src/pages/{projects,blog}/[...slug].astro` — no special authoring syntax needed:
+Two pieces of behavior are enforced on every project/post/guide detail page by
+`src/pages/{projects,blog,guides}/[...slug].astro` — no special authoring syntax needed:
 
 - **Click to expand.** Every `<img>` inside `<article>` is auto-wrapped in a link to
   the full-size derivative — heroImage *and* inline markdown images alike. Clicking

@@ -1,0 +1,134 @@
+---
+// One template for a guide's contents page and its chapters. The article chrome
+// mirrors src/pages/blog/[...slug].astro (same measure, TOC, disclosure, and
+// click-to-expand script) so a guide reads like the rest of the site; what it
+// adds is the chapter position, the case-study banner, and previous/next links.
+import { getCollection, getEntry, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import AuthorshipBadge from '../../components/AuthorshipBadge.astro';
+import TableOfContents from '../../components/TableOfContents.astro';
+import PageViews from '../../components/PageViews.astro';
+import { guideChapters, guideIdOf, guideNeighbors, readingTime } from '../../lib/content';
+
+export async function getStaticPaths() {
+	const entries = await getCollection('guides');
+	return entries.map((entry) => {
+		const guide = guideIdOf(entry.id);
+		const contents = entries.find((e) => e.id === guide);
+		if (!contents) throw new Error(`Guide chapter ${entry.id} has no ${guide}/index.md`);
+		return {
+			params: { slug: entry.id },
+			props: { entry, contents, chapters: guideChapters(entries, guide) },
+		};
+	});
+}
+
+const { entry, contents, chapters } = Astro.props;
+const { Content, headings } = await render(entry);
+const minutes = readingTime(entry.body ?? '');
+const { title, description, reviewed, authorship, caseStudy } = entry.data;
+const isContents = entry.id === contents.id;
+const position = chapters.findIndex((c) => c.id === entry.id) + 1;
+const { prev, next } = guideNeighbors(chapters, entry.id);
+const project = caseStudy ? await getEntry(caseStudy) : undefined;
+// Astro 7 only logs a dangling reference, which would silently drop the
+// case-study label; the label is required, so a missing project fails the build.
+if (caseStudy && !project) throw new Error(`${entry.id}: caseStudy project "${caseStudy.id}" does not exist`);
+---
+
+<BaseLayout title={title} description={description}>
+	<article class="prose-measure mx-auto w-full min-w-0">
+		{
+			isContents ? (
+				<a href="/blog" class="font-sans text-sm text-muted hover:text-accent">← Writing</a>
+			) : (
+				<a href={`/guides/${contents.id}`} class="font-sans text-sm text-muted hover:text-accent">
+					← {contents.data.title}
+				</a>
+			)
+		}
+		<p class="mt-3 font-sans text-[11px] font-semibold uppercase tracking-wider text-muted">
+			{isContents ? 'Guide' : `Chapter ${position} of ${chapters.length}`}
+			{project && <span class="text-accent"> · Project case study</span>}
+		</p>
+		<h1 class="mt-1 text-[34px] font-semibold leading-tight tracking-tight">{title}</h1>
+		<p class="mt-3 flex flex-wrap items-baseline gap-x-2.5 font-sans text-[13px] text-muted">
+			<span>reviewed <span class="font-mono"><FormattedDate date={reviewed} /></span></span>
+			<span>·</span>
+			<span>{minutes} min read</span>
+			<PageViews divider />
+		</p>
+		<AuthorshipBadge authorship={authorship} variant="note" />
+		{
+			project && (
+				<div class="not-prose mt-4 border-l-2 border-accent bg-inset px-3.5 py-2.5 font-sans text-sm leading-relaxed text-muted">
+					<strong class="font-semibold text-ink">Project case study.</strong> This chapter applies the
+					guide to <a href={`/projects/${project.id}`} class="text-accent hover:underline">{project.data.title.replace(/^The /, 'the ')}</a>,
+					one of the author's own projects. What it describes for that project is a proposal unless the
+					text says otherwise; nothing proposed here has been built.
+				</div>
+			)
+		}
+		<TableOfContents headings={headings} />
+		<div class="prose mt-8 max-w-none">
+			<Content />
+		</div>
+
+		<script>
+			// Make article images expandable — click opens the loaded resolution in a new tab.
+			document
+				.querySelectorAll<HTMLImageElement>('article img')
+				.forEach((img) => {
+					if (img.closest('a')) return;
+					const a = document.createElement('a');
+					a.href = img.currentSrc || img.src;
+					a.target = '_blank';
+					a.rel = 'noopener';
+					a.title = 'Open full size';
+					a.style.cursor = 'zoom-in';
+					a.style.display = 'block';
+					img.parentNode?.insertBefore(a, img);
+					a.appendChild(img);
+				});
+		</script>
+		{
+			isContents
+				? chapters[0] && (
+						<nav aria-label="Start the guide" class="mt-10 border-t border-rule pt-4 font-sans text-sm">
+							<a href={`/guides/${chapters[0].id}`} class="text-accent hover:underline">
+								Start with chapter 1: {chapters[0].data.title} →
+							</a>
+						</nav>
+					)
+				: (
+						<nav
+							aria-label="Guide chapters"
+							class="mt-10 grid gap-4 border-t border-rule pt-4 font-sans text-sm sm:grid-cols-2"
+						>
+							<div>
+								{prev && (
+									<a href={`/guides/${prev.id}`} class="group block">
+										<span class="text-[11px] uppercase tracking-wider text-muted">← Previous</span>
+										<span class="block text-accent group-hover:underline">{prev.data.title}</span>
+									</a>
+								)}
+							</div>
+							<div class="sm:text-right">
+								{next ? (
+									<a href={`/guides/${next.id}`} class="group block">
+										<span class="text-[11px] uppercase tracking-wider text-muted">Next →</span>
+										<span class="block text-accent group-hover:underline">{next.data.title}</span>
+									</a>
+								) : (
+									<a href={`/guides/${contents.id}`} class="group block">
+										<span class="text-[11px] uppercase tracking-wider text-muted">End of guide</span>
+										<span class="block text-accent group-hover:underline">Back to contents</span>
+									</a>
+								)}
+							</div>
+						</nav>
+					)
+		}
+	</article>
+</BaseLayout>

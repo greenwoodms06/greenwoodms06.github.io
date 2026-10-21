@@ -110,3 +110,37 @@ export function pinnedThenByDate<T extends { data: Record<string, any> }>(
 	return [...featured, ...rest];
 }
 
+// Guides: `<guide>` is the contents page (order 0), `<guide>/<chapter>` the
+// chapters. Reading order comes from `order`; a tie would make prev/next links
+// depend on file-system order, so it is refused rather than broken silently.
+export function guideIdOf(id: string): string {
+	return id.split('/')[0];
+}
+
+export function guideChapters<T extends { id: string; data: { order: number } }>(
+	entries: T[],
+	guide: string,
+): T[] {
+	const chapters = entries
+		.filter((e) => e.id.startsWith(`${guide}/`))
+		.sort((a, b) => a.data.order - b.data.order);
+	for (let i = 1; i < chapters.length; i++) {
+		if (chapters[i].data.order === chapters[i - 1].data.order) {
+			throw new Error(
+				`Guide "${guide}": ${chapters[i - 1].id} and ${chapters[i].id} share order ${chapters[i].data.order}`,
+			);
+		}
+	}
+	return chapters;
+}
+
+// Previous/next chapter for reading straight through; the contents page has
+// no neighbors of its own (it links every chapter).
+export function guideNeighbors<T extends { id: string }>(
+	chapters: T[],
+	id: string,
+): { prev?: T; next?: T } {
+	const i = chapters.findIndex((c) => c.id === id);
+	if (i === -1) return {};
+	return { prev: chapters[i - 1], next: chapters[i + 1] };
+}

@@ -17,10 +17,10 @@ const posts = defineCollection({
 			heroImage: image().optional(),
 			draft: z.boolean().default(false),
 			// One-way wiring: a post names its projects; a project page derives
-			// its "Writing about this" list by querying posts. `reference()` makes
-			// a dangling project id a build failure instead of a silently dropped
-			// link (two Unreal posts pointed at a project that never existed and
-			// the build dropped the link silently, found 2026-09-02).
+			// its "Writing about this" list by querying posts. A dangling project id
+			// must fail the build, not drop the link silently (two Unreal posts
+			// pointed at a project that never existed, found 2026-09-02). Astro 7
+			// `reference()` only logs one, so the blog route throws on it.
 			relatedProjects: z.array(reference('projects')).default([]),
 			// 'ai' marks an AI-assisted artifact so it can be disclosed to readers.
 			authorship: z.enum(['human', 'ai']).default('human'),
@@ -77,4 +77,30 @@ const gallery = defineCollection({
 		}),
 });
 
-export const collections = { posts, projects, gallery };
+// Guides: evergreen multi-page references, revised in place. One folder per
+// guide; its `index.md` is the contents page and each sibling `.md` is a chapter
+// (`guides/<guide>/<chapter>`). Not posts: chapters are not dated accounts and
+// would otherwise flood the timeline, RSS, and Writing index.
+const guides = defineCollection({
+	loader: glob({ base: './src/content/guides', pattern: '**/*.{md,mdx}' }),
+	schema: z.object({
+		title: z.string(),
+		description: z.string(),
+		// Date the content was last checked against its sources.
+		reviewed: z.coerce.date(),
+		// Contents page only: the day the guide first appeared. Its fixed spot on
+		// the home timeline, which never moves to a later `reviewed` date.
+		published: z.coerce.date().optional(),
+		// Reading position within the guide; the index page is 0.
+		order: z.number().int().min(0),
+		// Set on chapters about one of the author's own projects rather than the
+		// general subject: names that project and renders a "Project case study"
+		// banner linking to it. Astro only logs a dangling reference, so the
+		// guides route throws on one rather than dropping the banner.
+		caseStudy: reference('projects').optional(),
+		// 'ai' marks an AI-assisted artifact so it can be disclosed to readers.
+		authorship: z.enum(['human', 'ai']).default('human'),
+	}),
+});
+
+export const collections = { posts, projects, gallery, guides };

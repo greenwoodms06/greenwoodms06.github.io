@@ -8,6 +8,9 @@ import {
 	isWriting,
 	POST_KINDS,
 	KIND_LABEL,
+	guideChapters,
+	guideNeighbors,
+	guideIdOf,
 	type TimelineItem,
 } from './content';
 import { publications } from '../data/publications';
@@ -179,5 +182,35 @@ describe('publications data', () => {
 		for (const p of publications.filter((p) => p.type === 'report')) {
 			expect(p.venue?.startsWith('Self-published')).toBe(false);
 		}
+	});
+});
+
+describe('guides', () => {
+	const entry = (id: string, order: number) => ({ id, data: { order } });
+	const all = [
+		entry('agents/b', 2),
+		entry('agents', 0),
+		entry('agents/a', 1),
+		entry('other/x', 1),
+	];
+
+	it('lists only that guide\'s chapters, in reading order', () => {
+		expect(guideChapters(all, 'agents').map((c) => c.id)).toEqual(['agents/a', 'agents/b']);
+	});
+
+	it('refuses two chapters with the same order', () => {
+		expect(() => guideChapters([entry('g/a', 1), entry('g/b', 1)], 'g')).toThrow(/share order 1/);
+	});
+
+	it('links neighbors and leaves the ends open', () => {
+		const ch = guideChapters(all, 'agents');
+		expect(guideNeighbors(ch, 'agents/a')).toEqual({ prev: undefined, next: ch[1] });
+		expect(guideNeighbors(ch, 'agents/b')).toEqual({ prev: ch[0], next: undefined });
+		expect(guideNeighbors(ch, 'agents')).toEqual({});
+	});
+
+	it('derives the guide id from any entry id', () => {
+		expect(guideIdOf('agents')).toBe('agents');
+		expect(guideIdOf('agents/a')).toBe('agents');
 	});
 });

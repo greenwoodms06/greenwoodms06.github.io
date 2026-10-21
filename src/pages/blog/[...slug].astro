@@ -33,6 +33,10 @@ const {
 	kind,
 } = post.data;
 const related = await getEntries(relatedProjects);
+// Astro 7 only logs a dangling reference; refuse it here so a mistyped project
+// id fails the build by design, not by the template happening to crash.
+const missing = relatedProjects.filter((_, i) => !related[i]).map((r) => r.id);
+if (missing.length) throw new Error(`${post.id}: relatedProjects not found: ${missing.join(', ')}`);
 const allTags = displayTags(post);
 ---
 

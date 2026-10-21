@@ -1,0 +1,73 @@
+{
+  "title": "How AI models and agents work together",
+  "duration_seconds": 84,
+  "status": "Prepared production source; animation not rendered",
+  "scenes": [
+    {
+      "id": 1, "start": 0, "end": 9,
+      "headline": "How AI models and agents work together",
+      "narration": "Using several AI models together sounds powerful. But reliable collaboration starts with understanding which part of the system does what.",
+      "captions": [
+        {"start": 0, "end": 3, "text": "Using several AI models together sounds powerful."},
+        {"start": 3, "end": 6, "text": "But reliable collaboration starts with understanding"},
+        {"start": 6, "end": 9, "text": "which part of the system does what."}
+      ]
+    },
+    {
+      "id": 2, "start": 9, "end": 24,
+      "headline": "Know which component does what",
+      "narration": "A model generates responses. A harness manages the agent's tools and context. An orchestrator coordinates the workflow. The interface is where you interact. A sandbox limits what execution can access.",
+      "captions": [
+        {"start": 9, "end": 12, "text": "A model generates responses."},
+        {"start": 12, "end": 15, "text": "A harness manages the agent's tools and context."},
+        {"start": 15, "end": 18, "text": "An orchestrator coordinates the workflow."},
+        {"start": 18, "end": 21, "text": "The interface is where you interact."},
+        {"start": 21, "end": 24, "text": "A sandbox limits what execution can access."}
+      ]
+    },
+    {
+      "id": 3, "start": 24, "end": 40,
+      "headline": "One task and a repair loop",
+      "narration": "Imagine adding CSV export to an app. Agree on the requirements, then let an agent implement them. Run tests, ask a separate reviewer to find concrete defects, and send failures back for repair.",
+      "captions": [
+        {"start": 24, "end": 28, "text": "Imagine adding CSV export to an app."},
+        {"start": 28, "end": 32, "text": "Agree on the requirements, then let an agent implement them."},
+        {"start": 32, "end": 36, "text": "Run tests, ask a separate reviewer to find concrete defects,"},
+        {"start": 36, "end": 40, "text": "and send failures back for repair."}
+      ]
+    },
+    {
+      "id": 4, "start": 40, "end": 58,
+      "headline": "Evidence supports acceptance",
+      "narration": "After repairs, a fresh verifier checks the candidate against each original requirement. For example: does the export respect the selected filter? Record the evidence. Agreement alone does not establish correctness.",
+      "captions": [
+        {"start": 40, "end": 44, "text": "After repairs, a fresh verifier checks the candidate"},
+        {"start": 44, "end": 48, "text": "against each original requirement."},
+        {"start": 48, "end": 52, "text": "For example: does the export respect the selected filter?"},
+        {"start": 52, "end": 55, "text": "Record the evidence."},
+        {"start": 55, "end": 58, "text": "Agreement alone does not establish correctness."}
+      ]
+    },
+    {
+      "id": 5, "start": 58, "end": 72,
+      "headline": "Choose the level to reuse",
+      "narration": "LangGraph provides workflow building blocks. Deep Agents adds a reusable harness. Deep Agents Code supplies a terminal application. An existing interface can connect through an integration.",
+      "captions": [
+        {"start": 58, "end": 61.5, "text": "LangGraph provides workflow building blocks."},
+        {"start": 61.5, "end": 65, "text": "Deep Agents adds a reusable harness."},
+        {"start": 65, "end": 68.5, "text": "Deep Agents Code supplies a terminal application."},
+        {"start": 68.5, "end": 72, "text": "An existing interface can connect through an integration."}
+      ]
+    },
+    {
+      "id": 6, "start": 72, "end": 84,
+      "headline": "Start small and inspect the evidence",
+      "narration": "Start with one bounded task, clear stopping rules, and checks you can inspect. Compare with a single agent. Add complexity when it earns its place.",
+      "captions": [
+        {"start": 72, "end": 76, "text": "Start with one bounded task, clear stopping rules,"},
+        {"start": 76, "end": 80, "text": "and checks you can inspect. Compare with a single agent."},
+        {"start": 80, "end": 84, "text": "Add complexity when it earns its place."}
+      ]
+    }
+  ]
+}

@@ -24,13 +24,21 @@ workflow itself is documented in `AUTHORING.md`; this file holds the
   and description. Deliberately not a sidebar (decided 2026-06-12); the
   table-of-contents rail added 2026-06-17 on detail pages at wide widths is the
   one exception, pending the 2026-09 style pass.
-- **Timeline** — the home page: one ledger of posts, projects, gallery items,
-  and publications, grouped by year, newest first, title-only rows, filterable
+- **Timeline** — the home page: one ledger of posts, guides, projects, gallery
+  items, and publications, grouped by year, newest first, title-only rows, filterable
   by source. Publications carry a year only and sort after the dated items of
   their year. Items sit on their *original* date, never `updatedDate` — this is
   a history.
 - **Gallery** — `src/content/gallery/`, link-out only: one thumbnail here, the
   work where it lives (ArtStation, YouTube, …). No detail page.
+- **Guide** — `src/content/guides/<guide>/`, an evergreen multi-page reference
+  (added 2026-10-21 for the AI-agents guide): a contents page plus ordered
+  chapters, revised in place and dated by `reviewed`. Not a post, so it stays
+  off RSS and the Writing index; the timeline shows one row per guide on its
+  `published` date (decided 2026-10-21), and an introductory post links to it.
+  A chapter about one of the author's own projects sets `caseStudy`, which
+  puts a "Project case study" banner on the page; say so in the hand-written
+  contents too.
 - **Publications** — `src/data/publications.ts`, sourced from the CV *plus*
   self-published study reports (type `self-published`, never `report` — that
   type is for institutional technical reports; `aiAssisted: true` shows the

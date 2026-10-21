@@ -1,0 +1,11 @@
+Using several AI models together sounds powerful. But reliable collaboration starts with understanding which part of the system does what.
+
+A model generates responses. A harness manages the agent's tools and context. An orchestrator coordinates the workflow. The interface is where you interact. A sandbox limits what execution can access.
+
+Imagine adding CSV export to an app. Agree on the requirements, then let an agent implement them. Run tests, ask a separate reviewer to find concrete defects, and send failures back for repair.
+
+After repairs, a fresh verifier checks the candidate against each original requirement. For example: does the export respect the selected filter? Record the evidence. Agreement alone does not establish correctness.
+
+LangGraph provides workflow building blocks. Deep Agents adds a reusable harness. Deep Agents Code supplies a terminal application. An existing interface can connect through an integration.
+
+Start with one bounded task, clear stopping rules, and checks you can inspect. Compare with a single agent. Add complexity when it earns its place.

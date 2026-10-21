@@ -1,0 +1,19 @@
+%% Source: chapter 4 of the guide (src/content/guides/coordinating-ai-agents/
+%% langgraph-development-walkthrough.md). Render with mermaid-config.json; see
+%% media-src/README.md.
+flowchart TD
+    P[Develop plan] --> H{Your decision}
+    H -->|Revise| P
+    H -->|Approve| I[Implement candidate]
+    I --> T[Run checks]
+    T -->|Pass| R[Independent review]
+    T -->|Fail| B{Revision budget remains}
+    R -->|Defect| B
+    R -->|Pass| V[Final acceptance verification]
+    V -->|Defect| B
+    V -->|Pass| D[Deliver patch and evidence]
+    B -->|Yes| I
+    B -->|No| U[Pause with unresolved issues]
+    T -->|Inconclusive| U
+    R -->|Unclear requirement| H
+    V -->|Unclear or inconclusive| U
