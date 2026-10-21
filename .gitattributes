@@ -1,0 +1,18 @@
+# One line-ending rule for every client. Windows git (incl. SourceTree's bundled
+# git) runs with core.autocrlf=true and checked files out as CRLF, which WSL git
+# then reported as whole-file modifications (88 files, found 2026-10-21). An
+# attribute overrides autocrlf, so both sides now store and check out LF.
+* text=auto eol=lf
+
+# Never touch binary assets.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.gif binary
+*.mp4 binary
+*.pdf binary
+*.zip binary
+*.woff binary
+*.woff2 binary
+*.ico binary
