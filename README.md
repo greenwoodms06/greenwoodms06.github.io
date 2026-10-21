@@ -17,7 +17,7 @@ graphics, 3D printing, and code. A project showcase with a writing stream hangin
 
 ## Local development
 
-Requires **Node ≥ 22.12** (see `engines` in `package.json`).
+Requires **Node ≥ 22.23.4**, the floor Astro 7.4 enforces at startup (see `engines` in `package.json`).
 
 ```bash
 npm install
