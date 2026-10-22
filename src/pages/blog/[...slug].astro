@@ -43,6 +43,10 @@ const related = await getEntries(relatedProjects);
 const missing = relatedProjects.filter((_, i) => !related[i]).map((r) => r.id);
 if (missing.length) throw new Error(`${post.id}: relatedProjects not found: ${missing.join(', ')}`);
 const allTags = displayTags(post);
+// Next part of a series, linked again at the foot so a reader who finishes a
+// part need not scroll back to the series box.
+const partIndex = parts.findIndex((p) => p.id === post.id);
+const nextPart = partIndex >= 0 ? parts[partIndex + 1] : undefined;
 ---
 
 <BaseLayout title={title} description={description} image={heroImage}>
@@ -99,6 +103,18 @@ const allTags = displayTags(post);
 					a.appendChild(img);
 				});
 		</script>
+		{
+			series && nextPart && (
+				<nav aria-label="Next in series" class="mt-10 border-t border-rule pt-4 font-sans text-sm">
+					<span class="text-[11px] uppercase tracking-wider text-muted">
+						Next · Part {partIndex + 2} of {parts.length}
+					</span>
+					<a href={`/blog/${nextPart.id}`} class="block text-accent hover:underline">
+						{nextPart.data.title} →
+					</a>
+				</nav>
+			)
+		}
 		{
 			allTags.length > 0 && (
 				<div class="mt-10 flex flex-wrap gap-x-3 gap-y-1 font-sans text-sm text-muted">
