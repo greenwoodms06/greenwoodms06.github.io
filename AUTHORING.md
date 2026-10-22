@@ -140,6 +140,18 @@ The project owns the claims it made about itself; the blog holds only
 published content plus this reusable template. (See the "Two audiences"
 section in `docs/post-bundle-template/BUILD.md`.)
 
+**Exception: generated media whose sources have no other home.** Keep
+production sources out of the blog by default. When a post ships media
+that is *generated* — a video rendered from code, a diagram drawn from a
+script — and the source project is not a repo of its own, or the media
+would otherwise be impossible to fix later, the sources may live here in
+`media-src/<topic>/`. Commit only what regenerating needs (scripts, script
+data, design notes, the fact-check record) plus a README with the exact
+steps; never installed dependencies, rendered output, caches or scratch
+inspection files. The finished media still go beside the post in
+`src/content/`. First use: the AI-agents explainer, 2026-10-21 (see
+`media-src/README.md`).
+
 ## Updating the template
 
 The template *is* the contract. When conventions change in this repo
