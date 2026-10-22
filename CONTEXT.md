@@ -14,6 +14,9 @@ workflow itself is documented in `AUTHORING.md`; this file holds the
   their authentic staggered dates so date-sorting reproduces reading order
   (decided 2026-06-12 for the soul arc; never backdate beyond what the
   source history supports).
+- **Series** — posts that continue one another (`series: { id, part }`, ids
+  registered in `src/lib/content.ts`; added 2026-10-22 for the Soul System log,
+  parts 1–5). Parts run 1..n in reading order and keep their authentic dates.
 - **Project** — the evergreen artifact (`src/content/projects/`). A project
   page describes the thing as it stands; posts describe what happened.
 - **Related wiring** — one-way (decided 2026-09-02, replacing the hand-kept

@@ -85,11 +85,18 @@ tags: [unreal-engine]
 heroImage: ./hero.png                # optional
 draft: false              # true = excluded from the production build
 relatedProjects: [project-slug]      # optional; must be existing project ids
+series: { id: soul-system, part: 5 } # optional; see "Series" below
 authorship: human         # human | ai (see below)
 ---
 
 The post body goes here.
 ```
+
+**Series.** Posts that build on one another set `series: { id, part }` and get a
+"Part N of <series>" box with the full part list and previous/next links. The id must
+be registered in `SERIES` (`src/lib/content.ts`), so a typo fails the schema; parts must
+run 1..n with no gap or repeat among built posts, or the build fails. Number parts in
+reading order, which is also date order.
 
 A **note** is the same thing with `kind: note`, no `description`, and a paragraph or a
 single image for a body — the lowest-friction entry on the site.

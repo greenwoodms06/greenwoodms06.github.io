@@ -2,7 +2,7 @@
 title: 'The Soul System'
 summary: A living philosophy and operational framework that makes human–AI collaboration more principled and self-correcting.
 date: 2026-05-15
-updatedDate: 2026-06-12
+updatedDate: 2026-10-22
 status: active
 tags: [ai, human-ai-collaboration, methodology, claude-code, philosophy]
 thumbnail: ./layers.svg
@@ -51,9 +51,9 @@ A handful of mandatory gates do most of the heavy lifting:
 
 ## The measurement story
 
-The system earned its current shape — 2.0 ships one plain page of rules, four
-commands with teeth, and a book for humans — by surviving a measurement program
-designed to kill it. Three posts tell that story from initial concept (admittedly very philosophical) to current states:
+The system earned its current shape — since 3.0, one short page of rules, a separate
+page of the reasons behind them, a set of commands, and a book for humans — by
+surviving a measurement program designed to kill it. Five posts tell that story from initial concept (admittedly very philosophical) to current states:
 
 1. [**I gave an AI a philosophy, then tried to prove it was useless**](/blog/soul-system-ablation)
    — the equal-compute ablation. Most of the doctrine was theatre; memory of the
@@ -63,6 +63,11 @@ designed to kill it. Three posts tell that story from initial concept (admittedl
    the scoring locked before anything ran.
 3. [**Soul System 2.0: a conscience and a notebook**](/blog/soul-system-2-0) — the
    release post: what survived, what it won't do, and the numbers behind both.
+4. [**Is my AI memory system obsolete? I sent 104 agents to find out**](/blog/is-the-soul-system-obsolete)
+   — whether the wider ecosystem had made it redundant.
+5. [**I re-ran my AI-system benchmark. A good CLAUDE.md kept up — and showed me what to fix.**](/blog/soul-system-who-makes-the-call)
+   — the head-to-head re-run on newer models; quality tied again, Soul stayed cheaper
+   on long work, and the rulebook was cut by a third for 3.0.
 
 The formal papers behind the posts are on the
 [publications page](/publications), and the locked-prediction evidence trail —
