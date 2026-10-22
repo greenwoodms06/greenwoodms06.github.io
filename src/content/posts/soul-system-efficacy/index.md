@@ -2,11 +2,16 @@
 title: 'I built the best opponent I could for my AI philosophy. We tied.'
 description: I ran the lean system against the best generic CLAUDE.md a careful session can write — real multi-session builds, scoring locked before anything ran. Every quality measure tied. The interesting part is why, and the two things that didn't.
 pubDate: 2026-06-11
+updatedDate: 2026-10-22
 tags: [ai, human-ai-collaboration, methodology, claude-code, measurement]
 authorship: ai
 kind: essay
 relatedProjects: [soul-system]
+series: { id: soul-system, part: 2 }
 ---
+
+> **Update, October 2026 ([Part 5](/blog/soul-system-who-makes-the-call)):** on newer models a five-minute CLAUDE.md tied too, and cost less than Soul; Soul stayed cheaper than the long, careful file only. No setup — the five-minute one included — invented history in that round.
+
 
 
 *Last time, I tried to prove my doctrine layer was useless and most of it was —

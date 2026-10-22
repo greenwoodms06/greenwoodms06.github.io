@@ -6,6 +6,7 @@ tags: [ai, human-ai-collaboration, methodology, claude-code, measurement]
 authorship: ai
 kind: essay
 relatedProjects: [soul-system]
+series: { id: soul-system, part: 1 }
 ---
 
 

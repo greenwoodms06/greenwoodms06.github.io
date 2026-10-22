@@ -144,3 +144,31 @@ export function guideNeighbors<T extends { id: string }>(
 	if (i === -1) return {};
 	return { prev: chapters[i - 1], next: chapters[i + 1] };
 }
+
+// Post series: dated posts that build on one another. A post opts in with
+// `series: { id, part }`; the id must be registered here, so a typo fails the
+// schema rather than starting a one-post series.
+export const SERIES = {
+	'soul-system': { title: 'The Soul System log' },
+} as const;
+export type SeriesId = keyof typeof SERIES;
+export const SERIES_IDS = Object.keys(SERIES) as [SeriesId, ...SeriesId[]];
+
+// The parts of one series in reading order. Parts must run 1..n with no gap or
+// repeat among the posts given (callers pass only the posts being built, so a
+// draft can only ever be the newest part).
+export function seriesParts<
+	T extends { id: string; data: { series?: { id: string; part: number } } },
+>(entries: T[], series: string): T[] {
+	const parts = entries
+		.filter((e) => e.data.series?.id === series)
+		.sort((a, b) => a.data.series!.part - b.data.series!.part);
+	parts.forEach((p, i) => {
+		if (p.data.series!.part !== i + 1) {
+			throw new Error(
+				`Series "${series}": expected part ${i + 1}, found ${p.id} as part ${p.data.series!.part}`,
+			);
+		}
+	});
+	return parts;
+}

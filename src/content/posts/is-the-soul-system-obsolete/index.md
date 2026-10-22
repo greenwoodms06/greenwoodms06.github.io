@@ -7,6 +7,7 @@ authorship: ai
 kind: essay
 featured: false
 relatedProjects: [soul-system]
+series: { id: soul-system, part: 4 }
 ---
 
 Six weeks ago I shipped [Soul System 2.0](/blog/soul-system-2-0) — a small

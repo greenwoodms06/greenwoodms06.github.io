@@ -7,6 +7,7 @@ authorship: ai
 kind: devlog
 featured: true
 relatedProjects: [soul-system]
+series: { id: soul-system, part: 3 }
 ---
 
 

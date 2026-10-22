@@ -1,7 +1,7 @@
 import { defineCollection, reference } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
-import { POST_KINDS } from './lib/content';
+import { POST_KINDS, SERIES_IDS } from './lib/content';
 
 // Blog posts: dated accounts — how-tos, devlogs, essays, notes.
 const posts = defineCollection({
@@ -22,6 +22,9 @@ const posts = defineCollection({
 			// pointed at a project that never existed, found 2026-09-02). Astro 7
 			// `reference()` only logs one, so the blog route throws on it.
 			relatedProjects: z.array(reference('projects')).default([]),
+			// A post that continues an earlier one: registered series id + part
+			// number (1..n, no gaps — checked at build by `seriesParts`).
+			series: z.object({ id: z.enum(SERIES_IDS), part: z.number().int().min(1) }).optional(),
 			// 'ai' marks an AI-assisted artifact so it can be disclosed to readers.
 			authorship: z.enum(['human', 'ai']).default('human'),
 			// Required, not defaulted: a forgotten kind would silently hide a post

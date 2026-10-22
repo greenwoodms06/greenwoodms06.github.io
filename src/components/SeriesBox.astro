@@ -1,0 +1,47 @@
+---
+// "Part N of <series>" box for a post that belongs to a series: the full list of
+// parts (the current one unlinked) and previous/next links for reading straight
+// through. Parts come from the caller, already filtered to what is being built.
+interface Part {
+	id: string;
+	data: { title: string; series?: { part: number } };
+}
+interface Props {
+	title: string;
+	parts: Part[];
+	current: string;
+}
+const { title, parts, current } = Astro.props;
+const i = parts.findIndex((p) => p.id === current);
+const prev = parts[i - 1];
+const next = parts[i + 1];
+---
+
+<nav aria-label={title} class="mt-6 border border-rule px-4 py-3 font-sans text-sm">
+	<p class="text-[11px] font-semibold uppercase tracking-wider text-muted">
+		Part {i + 1} of {parts.length} · {title}
+	</p>
+	<ol class="mt-2 list-decimal pl-5">
+		{
+			parts.map((p) =>
+				p.id === current ? (
+					<li class="font-semibold">{p.data.title}</li>
+				) : (
+					<li>
+						<a href={`/blog/${p.id}`} class="text-accent hover:underline">
+							{p.data.title}
+						</a>
+					</li>
+				),
+			)
+		}
+	</ol>
+	{
+		(prev || next) && (
+			<p class="mt-2 flex justify-between gap-4 text-muted">
+				<span>{prev && <a href={`/blog/${prev.id}`} class="hover:text-accent">← Part {i}</a>}</span>
+				<span>{next && <a href={`/blog/${next.id}`} class="hover:text-accent">Part {i + 2} →</a>}</span>
+			</p>
+		)
+	}
+</nav>

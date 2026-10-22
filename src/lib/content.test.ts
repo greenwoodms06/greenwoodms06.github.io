@@ -11,6 +11,8 @@ import {
 	guideChapters,
 	guideNeighbors,
 	guideIdOf,
+	seriesParts,
+	SERIES,
 	type TimelineItem,
 } from './content';
 import { publications } from '../data/publications';
@@ -212,5 +214,29 @@ describe('guides', () => {
 	it('derives the guide id from any entry id', () => {
 		expect(guideIdOf('agents')).toBe('agents');
 		expect(guideIdOf('agents/a')).toBe('agents');
+	});
+});
+
+describe('seriesParts', () => {
+	const post = (id: string, part?: number, series = 'soul-system') => ({
+		id,
+		data: part ? { series: { id: series, part } } : {},
+	});
+
+	it('returns a series in part order and ignores other posts', () => {
+		const parts = seriesParts([post('c', 3), post('a', 1), post('x'), post('b', 2)], 'soul-system');
+		expect(parts.map((p) => p.id)).toEqual(['a', 'b', 'c']);
+	});
+
+	it('refuses a gap in the numbering', () => {
+		expect(() => seriesParts([post('a', 1), post('c', 3)], 'soul-system')).toThrow(/expected part 2/);
+	});
+
+	it('refuses two posts with the same part', () => {
+		expect(() => seriesParts([post('a', 1), post('b', 1)], 'soul-system')).toThrow(/expected part 2/);
+	});
+
+	it('registers the Soul System series', () => {
+		expect(SERIES['soul-system'].title).toBeTruthy();
 	});
 });

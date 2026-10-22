@@ -7,7 +7,8 @@ import AuthorshipBadge from '../../components/AuthorshipBadge.astro';
 import KindBadge from '../../components/KindBadge.astro';
 import TableOfContents from '../../components/TableOfContents.astro';
 import PageViews from '../../components/PageViews.astro';
-import { displayTags, readingTime } from '../../lib/content';
+import SeriesBox from '../../components/SeriesBox.astro';
+import { displayTags, readingTime, seriesParts, SERIES } from '../../lib/content';
 
 export async function getStaticPaths() {
 	const posts = (await getCollection('posts')).filter(
@@ -15,11 +16,14 @@ export async function getStaticPaths() {
 	);
 	return posts.map((post) => ({
 		params: { slug: post.id },
-		props: { post },
+		props: {
+			post,
+			parts: post.data.series ? seriesParts(posts, post.data.series.id) : [],
+		},
 	}));
 }
 
-const { post } = Astro.props;
+const { post, parts } = Astro.props;
 const { Content, headings } = await render(post);
 const minutes = readingTime(post.body ?? '');
 const {
@@ -31,6 +35,7 @@ const {
 	relatedProjects,
 	authorship,
 	kind,
+	series,
 } = post.data;
 const related = await getEntries(relatedProjects);
 // Astro 7 only logs a dangling reference; refuse it here so a mistyped project
@@ -61,6 +66,7 @@ const allTags = displayTags(post);
 			<PageViews divider />
 		</p>
 		<AuthorshipBadge authorship={authorship} variant="note" />
+		{series && <SeriesBox title={SERIES[series.id].title} parts={parts} current={post.id} />}
 		<TableOfContents headings={headings} />
 		{
 			heroImage && (
