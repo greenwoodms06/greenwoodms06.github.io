@@ -205,7 +205,6 @@ the mirror.
 
 *A formal write-up — method, every probe's design and data, the controls, and the
 threats to validity — is in the [companion paper](/resources/soul-system/soul-ablation-study.pdf). The consolidated result
-tables are in [`data/`](https://github.com/soul-system-works/Soul-System/blob/main/docs/study/data/results-tables.md),
-and the full paper trail — every experiment's locked prediction and scored result,
-plus the study writeups — is in the downloadable
+tables (`study/results-tables.md`) and the full paper trail — every experiment's locked
+prediction and scored result, plus the study writeups — are in the downloadable
 [results bundle](/resources/soul-system/soul-results-bundle.zip).*
